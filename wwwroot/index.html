@@ -1,0 +1,962 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatos Sensuales</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #1a0a1f 0%, #3d1635 25%, #5e1a3d 50%, #8b2f5a 75%, #3d1635 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            padding: 20px;
+            color: #ffd4e5;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: rgba(139, 47, 90, 0.4);
+            backdrop-filter: blur(20px);
+            padding: 25px 30px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(255, 20, 147, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 105, 180, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #ff6ec7, #ffd4e5, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5em;
+            font-weight: 700;
+            font-style: italic;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .btn::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 0;
+                height: 0;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: translate(-50%, -50%);
+                transition: width 0.6s, height 0.6s;
+            }
+
+            .btn:hover::before {
+                width: 300px;
+                height: 300px;
+            }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff1493, #c71585);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 25px rgba(255, 20, 147, 0.6);
+            }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #8b2f5a, #5e1a3d);
+            color: #ffd4e5;
+            box-shadow: 0 4px 15px rgba(139, 47, 90, 0.4);
+        }
+
+            .btn-secondary:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 25px rgba(139, 47, 90, 0.6);
+            }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #c71585, #8b0052);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #ff6ec7, #ff1493);
+            color: white;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.2em;
+            color: #ffd4e5;
+        }
+
+        .filter-tabs {
+            background: rgba(139, 47, 90, 0.3);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            border: 1px solid rgba(255, 105, 180, 0.2);
+        }
+
+        .tab {
+            padding: 12px 25px;
+            border: 2px solid #ff1493;
+            background: rgba(255, 20, 147, 0.1);
+            color: #ffd4e5;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1em;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+            .tab:hover {
+                background: rgba(255, 20, 147, 0.3);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+            }
+
+            .tab.active {
+                background: linear-gradient(135deg, #ff1493, #c71585);
+                color: white;
+                box-shadow: 0 5px 20px rgba(255, 20, 147, 0.6);
+            }
+
+        .relatos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(139, 47, 90, 0.4), rgba(94, 26, 61, 0.6));
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(255, 20, 147, 0.3);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            overflow: hidden;
+        }
+
+            .card::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: linear-gradient(45deg, transparent, rgba(255, 20, 147, 0.1), transparent);
+                transform: rotate(45deg);
+                transition: all 0.6s;
+            }
+
+            .card:hover::before {
+                left: 100%;
+            }
+
+            .card:hover {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 0 15px 45px rgba(255, 20, 147, 0.5);
+                border-color: #ff1493;
+            }
+
+        .card-premium {
+            border: 2px solid gold;
+            background: linear-gradient(145deg, rgba(139, 47, 90, 0.5), rgba(139, 69, 19, 0.4));
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.4);
+        }
+
+            .card-premium:hover {
+                box-shadow: 0 15px 45px rgba(255, 215, 0, 0.6);
+            }
+
+        .premium-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, gold, #ffd700);
+            color: #5e1a3d;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #ff6ec7, #ffd4e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            font-style: italic;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .card p {
+            color: #ffd4e5;
+            line-height: 1.8;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 10, 31, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+            .modal.active {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                animation: fadeIn 0.3s ease;
+            }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, rgba(139, 47, 90, 0.6), rgba(94, 26, 61, 0.8));
+            backdrop-filter: blur(30px);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 0 20px 60px rgba(255, 20, 147, 0.4);
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 35px;
+            cursor: pointer;
+            color: #ff6ec7;
+            transition: all 0.3s;
+            line-height: 1;
+        }
+
+            .close:hover {
+                color: #ff1493;
+                transform: rotate(90deg);
+            }
+
+        .modal h2 {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #ff6ec7, #ffd4e5, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            padding-right: 40px;
+            font-size: 2.2em;
+            font-style: italic;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .modal-text {
+            color: #ffd4e5;
+            line-height: 2;
+            font-size: 1.2em;
+            white-space: pre-wrap;
+            text-align: justify;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                color: #ffd4e5;
+                font-weight: 600;
+                font-size: 1.1em;
+                letter-spacing: 1px;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                width: 100%;
+                padding: 15px;
+                border: 2px solid rgba(255, 20, 147, 0.3);
+                border-radius: 15px;
+                font-size: 16px;
+                background: rgba(26, 10, 31, 0.5);
+                color: #ffd4e5;
+                font-family: 'Cormorant Garamond', serif;
+                transition: all 0.3s;
+            }
+
+            .form-group textarea {
+                min-height: 250px;
+                resize: vertical;
+                line-height: 1.8;
+            }
+
+                .form-group input:focus,
+                .form-group textarea:focus {
+                    outline: none;
+                    border-color: #ff1493;
+                    box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
+                    background: rgba(26, 10, 31, 0.7);
+                }
+
+                .form-group input::placeholder,
+                .form-group textarea::placeholder {
+                    color: rgba(255, 212, 229, 0.5);
+                }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+            .checkbox-group input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+
+        .admin-panel {
+            background: linear-gradient(145deg, rgba(139, 47, 90, 0.4), rgba(94, 26, 61, 0.6));
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 0 8px 32px rgba(255, 20, 147, 0.3);
+        }
+
+            .admin-panel h2 {
+                font-family: 'Playfair Display', serif;
+                background: linear-gradient(135deg, #ff6ec7, gold);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 20px;
+                font-style: italic;
+            }
+
+        .admin-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(145deg, rgba(139, 47, 90, 0.3), rgba(94, 26, 61, 0.5));
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 105, 180, 0.2);
+        }
+
+            .empty-state h3 {
+                font-family: 'Playfair Display', serif;
+                color: #ff6ec7;
+                margin-bottom: 15px;
+                font-size: 1.8em;
+                font-style: italic;
+            }
+
+            .empty-state p {
+                color: #ffd4e5;
+                font-size: 1.2em;
+            }
+
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(26, 10, 31, 0.5);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ff1493, #c71585);
+            border-radius: 10px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(135deg, #ff6ec7, #ff1493);
+            }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .relatos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 25px;
+            }
+
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .card h3 {
+                font-size: 1.4em;
+            }
+
+            .modal h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌹 Relatos Sensuales</h1>
+            <div id="userSection">
+                <div class="auth-buttons">
+                    <button class="btn btn-primary" onclick="showLoginModal()">Entrar</button>
+                    <button class="btn btn-secondary" onclick="Suscribirse">Suscribirse</button>
+                </div>
+            </div>
+        </header>
+
+        <div id="adminPanel" style="display: none;" class="admin-panel">
+            <h2>👑 Panel de Creación</h2>
+            <div class="admin-controls">
+                <button class="btn btn-success" onclick="showCreateRelatoModal()">✨ Crear Nuevo Relato</button>
+            </div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="tab active" onclick="filterRelatos('todos')">Todos</button>
+            <button class="tab" onclick="filterRelatos('gratis')">Libres</button>
+            <button class="tab" onclick="filterRelatos('premium')">Exclusivos 🔥</button>
+        </div>
+
+        <div id="relatosGrid" class="relatos-grid">
+            <div class="empty-state">
+                <h3>Cargando placeres literarios...</h3>
+                <p>Un momento de anticipación</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver relato -->
+    <div id="relatoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('relatoModal')">&times;</span>
+            <h2 id="relatoTitle"></h2>
+            <div id="relatoContent" class="modal-text"></div>
+            <div id="adminButtons" style="display: none; margin-top: 30px; display: flex; gap: 15px;">
+                <button class="btn btn-primary" onclick="editCurrentRelato()">✏️ Editar</button>
+                <button class="btn btn-danger" onclick="deleteCurrentRelato()">🗑️ Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form onsubmit="login(event)">
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="loginEmail" placeholder="tu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña:</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Registro -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Suscripción Premium</h2>
+            <form onsubmit="register(event)">
+                <div class="form-group">
+                    <label>Nombre:</label>
+                    <input type="text" id="registerName" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="registerEmail" placeholder="tu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña:</label>
+                    <input type="password" id="registerPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Suscribirme</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Crear/Editar Relato -->
+    <div id="createRelatoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('createRelatoModal')">&times;</span>
+            <h2 id="formTitle">Crear Nuevo Relato</h2>
+            <form onsubmit="saveRelato(event)">
+                <input type="hidden" id="relatoId">
+                <div class="form-group">
+                    <label>Título:</label>
+                    <input type="text" id="relatoTitulo" placeholder="Un título seductor..." required>
+                </div>
+                <div class="form-group">
+                    <label>Contenido:</label>
+                    <textarea id="relatoTexto" placeholder="Escribe tu relato aquí..." required></textarea>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="relatoPremium">
+                    <label for="relatoPremium">Contenido Exclusivo (solo suscriptores)</label>
+                </div>
+                <button type="submit" class="btn btn-success">💾 Guardar Relato</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentUser = null;
+        let currentRelato = null;
+        let allRelatos = [];
+        let currentFilter = 'todos';
+
+        // API Base URL
+        const API_URL = '/api';
+
+        // Inicializar aplicación
+        window.onload = function () {
+            checkUserSession();
+            loadRelatos();
+        };
+
+        // Verificar sesión del usuario
+        function checkUserSession() {
+            const token = localStorage.getItem('token');
+            const userData = localStorage.getItem('userData');
+
+            if (token && userData) {
+                currentUser = JSON.parse(userData);
+                updateUserInterface();
+            }
+        }
+
+        // Actualizar interfaz según usuario
+        function updateUserInterface() {
+            const userSection = document.getElementById('userSection');
+            const adminPanel = document.getElementById('adminPanel');
+
+            if (currentUser) {
+                userSection.innerHTML = `
+                        <div class="user-info">
+                            <span>💋 ${currentUser.nombre} ${currentUser.isPremium ? '🔥' : ''}</span>
+                            ${currentUser.isAdmin ? '<span style="color: gold;">👑 Admin</span>' : ''}
+                            <button class="btn btn-danger" onclick="logout()">Salir</button>
+                        </div>
+                    `;
+
+                if (currentUser.isAdmin) {
+                    adminPanel.style.display = 'block';
+                }
+            }
+        }
+
+        // Cargar relatos desde la API
+        async function loadRelatos() {
+            try {
+                // Datos de ejemplo sensuales
+                allRelatos = [
+                    {
+                        id: 1,
+                        titulo: "Susurros en la Penumbra",
+                        contenido: "La habitación estaba sumida en sombras seductoras, apenas iluminada por la luz de la luna que se filtraba entre las cortinas de seda. Ella esperaba, su silueta recortada contra la ventana, cada curva una promesa silenciosa.\n\nSus labios pronunciaron su nombre en un susurro cargado de deseo, una invitación que resonó en el aire cálido de la noche. Él se acercó lentamente, saboreando cada paso, cada segundo de anticipación que electrizaba su piel.\n\nCuando sus manos finalmente se encontraron, el mundo exterior dejó de existir. Solo quedaron ellos dos, perdidos en un baile íntimo de caricias y suspiros, donde cada roce escribía una historia de pasión sin palabras...",
+                        esPremium: false
+                    },
+                    {
+                        id: 2,
+                        titulo: "Terciopelo y Pecado",
+                        contenido: "El salón privado olía a perfume francés y deseo contenido. Las paredes forradas en terciopelo burdeos absorbían cada gemido, cada jadeo, convirtiéndose en cómplices silenciosos de aquella noche prohibida.\n\nElla llevaba un vestido rojo que se adhería a su cuerpo como una segunda piel, revelando más de lo que ocultaba. Sus ojos oscuros prometían placeres que pocos se atrevían a imaginar. Él no pudo resistirse.\n\nCon cada copa de vino, las inhibiciones se desvanecían como bruma al amanecer. Sus dedos trazaron caminos sobre piel desnuda, explorando territorios desconocidos con la reverencia de un descubridor ante nuevas tierras. Los límites entre el pecado y la virtud se difuminaron hasta desaparecer, dejando solo la urgencia del momento presente, la necesidad de fundirse el uno en el otro hasta que el alba los separara...",
+                        esPremium: true
+                    },
+                    {
+                        id: 3,
+                        titulo: "Encuentro en el Jardín Secreto",
+                        contenido: "El aroma de las gardenias impregnaba el aire nocturno del jardín escondido tras muros centenarios. Ella caminaba descalza sobre el césped húmedo, su vestido blanco flotando como un fantasma sensual bajo la luz de las estrellas.\n\nÉl la había estado observando toda la velada, hipnotizado por cada movimiento, cada sonrisa cómplice que ella le dedicaba por encima de las copas de champagne. Cuando finalmente se encontraron solos entre los rosales, las palabras sobraban.\n\nSus labios se encontraron con la inevitabilidad de dos ríos destinados a confluir. El beso fue suave al principio, casi tímido, pero pronto se transformó en algo más profundo, más salvaje. Sus manos exploraron territorios prohibidos mientras las flores nocturnas eran testigos de una pasión que había esperado demasiado tiempo para florecer...",
+                        esPremium: false
+                    },
+                    {
+                        id: 4,
+                        titulo: "La Suite del Último Piso",
+                        contenido: "Las luces de la ciudad parpadeaban cincuenta pisos más abajo, pero ninguno de los dos prestaba atención al panorama espectacular. La suite de hotel era un refugio de lujo y deseo, donde las reglas del mundo exterior no aplicaban.\n\nElla dejó caer su abrigo de piel al suelo, revelando lencería negra que contrastaba con su piel pálida. Él sintió que su respiración se aceleraba, el autocontrol amenazando con desmoronarse ante aquella visión de tentación pura.\n\nNo hubo necesidad de palabras. Los cuerpos hablaban su propio idioma mientras se encontraban en la cama king size con sábanas de seda italiana. Cada caricia era una conversación, cada beso una confesión. El tiempo se detuvo en aquella burbuja de intimidad y placer, donde solo existían dos almas entrelazadas en una danza antigua como el deseo mismo. Las horas pasaron entre gemidos y susurros, entre pasión desenfrenada y ternura inesperada, hasta que el amanecer pintó el cielo de rosa y oro, marcando el fin de aquella noche mágica pero no de la conexión que habían forjado...",
+                        esPremium: true
+                    },
+                    {
+                        id: 5,
+                        titulo: "Cartas de Fuego",
+                        contenido: "Las palabras en el papel ardían con una intensidad que superaba cualquier llama física. Cada línea que él escribía era una caricia mental, cada frase una promesa de lo que vendría cuando finalmente se encontraran.\n\nElla leía sus cartas a solas, en la intimidad de su habitación, sintiendo cómo cada palabra encendía su imaginación y aceleraba su pulso. Las descripciones detalladas de lo que él deseaba hacer con ella, de cómo la tocaría, la besaría, la haría suya, la dejaban sin aliento.\n\nLa anticipación se volvió casi insoportable. Cada día sin verse aumentaba el hambre mutua, hasta que finalmente llegó el momento del encuentro. Cuando la puerta se cerró detrás de ellos, las palabras escritas se transformaron en acciones, las fantasías en realidad palpable...",
+                        esPremium: false
+                    },
+                    {
+                        id: 6,
+                        titulo: "Medianoche en el Spa Privado",
+                        contenido: "El vapor se elevaba del jacuzzi como dedos etéreos acariciando el aire. Las velas aromáticas proyectaban sombras danzantes sobre los mosaicos italianos, creando una atmósfera que rozaba lo onírico.\n\nElla entró envuelta en una toalla de algodón egipcio que apenas cubría lo esencial. Su piel brillaba con gotas de agua de la ducha previa, como diamantes líquidos. Él ya estaba en el agua caliente, esperándola con una mirada que prometía mucho más que simple relajación.\n\nCuando ella dejó caer la toalla y se deslizó en el jacuzzi, el agua burbujeante se convirtió en cómplice de sus caricias submarinas. Las manos exploraban bajo la superficie mientras los labios se encontraban sobre ella, en un contraste de sensaciones que los llevó al borde del éxtasis. El spa privado guardó celosamente los secretos de aquella noche de placer infinito...",
+                        esPremium: true
+                    }
+                ];
+
+                displayRelatos();
+            } catch (error) {
+                console.error('Error cargando relatos:', error);
+                document.getElementById('relatosGrid').innerHTML = `
+                        <div class="empty-state">
+                            <h3>Error al cargar los relatos</h3>
+                            <p>Por favor intenta de nuevo más tarde</p>
+                        </div>
+                    `;
+            }
+        }
+
+        // Mostrar relatos en el grid
+        function displayRelatos() {
+            const grid = document.getElementById('relatosGrid');
+            let relatosToShow = allRelatos;
+
+            if (currentFilter === 'gratis') {
+                relatosToShow = allRelatos.filter(r => !r.esPremium);
+            } else if (currentFilter === 'premium') {
+                relatosToShow = allRelatos.filter(r => r.esPremium);
+            }
+
+            if (relatosToShow.length === 0) {
+                grid.innerHTML = `
+                        <div class="empty-state">
+                            <h3>No hay relatos disponibles</h3>
+                            <p>Prueba con otro filtro</p>
+                        </div>
+                    `;
+                return;
+            }
+
+            grid.innerHTML = relatosToShow.map(relato => `
+                    <div class="card ${relato.esPremium ? 'card-premium' : ''}" onclick="openRelato(${relato.id})">
+                        ${relato.esPremium ? '<span class="premium-badge">🔥 EXCLUSIVO</span>' : ''}
+                        <h3>${relato.titulo}</h3>
+                        <p>${relato.contenido.substring(0, 150)}...</p>
+                    </div>
+                `).join('');
+        }
+
+        // Filtrar relatos
+        function filterRelatos(filter) {
+            currentFilter = filter;
+
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            displayRelatos();
+        }
+
+        // Abrir relato en modal
+        function openRelato(id) {
+            const relato = allRelatos.find(r => r.id === id);
+            if (!relato) return;
+
+            if (relato.esPremium && (!currentUser || !currentUser.isPremium)) {
+                alert('🔥 Este relato es exclusivo para suscriptores Premium.\n\n✨ Suscríbete para acceder a contenido sensual sin límites.');
+                showRegisterModal();
+                return;
+            }
+
+            currentRelato = relato;
+            document.getElementById('relatoTitle').textContent = relato.titulo;
+            document.getElementById('relatoContent').textContent = relato.contenido;
+
+            if (currentUser && currentUser.isAdmin) {
+                document.getElementById('adminButtons').style.display = 'flex';
+            }
+
+            document.getElementById('relatoModal').classList.add('active');
+        }
+
+        // Cerrar modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            currentRelato = null;
+        }
+
+        // Mostrar modal de login
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        // Mostrar modal de registro
+        function showRegisterModal() {
+            document.getElementById('registerModal').classList.add('active');
+        }
+
+        // Login
+        async function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const data = {
+                    token: 'fake-jwt-token',
+                    user: {
+                        id: 1,
+                        nombre: 'Usuario Demo',
+                        email: email,
+                        isPremium: true,
+                        isAdmin: email === 'admin@relatos.com'
+                    }
+                };
+
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userData', JSON.stringify(data.user));
+                currentUser = data.user;
+
+                updateUserInterface();
+                closeModal('loginModal');
+                alert('💋 ¡Bienvenido de vuelta! Disfruta de tu experiencia sensual.');
+                loadRelatos();
+            } catch (error) {
+                alert('❌ Error al iniciar sesión. Verifica tus credenciales.');
+            }
+        }
+
+        // Registro
+        async function register(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            try {
+                alert('✨ ¡Registro exitoso! Ahora puedes iniciar sesión.\n\n💳 Nota: El procesamiento de pago se implementará próximamente.');
+                closeModal('registerModal');
+                showLoginModal();
+            } catch (error) {
+                alert('❌ Error en el registro. Intenta de nuevo.');
+            }
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userData');
+            currentUser = null;
+
+            document.getElementById('userSection').innerHTML = `
+                    <div class="auth-buttons">
+                        <button class="btn btn-primary" onclick="showLoginModal()">Entrar</button>
+                        <button class="btn btn-secondary" onclick="showRegisterModal()">Suscribirse</button>
+                    </div>
+                `;
+            document.getElementById('adminPanel').style.display = 'none';
+
+            loadRelatos();
+            alert('👋 Hasta pronto. Te esperamos de vuelta.');
+        }
+
+        // Mostrar modal crear relato
+        function showCreateRelatoModal() {
+            document.getElementById('formTitle').textContent = 'Crear Nuevo Relato';
+            document.getElementById('relatoId').value = '';
+            document.getElementById('relatoTitulo').value = '';
+            document.getElementById('relatoTexto').value = '';
+            document.getElementById('relatoPremium').checked = false;
+            document.getElementById('createRelatoModal').classList.add('active');
+        }
+
+        // Editar relato actual
+        function editCurrentRelato() {
+            if (!currentRelato) return;
+
+            document.getElementById('formTitle').textContent = 'Editar Relato';
+            document.getElementById('relatoId').value = currentRelato.id;
+            document.getElementById('relatoTitulo').value = currentRelato.titulo;
+            document.getElementById('relatoTexto').value = currentRelato.contenido;
+            document.getElementById('relatoPremium').checked = currentRelato.esPremium;
+
+            closeModal('relatoModal');
+            document.getElementById('createRelatoModal').classList.add('active');
+        }
+
+        // Guardar relato
+        async function saveRelato(event) {
+            event.preventDefault();
+
+            const id = document.getElementById('relatoId').value;
+            const relato = {
+                titulo: document.getElementById('relatoTitulo').value,
+                contenido: document.getElementById('relatoTexto').value,
+                esPremium: document.getElementById('relatoPremium').checked
+            };
+
+            try {
+                if (id) {
+                    const index = allRelatos.findIndex(r => r.id == id);
+                    allRelatos[index] = { ...allRelatos[index], ...relato };
+                    alert('✅ Relato actualizado correctamente');
+                } else {
+                    relato.id = allRelatos.length + 1;
+                    allRelatos.push(relato);
+                    alert('✨ Relato creado correctamente');
+                }
+
+                closeModal('createRelatoModal');
+                displayRelatos();
+            } catch (error) {
+                alert('❌ Error al guardar el relato');
+            }
+        }
+
+        // Eliminar relato
+        async function deleteCurrentRelato() {
+            if (!currentRelato) return;
+
+            if (!confirm('¿Estás seguro de que quieres eliminar este relato?')) {
+                return;
+            }
+
+            try {
+                allRelatos = allRelatos.filter(r => r.id !== currentRelato.id);
+                closeModal('relatoModal');
+                displayRelatos();
+                alert('🗑️ Relato eliminado correctamente');
+            } catch (error) {
+                alert('❌ Error al eliminar el relato');
+            }
+        }
+
+        // Cerrar modales al hacer clic fuera
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
