@@ -3,40 +3,52 @@
   "WorkspaceRootPath": "D:\\AplicacionRelatos\\Relatosxxx\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\controllers\\relatoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:controllers\\relatoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\models\\relatodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:models\\relatodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\models\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:models\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\models\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:models\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\models\\relato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:models\\relato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\models\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:models\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\models\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:models\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\models\\relato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:models\\relato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\controllers\\relatoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:controllers\\relatoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|d:\\aplicacionrelatos\\relatosxxx\\models\\relatodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE746152-F23A-41AC-9183-E388631F41AF}|Relatosxxx.csproj|solutionrelative:models\\relatodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,50 +58,74 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RelatosController.cs",
-              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Controllers\\RelatosController.cs",
-              "RelativeDocumentMoniker": "Controllers\\RelatosController.cs",
-              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Controllers\\RelatosController.cs",
-              "RelativeToolTip": "Controllers\\RelatosController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T01:45:41.269Z",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAUwA8AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-30T16:59:54.27Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "RelatoDto.cs",
-              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\RelatoDto.cs",
-              "RelativeDocumentMoniker": "Models\\RelatoDto.cs",
-              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\RelatoDto.cs",
-              "RelativeToolTip": "Models\\RelatoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T01:40:37.945Z",
+              "WhenOpened": "2026-01-30T16:51:41.554Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "RegisterRequest.cs",
-              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\RegisterRequest.cs",
-              "RelativeDocumentMoniker": "Models\\RegisterRequest.cs",
-              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\RegisterRequest.cs",
-              "RelativeToolTip": "Models\\RegisterRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T01:39:24.694Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-30T16:29:11.841Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAmwHQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T02:49:49.019Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RelatosController.cs",
+              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Controllers\\RelatosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RelatosController.cs",
+              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Controllers\\RelatosController.cs",
+              "RelativeToolTip": "Controllers\\RelatosController.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAAwFQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T02:49:39.705Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Login.cs",
               "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\Login.cs",
               "RelativeDocumentMoniker": "Models\\Login.cs",
@@ -97,70 +133,78 @@
               "RelativeToolTip": "Models\\Login.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T01:38:30.58Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-28T02:49:29.652Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\Usuario.cs",
-              "RelativeDocumentMoniker": "Models\\Usuario.cs",
-              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\Usuario.cs",
-              "RelativeToolTip": "Models\\Usuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "RegisterRequest.cs",
+              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\RegisterRequest.cs",
+              "RelativeDocumentMoniker": "Models\\RegisterRequest.cs",
+              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\RegisterRequest.cs",
+              "RelativeToolTip": "Models\\RegisterRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T01:37:02.7Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-28T02:49:19.466Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Relato.cs",
               "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\Relato.cs",
               "RelativeDocumentMoniker": "Models\\Relato.cs",
               "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\Relato.cs",
               "RelativeToolTip": "Models\\Relato.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T01:35:14.433Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-28T02:49:05.413Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
-              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Properties\\launchSettings.json",
-              "RelativeToolTip": "Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-01-24T01:28:08.281Z",
-              "EditorCaption": ""
+              "DocumentIndex": 11,
+              "Title": "RelatoDto.cs",
+              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\RelatoDto.cs",
+              "RelativeDocumentMoniker": "Models\\RelatoDto.cs",
+              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\RelatoDto.cs",
+              "RelativeToolTip": "Models\\RelatoDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T02:48:54.46Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "Models\\Usuario.cs",
+              "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Models\\Usuario.cs",
+              "RelativeToolTip": "Models\\Usuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T02:48:41.903Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAACcAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T01:22:16.537Z",
+              "WhenOpened": "2026-01-28T02:48:09.769Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "index.html",
               "DocumentMoniker": "D:\\AplicacionRelatos\\Relatosxxx\\wwwroot\\index.html",
               "RelativeDocumentMoniker": "wwwroot\\index.html",
               "ToolTip": "D:\\AplicacionRelatos\\Relatosxxx\\wwwroot\\index.html",
               "RelativeToolTip": "wwwroot\\index.html",
-              "ViewState": "AgIAAFQCAAAAAAAAAAAAAMIDAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAPMAAAAAAAAAAAAAADcDAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2026-01-24T00:51:10.413Z",
               "EditorCaption": ""

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization; // Necesario para [Authorize]
 using Relatosxxx.Models;
 
 namespace Relatosxxx.Controllers
@@ -7,156 +8,78 @@ namespace Relatosxxx.Controllers
     [ApiController]
     public class RelatosController : ControllerBase
     {
-        // Lista temporal en memoria (después usaremos BD)
+        // Simulamos base de datos de relatos en memoria
         private static List<Relato> _relatos = new List<Relato>
         {
-            new Relato
-            {
-                Id = 1,
-                Titulo = "Susurros en la Penumbra",
-                Contenido = "La habitación estaba sumida en sombras seductoras, apenas iluminada por la luz de la luna que se filtraba entre las cortinas de seda...",
-                EsPremium = false,
-                FechaCreacion = DateTime.Now
-            },
-            new Relato
-            {
-                Id = 2,
-                Titulo = "Terciopelo y Pecado",
-                Contenido = "El salón privado olía a perfume francés y deseo contenido. Las paredes forradas en terciopelo burdeos...",
-                EsPremium = true,
-                FechaCreacion = DateTime.Now
-            },
-            new Relato
-            {
-                Id = 3,
-                Titulo = "Encuentro en el Jardín Secreto",
-                Contenido = "El aroma de las gardenias impregnaba el aire nocturno del jardín escondido tras muros centenarios...",
-                EsPremium = false,
-                FechaCreacion = DateTime.Now
-            }
+            new Relato { Id = 1, Titulo = "Cita bajo la lluvia", Categoria = "romantico", Contenido = "Las gotas caían suavemente...", EsPremium = false },
+            new Relato { Id = 2, Titulo = "El secreto del Duque", Categoria = "misterio", Contenido = "Nadie sabía lo que ocurría en la mansión...", EsPremium = true },
+            new Relato { Id = 3, Titulo = "Fuego en la piel", Categoria = "pasion", Contenido = "Un roce accidental encendió la llama...", EsPremium = true }
         };
 
         // GET: api/relatos
-        // Obtener todos los relatos
         [HttpGet]
-        public ActionResult<IEnumerable<RelatoDto>> GetRelatos()
+        public ActionResult<List<Relato>> GetRelatos()
         {
-            var relatos = _relatos.Select(r => new RelatoDto
-            {
-                Id = r.Id,
-                Titulo = r.Titulo,
-                Contenido = r.Contenido,
-                EsPremium = r.EsPremium
-            }).ToList();
+            return Ok(_relatos);
+        }
 
-            return Ok(relatos);
+        // GET: api/relatos/categoria/romantico
+        [HttpGet("categoria/{categoria}")]
+        public ActionResult<List<Relato>> GetPorCategoria(string categoria)
+        {
+            var filtrados = _relatos.Where(r => r.Categoria.ToLower() == categoria.ToLower()).ToList();
+            return Ok(filtrados);
         }
 
         // GET: api/relatos/5
-        // Obtener un relato por ID
         [HttpGet("{id}")]
-        public ActionResult<RelatoDto> GetRelato(int id)
+        public ActionResult<Relato> GetRelato(int id)
         {
             var relato = _relatos.FirstOrDefault(r => r.Id == id);
-
             if (relato == null)
-            {
                 return NotFound(new { message = "Relato no encontrado" });
-            }
 
-            var relatoDto = new RelatoDto
-            {
-                Id = relato.Id,
-                Titulo = relato.Titulo,
-                Contenido = relato.Contenido,
-                EsPremium = relato.EsPremium
-            };
-
-            return Ok(relatoDto);
+            return Ok(relato);
         }
 
-        // POST: api/relatos
-        // Crear un nuevo relato (solo admin - validaremos después)
+        // POST: api/relatos (Protegido: Requiere Login)
         [HttpPost]
-        public ActionResult<RelatoDto> CreateRelato([FromBody] RelatoDto relatoDto)
+        [Authorize]
+        public ActionResult<Relato> CreateRelato(Relato nuevoRelato)
         {
-            if (string.IsNullOrEmpty(relatoDto.Titulo) || string.IsNullOrEmpty(relatoDto.Contenido))
-            {
-                return BadRequest(new { message = "El título y contenido son obligatorios" });
-            }
-
-            var nuevoRelato = new Relato
-            {
-                Id = _relatos.Any() ? _relatos.Max(r => r.Id) + 1 : 1,
-                Titulo = relatoDto.Titulo,
-                Contenido = relatoDto.Contenido,
-                EsPremium = relatoDto.EsPremium,
-                FechaCreacion = DateTime.Now
-            };
-
+            nuevoRelato.Id = _relatos.Count > 0 ? _relatos.Max(r => r.Id) + 1 : 1;
             _relatos.Add(nuevoRelato);
-
-            var resultado = new RelatoDto
-            {
-                Id = nuevoRelato.Id,
-                Titulo = nuevoRelato.Titulo,
-                Contenido = nuevoRelato.Contenido,
-                EsPremium = nuevoRelato.EsPremium
-            };
-
-            return CreatedAtAction(nameof(GetRelato), new { id = nuevoRelato.Id }, resultado);
+            return Ok(nuevoRelato); // Devolvemos el relato creado
         }
 
-        // PUT: api/relatos/5
-        // Actualizar un relato existente (solo admin - validaremos después)
+        // PUT: api/relatos/5 (Protegido: Requiere Login)
         [HttpPut("{id}")]
-        public IActionResult UpdateRelato(int id, [FromBody] RelatoDto relatoDto)
+        [Authorize]
+        public ActionResult UpdateRelato(int id, Relato relatoActualizado)
         {
             var relato = _relatos.FirstOrDefault(r => r.Id == id);
-
             if (relato == null)
-            {
                 return NotFound(new { message = "Relato no encontrado" });
-            }
 
-            if (string.IsNullOrEmpty(relatoDto.Titulo) || string.IsNullOrEmpty(relatoDto.Contenido))
-            {
-                return BadRequest(new { message = "El título y contenido son obligatorios" });
-            }
+            relato.Titulo = relatoActualizado.Titulo;
+            relato.Contenido = relatoActualizado.Contenido;
+            relato.Categoria = relatoActualizado.Categoria;
+            relato.EsPremium = relatoActualizado.EsPremium;
 
-            relato.Titulo = relatoDto.Titulo;
-            relato.Contenido = relatoDto.Contenido;
-            relato.EsPremium = relatoDto.EsPremium;
-            relato.FechaActualizacion = DateTime.Now;
-
-            return Ok(new
-            {
-                message = "Relato actualizado correctamente",
-                relato = new RelatoDto
-                {
-                    Id = relato.Id,
-                    Titulo = relato.Titulo,
-                    Contenido = relato.Contenido,
-                    EsPremium = relato.EsPremium
-                }
-            });
+            return Ok(new { message = "Relato actualizado correctamente" });
         }
 
-        // DELETE: api/relatos/5
-        // Eliminar un relato (solo admin - validaremos después)
+        // DELETE: api/relatos/5 (Protegido: Requiere Login)
         [HttpDelete("{id}")]
-        public IActionResult DeleteRelato(int id)
+        [Authorize]
+        public ActionResult DeleteRelato(int id)
         {
             var relato = _relatos.FirstOrDefault(r => r.Id == id);
-
             if (relato == null)
-            {
                 return NotFound(new { message = "Relato no encontrado" });
-            }
 
             _relatos.Remove(relato);
-
-            return Ok(new { message = "Relato eliminado correctamente" });
+            return Ok(new { message = "Relato eliminado" });
         }
     }
 }

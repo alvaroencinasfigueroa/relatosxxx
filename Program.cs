@@ -1,40 +1,53 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.EntityFrameworkCore;
+using Relatosxxx.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
-// Agregar servicios al contenedor
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configurar CORS para permitir peticiones desde el frontend
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
+// --- AQUÍ ESTABA EL ERROR (Faltaba el =) ---
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(connectionString));
+// -------------------------------------------
+
+// Configuración de JWT (Para que funcione el Login)
+var key = builder.Configuration["Jwt:Key"] ?? "TuClaveSecretaSuperSeguraDeAlMenos32Caracteres123456";
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+        };
     });
-});
 
 var app = builder.Build();
 
-// Configurar el pipeline HTTP
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// ⬇️ ESTAS LÍNEAS SON IMPORTANTES ⬇️
-app.UseDefaultFiles();  // Busca index.html automáticamente
-app.UseStaticFiles();   // Sirve archivos de wwwroot
-
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll"); // Habilitar CORS
-
-app.UseAuthentication(); // Para JWT (lo configuraremos después)
-app.UseAuthorization();
+app.UseAuthentication(); // Importante para saber quién eres
+app.UseAuthorization();  // Importante para saber qué puedes hacer
 
 app.MapControllers();
 

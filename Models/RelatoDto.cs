@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Relatosxxx.Models;
-using System.Reflection;
-
-namespace Relatosxxx.Models
+﻿namespace Relatosxxx.Models
 {
     public class RelatoDto
     {
@@ -10,5 +6,6 @@ namespace Relatosxxx.Models
         public string Titulo { get; set; } = string.Empty;
         public string Contenido { get; set; } = string.Empty;
         public bool EsPremium { get; set; }
+        public string Categoria { get; set; } = "romantico"; // ← NUEVO
     }
 }
