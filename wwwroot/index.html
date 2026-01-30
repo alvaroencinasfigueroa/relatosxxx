@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatos Sensuales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- ESTILOS VISUALES (Mismos que tenías) --- */
+        /* --- ESTILOS VISUALES --- */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
         * {
@@ -63,7 +64,6 @@
             background: linear-gradient(135deg, #ff6ec7, #ffd4e5, #ff1493);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             font-size: 2.5em;
             font-weight: 700;
             font-style: italic;
@@ -87,9 +87,9 @@
             letter-spacing: 1px;
             transition: all 0.4s;
             text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
             color: white;
+            text-decoration: none; /* Importante para que el enlace se vea como botón */
+            display: inline-block;
         }
 
             .btn:hover {
@@ -188,13 +188,15 @@
             background: linear-gradient(145deg, rgba(139, 47, 90, 0.4), rgba(94, 26, 61, 0.6));
             backdrop-filter: blur(20px);
             border-radius: 25px;
-            padding: 30px;
+            padding: 0;
             box-shadow: 0 8px 32px rgba(255, 20, 147, 0.3);
             cursor: pointer;
             transition: all 0.4s;
             position: relative;
             border: 1px solid rgba(255, 105, 180, 0.3);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
             .card:hover {
@@ -207,6 +209,17 @@
             background: linear-gradient(145deg, rgba(139, 47, 90, 0.5), rgba(139, 69, 19, 0.4));
         }
 
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
         .premium-badge {
             position: absolute;
             top: 15px;
@@ -217,6 +230,7 @@
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
+            z-index: 10;
         }
 
         .category-tag {
@@ -234,7 +248,6 @@
             background: linear-gradient(135deg, #ff6ec7, #ffd4e5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 15px;
             font-size: 1.6em;
             font-style: italic;
@@ -330,13 +343,16 @@
                 height: 20px;
             }
 
+        /* ESTILO DEL PANEL DE ADMIN */
         .admin-panel {
-            background: rgba(139, 47, 90, 0.4);
+            background: #2a1b3d;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
             padding: 30px;
             border-radius: 25px;
             margin-bottom: 30px;
-            display: none;
-            border: 2px solid rgba(255, 105, 180, 0.3);
+            display: none; /* Se activa con JS */
+            text-align: center;
         }
 
         .empty-state {
@@ -370,12 +386,12 @@
         </header>
 
         <div id="adminPanel" class="admin-panel">
-            <h2>👑 Panel de Creación</h2>
-            <div style="margin-top: 15px;">
-                <button class="btn btn-success" onclick="showCreateRelatoModal()">✨ Crear Nuevo Relato</button>
-            </div>
+            <h2 style="color: #ffd700; margin-bottom: 15px;">👑 Panel de Control (Admin)</h2>
+            <p style="margin-bottom: 20px;">Bienvenido, Jefe. ¿Qué historia contaremos hoy?</p>
+            <a href="/Relatos/Create" class="btn btn-success" style="font-size: 1.1em; padding: 15px 30px;">
+                ✨ CREAR NUEVO RELATO
+            </a>
         </div>
-
         <div class="categories-menu">
             <div class="categories-title">📚 Categorías</div>
             <div class="categories-grid">
@@ -401,9 +417,12 @@
     <div id="relatoModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('relatoModal')">&times;</span>
+            <img id="relatoModalImg" src="" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 15px; display: none; margin-bottom: 20px;">
+
             <h2 id="relatoTitle" style="margin-bottom: 20px; color: #ff6ec7; font-family: 'Playfair Display', serif;"></h2>
             <div id="relatoContent" style="white-space: pre-wrap; line-height: 1.8; font-size: 1.2em;"></div>
-            <div id="adminButtons" style="display: none; margin-top: 30px; gap: 15px;">
+
+            <div id="adminButtons" style="display: none; margin-top: 30px; gap: 15px; border-top: 1px solid #444; padding-top: 20px;">
                 <button class="btn btn-primary" onclick="editCurrentRelato()">✏️ Editar</button>
                 <button class="btn btn-danger" onclick="deleteCurrentRelato()">🗑️ Eliminar</button>
             </div>
@@ -423,7 +442,7 @@
                     <label>Contraseña:</label>
                     <input type="password" id="loginPassword" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Entrar</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
             </form>
         </div>
     </div>
@@ -445,7 +464,7 @@
                     <label>Contraseña:</label>
                     <input type="password" id="registerPassword" required>
                 </div>
-                <button type="submit" class="btn btn-secondary">Suscribirme</button>
+                <button type="submit" class="btn btn-secondary" style="width: 100%;">Suscribirme</button>
             </form>
         </div>
     </div>
@@ -460,6 +479,13 @@
                     <label>Título:</label>
                     <input type="text" id="relatoTitulo" required>
                 </div>
+
+                <div class="form-group">
+                    <label>URL de la Imagen:</label>
+                    <input type="text" id="relatoImagen" placeholder="Ej: https://i.imgur.com/foto.jpg">
+                    <small style="color: #aaa;">Copia el enlace directo de una imagen (jpg/png)</small>
+                </div>
+
                 <div class="form-group">
                     <label>Categoría:</label>
                     <select id="relatoCategoria" required>
@@ -478,14 +504,14 @@
                     <input type="checkbox" id="relatoPremium">
                     <label for="relatoPremium">Contenido Exclusivo (solo suscriptores)</label>
                 </div>
-                <button type="submit" class="btn btn-success">💾 Guardar Relato</button>
+                <button type="submit" class="btn btn-success" style="width: 100%;">💾 Guardar Relato</button>
             </form>
         </div>
     </div>
 
     <script>
-        // CONFIGURACIÓN: Cambia esto si tu puerto es diferente
-        const API_URL = 'https://localhost:7152/api';
+        // CONFIGURACIÓN API
+        const API_URL = 'http://localhost:5041/api'; // Ajusta el puerto si es necesario
 
         let currentUser = null;
         let currentRelato = null;
@@ -506,7 +532,7 @@
             loadRelatos();
         };
 
-        // --- Gestión de Sesión ---
+        // --- GESTIÓN DE SESIÓN ---
         function checkUserSession() {
             const token = localStorage.getItem('token');
             const userData = localStorage.getItem('userData');
@@ -523,29 +549,29 @@
 
             if (currentUser) {
                 userSection.innerHTML = `
-                        <div class="user-info">
-                            <span>💋 ${currentUser.nombre}</span>
-                            ${currentUser.isAdmin ? '<span style="color: gold; border:1px solid gold; padding:2px 8px; border-radius:10px; font-size:0.8em;">ADMIN</span>' : ''}
-                            <button class="btn btn-danger" onclick="logout()" style="padding: 5px 15px; font-size: 0.8em;">Salir</button>
-                        </div>
-                    `;
-                // Solo mostrar panel si es Admin (tu correo)
+                                <div class="user-info">
+                                    <span>💋 ${currentUser.nombre}</span>
+                                    ${currentUser.isAdmin ? '<span style="color: gold; border:1px solid gold; padding:2px 8px; border-radius:10px; font-size:0.8em;">ADMIN</span>' : ''}
+                                    <button class="btn btn-danger" onclick="logout()" style="padding: 5px 15px; font-size: 0.8em;">Salir</button>
+                                </div>
+                            `;
+
+                // ¡AQUI OCURRE LA MAGIA DEL PANEL!
                 if (currentUser.isAdmin) {
                     adminPanel.style.display = 'block';
                 }
             } else {
                 userSection.innerHTML = `
-                        <div class="auth-buttons">
-                            <button class="btn btn-primary" onclick="showLoginModal()">Entrar</button>
-                            <button class="btn btn-secondary" onclick="showRegisterModal()">Suscribirse</button>
-                        </div>
-                    `;
+                                <div class="auth-buttons">
+                                    <button class="btn btn-primary" onclick="showLoginModal()">Entrar</button>
+                                    <button class="btn btn-secondary" onclick="showRegisterModal()">Suscribirse</button>
+                                </div>
+                            `;
                 adminPanel.style.display = 'none';
             }
         }
 
-        // --- API CALLS: Autenticación ---
-
+        // --- API: LOGIN Y REGISTRO ---
         async function login(event) {
             event.preventDefault();
             const email = document.getElementById('loginEmail').value;
@@ -555,7 +581,7 @@
                 const response = await fetch(`${API_URL}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ Email: email, Password: password })
                 });
 
                 const data = await response.json();
@@ -568,8 +594,11 @@
 
                 closeModal('loginModal');
                 updateUserInterface();
+
+                // Recargar relatos para actualizar candados
                 loadRelatos();
-                alert(data.message);
+
+                alert("¡Bienvenido/a de nuevo!");
 
             } catch (error) {
                 alert('Error: ' + error.message);
@@ -586,7 +615,7 @@
                 const response = await fetch(`${API_URL}/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nombre, email, password })
+                    body: JSON.stringify({ Nombre: nombre, Email: email, Password: password })
                 });
 
                 const data = await response.json();
@@ -603,22 +632,15 @@
         }
 
         function logout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('userData');
+            localStorage.clear();
             currentUser = null;
             location.reload();
         }
 
-        // --- API CALLS: Relatos ---
-
+        // --- API: RELATOS (CRUD) ---
         async function loadRelatos() {
             try {
-                let url = `${API_URL}/relatos`;
-                // Si la API tiene filtro por categoría, úsalo, si no, filtraremos en cliente
-                if (currentCategory !== 'todas') {
-                    url = `${API_URL}/relatos/categoria/${currentCategory}`;
-                }
-
+                let url = `${API_URL}/Relatos`;
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('Error cargando relatos');
 
@@ -634,11 +656,13 @@
             event.preventDefault();
             const id = document.getElementById('relatoId').value;
 
+            // PREPARAMOS EL OBJETO
             const relatoData = {
-                titulo: document.getElementById('relatoTitulo').value,
-                categoria: document.getElementById('relatoCategoria').value,
-                contenido: document.getElementById('relatoTexto').value,
-                esPremium: document.getElementById('relatoPremium').checked
+                Titulo: document.getElementById('relatoTitulo').value,
+                Categoria: document.getElementById('relatoCategoria').value,
+                Contenido: document.getElementById('relatoTexto').value,
+                ImagenUrl: document.getElementById('relatoImagen').value,
+                EsPremium: document.getElementById('relatoPremium').checked
             };
 
             const token = localStorage.getItem('token');
@@ -651,16 +675,15 @@
                 let response;
                 if (id) {
                     // EDITAR (PUT)
-                    // Importante: Asegúrate de enviar también el ID en el cuerpo si tu backend lo requiere
-                    relatoData.id = parseInt(id);
-                    response = await fetch(`${API_URL}/relatos/${id}`, {
+                    relatoData.Id = parseInt(id);
+                    response = await fetch(`${API_URL}/Relatos/${id}`, {
                         method: 'PUT',
                         headers: headers,
                         body: JSON.stringify(relatoData)
                     });
                 } else {
                     // CREAR (POST)
-                    response = await fetch(`${API_URL}/relatos`, {
+                    response = await fetch(`${API_URL}/Relatos`, {
                         method: 'POST',
                         headers: headers,
                         body: JSON.stringify(relatoData)
@@ -674,7 +697,7 @@
 
                 closeModal('createRelatoModal');
                 loadRelatos();
-                alert('Relato guardado con éxito ✨');
+                alert('✅ Relato guardado con éxito');
 
             } catch (error) {
                 alert('Error: ' + error.message);
@@ -682,21 +705,16 @@
         }
 
         async function deleteCurrentRelato() {
-            if (!currentRelato || !confirm('¿Estás seguro de eliminar este relato para siempre?')) return;
+            if (!currentRelato || !confirm('¿Estás seguro de eliminar este relato?')) return;
 
             const token = localStorage.getItem('token');
             try {
-                const response = await fetch(`${API_URL}/relatos/${currentRelato.id}`, {
+                const response = await fetch(`${API_URL}/Relatos/${currentRelato.id}`, {
                     method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
 
-                if (!response.ok) {
-                    const err = await response.json();
-                    throw new Error(err.message || 'Error al eliminar');
-                }
+                if (!response.ok) throw new Error('Error al eliminar');
 
                 closeModal('relatoModal');
                 loadRelatos();
@@ -707,13 +725,17 @@
             }
         }
 
-        // --- Funciones de Visualización (UI) ---
-
+        // --- VISUALIZACIÓN ---
         function displayRelatos() {
             const grid = document.getElementById('relatosGrid');
             let relatosToShow = allRelatos;
 
-            // Filtrado Client-Side adicional (Tabs Gratis/Premium)
+            // Filtro Categoría
+            if (currentCategory !== 'todas') {
+                relatosToShow = relatosToShow.filter(r => r.categoria === currentCategory);
+            }
+
+            // Filtro Tabs (Gratis/Premium)
             if (currentFilter === 'gratis') {
                 relatosToShow = relatosToShow.filter(r => !r.esPremium);
             } else if (currentFilter === 'premium') {
@@ -721,31 +743,32 @@
             }
 
             if (!relatosToShow || relatosToShow.length === 0) {
-                grid.innerHTML = `
-                        <div class="empty-state">
-                            <h3>Silencio...</h3>
-                            <p>No hay relatos que coincidan con tus deseos.</p>
-                        </div>
-                    `;
+                grid.innerHTML = `<div class="empty-state"><h3>Silencio...</h3><p>No hay historias aquí todavía.</p></div>`;
                 return;
             }
 
             grid.innerHTML = relatosToShow.map(relato => {
-                // Lógica de candado
-                const isLocked = relato.esPremium && (!currentUser || !currentUser.isPremium);
+                const isLocked = relato.esPremium && (!currentUser || (!currentUser.isPremium && !currentUser.isAdmin));
+
+                const bgImage = relato.imagenUrl || 'https://via.placeholder.com/400x200?text=Relato';
 
                 const previewText = isLocked
-                    ? "🔒 Contenido exclusivo. Suscríbete para leer..."
-                    : (relato.contenido ? relato.contenido.substring(0, 100) + "..." : "Sin contenido...");
+                    ? "🔒 Contenido exclusivo para suscriptores..."
+                    : (relato.contenido ? relato.contenido.substring(0, 80) + "..." : "...");
 
                 return `
-                        <div class="card ${relato.esPremium ? 'card-premium' : ''}" onclick="openRelato(${relato.id})">
-                            ${relato.esPremium ? '<span class="premium-badge">🔥 EXCLUSIVO</span>' : ''}
-                            <span class="category-tag">${categoryNames[relato.categoria] || relato.categoria}</span>
-                            <h3>${relato.titulo}</h3>
-                            <p>${previewText}</p>
-                        </div>
-                    `;
+                            <div class="card ${relato.esPremium ? 'card-premium' : ''}" onclick="openRelato(${relato.id})">
+                                ${relato.esPremium ? '<span class="premium-badge">🔥 EXCLUSIVO</span>' : ''}
+
+                                <img src="${bgImage}" class="card-img-top" alt="Portada">
+
+                                <div class="card-body">
+                                    <span class="category-tag">${categoryNames[relato.categoria] || relato.categoria}</span>
+                                    <h3>${relato.titulo}</h3>
+                                    <p>${previewText}</p>
+                                </div>
+                            </div>
+                        `;
             }).join('');
         }
 
@@ -753,10 +776,10 @@
             const relato = allRelatos.find(r => r.id === id);
             if (!relato) return;
 
-            // Verificar acceso
-            if (relato.esPremium && (!currentUser || !currentUser.isPremium)) {
+            // Verificar Acceso
+            if (relato.esPremium && (!currentUser || (!currentUser.isPremium && !currentUser.isAdmin))) {
                 if (!currentUser) showLoginModal();
-                else alert("Este relato requiere una suscripción Premium 🔥");
+                else alert("Este relato requiere suscripción Premium 🔥");
                 return;
             }
 
@@ -764,7 +787,14 @@
             document.getElementById('relatoTitle').innerText = relato.titulo;
             document.getElementById('relatoContent').innerText = relato.contenido;
 
-            // Botones de Admin
+            const imgEl = document.getElementById('relatoModalImg');
+            if (relato.imagenUrl) {
+                imgEl.src = relato.imagenUrl;
+                imgEl.style.display = 'block';
+            } else {
+                imgEl.style.display = 'none';
+            }
+
             const adminButtons = document.getElementById('adminButtons');
             if (currentUser && currentUser.isAdmin) {
                 adminButtons.style.display = 'flex';
@@ -783,19 +813,23 @@
             document.getElementById('relatoTitulo').value = currentRelato.titulo;
             document.getElementById('relatoCategoria').value = currentRelato.categoria;
             document.getElementById('relatoTexto').value = currentRelato.contenido;
+            document.getElementById('relatoImagen').value = currentRelato.imagenUrl || '';
             document.getElementById('relatoPremium').checked = currentRelato.esPremium;
 
             document.getElementById('formTitle').innerText = 'Editar Relato';
             document.getElementById('createRelatoModal').classList.add('active');
         }
 
-        // --- Funciones Auxiliares ---
+        // --- FUNCIONES AUXILIARES UI ---
         function showLoginModal() { document.getElementById('loginModal').classList.add('active'); }
         function showRegisterModal() { document.getElementById('registerModal').classList.add('active'); }
+
+        // Esta función ya casi no se usa, pero la dejamos por si acaso
         function showCreateRelatoModal() {
             document.getElementById('relatoId').value = '';
             document.getElementById('relatoTitulo').value = '';
             document.getElementById('relatoTexto').value = '';
+            document.getElementById('relatoImagen').value = '';
             document.getElementById('relatoPremium').checked = false;
             document.getElementById('formTitle').innerText = 'Crear Nuevo Relato';
             document.getElementById('createRelatoModal').classList.add('active');
@@ -806,7 +840,7 @@
             currentCategory = cat;
             document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
-            loadRelatos();
+            displayRelatos();
         }
 
         function filterRelatos(filter) {
