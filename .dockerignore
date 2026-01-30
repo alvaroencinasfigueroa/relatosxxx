@@ -1,0 +1,27 @@
+# Archivos de compilación
+bin/
+obj/
+out/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Archivos sensibles
+appsettings.Development.json
+appsettings.Production.json
+
+# Git
+.git/
+.gitignore
+
+# Node modules (si los hay)
+node_modules/
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite
