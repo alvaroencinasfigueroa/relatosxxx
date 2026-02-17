@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Relatosxxx.Data;
 using Relatosxxx.Models;
-using System.Collections.Generic;
-using System.Linq;
+using System.Security.Claims;
 
 namespace Relatosxxx.Controllers
 {
@@ -10,58 +11,59 @@ namespace Relatosxxx.Controllers
     [ApiController]
     public class RelatosApiController : ControllerBase
     {
-        // Lista estática compartida con RelatosController
-        private static List<Relato> _relatos = new List<Relato>
-        {
-            new Relato { Id = 1, Titulo = "Cita bajo la lluvia", Categoria = "romantico", Contenido = "Una noche de lluvia, dos almas se encuentran bajo el mismo paraguas...", EsPremium = false, ImagenUrl = "https://via.placeholder.com/400x200/ff69b4/ffffff?text=Romance" },
-            new Relato { Id = 2, Titulo = "El secreto del Duque", Categoria = "misterio", Contenido = "En las sombras de su mansión, el Duque esconde un secreto que podría cambiar todo...", EsPremium = true, ImagenUrl = "https://via.placeholder.com/400x200/4b0082/ffffff?text=Misterio" },
-            new Relato { Id = 3, Titulo = "Fuego en la piel", Categoria = "pasion", Contenido = "Sus miradas se cruzaron y el mundo se detuvo. La pasión era inevitable...", EsPremium = true, ImagenUrl = "https://via.placeholder.com/400x200/dc143c/ffffff?text=Pasion" }
-        };
+        private readonly ApplicationDbContext _context;
 
-        // GET: api/RelatosApi
-        [HttpGet]
-        public ActionResult<IEnumerable<Relato>> GetAll()
+        public RelatosApiController(ApplicationDbContext context)
         {
-            return Ok(_relatos);
+            _context = context;
         }
 
-        // GET: api/RelatosApi/5
-        [HttpGet("{id}")]
-        public ActionResult<Relato> GetById(int id)
+        // GET: api/Relatos
+        // Cualquiera puede ver la lista (gratis y premium), el frontend decide qué mostrar
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Relato>>> GetAll()
         {
-            var relato = _relatos.FirstOrDefault(r => r.Id == id);
+            var relatos = await _context.Relatos.ToListAsync();
+            return Ok(relatos);
+        }
+
+        // GET: api/Relatos/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Relato>> GetById(int id)
+        {
+            var relato = await _context.Relatos.FindAsync(id);
             if (relato == null)
                 return NotFound(new { message = "Relato no encontrado" });
 
             return Ok(relato);
         }
 
-        // POST: api/RelatosApi
+        // POST: api/Relatos
+        // Solo el Admin puede crear relatos
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult<Relato> Create([FromBody] Relato nuevoRelato)
+        public async Task<ActionResult<Relato>> Create([FromBody] Relato nuevoRelato)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            // Generar ID automático
-            nuevoRelato.Id = _relatos.Count > 0 ? _relatos.Max(r => r.Id) + 1 : 1;
 
             // Imagen por defecto si no se proporciona
             if (string.IsNullOrEmpty(nuevoRelato.ImagenUrl))
                 nuevoRelato.ImagenUrl = "https://via.placeholder.com/400x200/ff69b4/ffffff?text=Relato";
 
-            _relatos.Add(nuevoRelato);
+            _context.Relatos.Add(nuevoRelato);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = nuevoRelato.Id }, nuevoRelato);
         }
 
-        // PUT: api/RelatosApi/5
+        // PUT: api/Relatos/5
+        // Solo el Admin puede editar relatos
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public ActionResult Update(int id, [FromBody] Relato relatoActualizado)
+        public async Task<ActionResult> Update(int id, [FromBody] Relato relatoActualizado)
         {
-            var relato = _relatos.FirstOrDefault(r => r.Id == id);
+            var relato = await _context.Relatos.FindAsync(id);
             if (relato == null)
                 return NotFound(new { message = "Relato no encontrado" });
 
@@ -72,19 +74,23 @@ namespace Relatosxxx.Controllers
             relato.ImagenUrl = relatoActualizado.ImagenUrl;
             relato.EsPremium = relatoActualizado.EsPremium;
 
+            await _context.SaveChangesAsync();
+
             return Ok(relato);
         }
 
-        // DELETE: api/RelatosApi/5
+        // DELETE: api/Relatos/5
+        // Solo el Admin puede borrar relatos
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var relato = _relatos.FirstOrDefault(r => r.Id == id);
+            var relato = await _context.Relatos.FindAsync(id);
             if (relato == null)
                 return NotFound(new { message = "Relato no encontrado" });
 
-            _relatos.Remove(relato);
+            _context.Relatos.Remove(relato);
+            await _context.SaveChangesAsync();
 
             return Ok(new { message = "Relato eliminado exitosamente" });
         }
