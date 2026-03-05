@@ -88,7 +88,7 @@
             transition: all 0.4s;
             text-transform: uppercase;
             color: white;
-            text-decoration: none; /* Importante para que el enlace se vea como botón */
+            text-decoration: none;
             display: inline-block;
         }
 
@@ -343,7 +343,6 @@
                 height: 20px;
             }
 
-        /* ESTILO DEL PANEL DE ADMIN */
         .admin-panel {
             background: #2a1b3d;
             border: 2px solid #ffd700;
@@ -351,7 +350,7 @@
             padding: 30px;
             border-radius: 25px;
             margin-bottom: 30px;
-            display: none; /* Se activa con JS */
+            display: none;
             text-align: center;
         }
 
@@ -464,8 +463,31 @@
                     <label>Contraseña:</label>
                     <input type="password" id="registerPassword" required>
                 </div>
-                <button type="submit" class="btn btn-secondary" style="width: 100%;">Suscribirme</button>
+                <button type="submit" class="btn btn-secondary" style="width: 100%;">Crear Cuenta</button>
             </form>
+        </div>
+    </div>
+
+    <!-- ============ MODAL DE PAYPAL (NUEVO) ============ -->
+    <div id="paypalModal" class="modal">
+        <div class="modal-content" style="max-width: 500px; text-align: center;">
+            <span class="close" onclick="closeModal('paypalModal')">&times;</span>
+            <h2 style="color: #ffd700; margin-bottom: 10px;">🔥 ¡Ya casi eres Premium!</h2>
+            <p style="color: #ffd4e5; margin-bottom: 5px;">Acceso ilimitado a todos los relatos exclusivos</p>
+            <div style="background: rgba(255,20,147,0.1); border: 1px solid #ff1493; border-radius: 15px; padding: 20px; margin: 20px 0;">
+                <p style="font-size: 2.5em; color: #ff6ec7; font-weight: bold; margin: 0;">$24.99</p>
+                <p style="color: #aaa; margin: 5px 0;">Pago único · Acceso de por vida</p>
+                <ul style="text-align: left; color: #ffd4e5; margin: 15px 0; padding-left: 20px;">
+                    <li>✅ Acceso a TODOS los relatos premium</li>
+                    <li>✅ Nuevas historias cada semana</li>
+                    <li>✅ Sin suscripción mensual</li>
+                    <li>✅ Pago seguro con PayPal</li>
+                </ul>
+            </div>
+            <div id="paypal-button-container" style="margin-top: 20px;"></div>
+            <p style="color: #aaa; font-size: 0.8em; margin-top: 15px;">
+                🔒 Pago seguro procesado por PayPal
+            </p>
         </div>
     </div>
 
@@ -509,9 +531,11 @@
         </div>
     </div>
 
+    <!-- SDK de PayPal - REEMPLAZA TU_CLIENT_ID_AQUI -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AYgB7bZrQ387rdmCGHFmNYGYNbVMEg-E23ff_lqUTj17yAB9QxXTn_1zR_BmS4vn1t2pOjMQQzdglpjd&currency=USD"></script>
+
     <script>
-        // CONFIGURACIÓN API
-        const API_URL = window.location.origin + '/api'; // Ajusta el puerto si es necesario
+        const API_URL = window.location.origin + '/api';
 
         let currentUser = null;
         let currentRelato = null;
@@ -532,7 +556,6 @@
             loadRelatos();
         };
 
-        // --- GESTIÓN DE SESIÓN ---
         function checkUserSession() {
             const token = localStorage.getItem('token');
             const userData = localStorage.getItem('userData');
@@ -549,29 +572,27 @@
 
             if (currentUser) {
                 userSection.innerHTML = `
-                                <div class="user-info">
-                                    <span>💋 ${currentUser.nombre}</span>
-                                    ${currentUser.isAdmin ? '<span style="color: gold; border:1px solid gold; padding:2px 8px; border-radius:10px; font-size:0.8em;">ADMIN</span>' : ''}
-                                    <button class="btn btn-danger" onclick="logout()" style="padding: 5px 15px; font-size: 0.8em;">Salir</button>
-                                </div>
-                            `;
+                        <div class="user-info">
+                            <span>💋 ${currentUser.nombre}</span>
+                            ${currentUser.isAdmin ? '<span style="color: gold; border:1px solid gold; padding:2px 8px; border-radius:10px; font-size:0.8em;">ADMIN</span>' : ''}
+                            <button class="btn btn-danger" onclick="logout()" style="padding: 5px 15px; font-size: 0.8em;">Salir</button>
+                        </div>
+                    `;
 
-                // ¡AQUI OCURRE LA MAGIA DEL PANEL!
                 if (currentUser.isAdmin) {
                     adminPanel.style.display = 'block';
                 }
             } else {
                 userSection.innerHTML = `
-                                <div class="auth-buttons">
-                                    <button class="btn btn-primary" onclick="showLoginModal()">Entrar</button>
-                                    <button class="btn btn-secondary" onclick="showRegisterModal()">Suscribirse</button>
-                                </div>
-                            `;
+                        <div class="auth-buttons">
+                            <button class="btn btn-primary" onclick="showLoginModal()">Entrar</button>
+                            <button class="btn btn-secondary" onclick="showRegisterModal()">Suscribirse</button>
+                        </div>
+                    `;
                 adminPanel.style.display = 'none';
             }
         }
 
-        // --- API: LOGIN Y REGISTRO ---
         async function login(event) {
             event.preventDefault();
             const email = document.getElementById('loginEmail').value;
@@ -594,8 +615,6 @@
 
                 closeModal('loginModal');
                 updateUserInterface();
-
-                // Recargar relatos para actualizar candados
                 loadRelatos();
 
                 alert("¡Bienvenido/a de nuevo!");
@@ -605,6 +624,7 @@
             }
         }
 
+        // ============ FUNCIÓN REGISTER MODIFICADA (CON PAYPAL) ============
         async function register(event) {
             event.preventDefault();
             const nombre = document.getElementById('registerName').value;
@@ -619,16 +639,94 @@
                 });
 
                 const data = await response.json();
-
                 if (!response.ok) throw new Error(data.message || 'Error en registro');
 
-                alert(data.message);
+                // ✅ Registro exitoso: hacer login automático
+                const loginResponse = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Email: email, Password: password })
+                });
+
+                const loginData = await loginResponse.json();
+                if (loginResponse.ok) {
+                    localStorage.setItem('token', loginData.token);
+                    localStorage.setItem('userData', JSON.stringify(loginData.user));
+                    currentUser = loginData.user;
+                }
+
+                // ✅ Abrir modal de PayPal
                 closeModal('registerModal');
-                showLoginModal();
+                showPaypalModal();
 
             } catch (error) {
                 alert('Error: ' + error.message);
             }
+        }
+
+        // ============ NUEVA FUNCIÓN: MOSTRAR PAYPAL ============
+        function showPaypalModal() {
+            document.getElementById('paypalModal').classList.add('active');
+            document.getElementById('paypal-button-container').innerHTML = '';
+
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color: 'gold',
+                    shape: 'pill',
+                    label: 'pay'
+                },
+
+                createOrder: async function () {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${API_URL}/Payment/crear-orden`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    const data = await response.json();
+                    return data.orderId;
+                },
+
+                onApprove: async function (data) {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${API_URL}/Payment/capturar-pago`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ OrderId: data.orderID })
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        currentUser.isPremium = true;
+                        localStorage.setItem('userData', JSON.stringify(currentUser));
+
+                        closeModal('paypalModal');
+                        updateUserInterface();
+                        loadRelatos();
+
+                        alert('🎉 ¡Bienvenido/a al club Premium! Ahora puedes leer todos los relatos exclusivos.');
+                    } else {
+                        alert('❌ Error al procesar el pago: ' + result.message);
+                    }
+                },
+
+                onError: function (err) {
+                    alert('❌ Ocurrió un error con PayPal. Intenta de nuevo.');
+                    console.error(err);
+                },
+
+                onCancel: function () {
+                    alert('Pago cancelado. Puedes intentarlo nuevamente cuando quieras.');
+                }
+
+            }).render('#paypal-button-container');
         }
 
         function logout() {
@@ -637,7 +735,6 @@
             location.reload();
         }
 
-        // --- API: RELATOS (CRUD) ---
         async function loadRelatos() {
             try {
                 let url = `${API_URL}/Relatos`;
@@ -656,7 +753,6 @@
             event.preventDefault();
             const id = document.getElementById('relatoId').value;
 
-            // PREPARAMOS EL OBJETO
             const relatoData = {
                 Titulo: document.getElementById('relatoTitulo').value,
                 Categoria: document.getElementById('relatoCategoria').value,
@@ -674,7 +770,6 @@
             try {
                 let response;
                 if (id) {
-                    // EDITAR (PUT)
                     relatoData.Id = parseInt(id);
                     response = await fetch(`${API_URL}/Relatos/${id}`, {
                         method: 'PUT',
@@ -682,7 +777,6 @@
                         body: JSON.stringify(relatoData)
                     });
                 } else {
-                    // CREAR (POST)
                     response = await fetch(`${API_URL}/Relatos`, {
                         method: 'POST',
                         headers: headers,
@@ -725,17 +819,14 @@
             }
         }
 
-        // --- VISUALIZACIÓN ---
         function displayRelatos() {
             const grid = document.getElementById('relatosGrid');
             let relatosToShow = allRelatos;
 
-            // Filtro Categoría
             if (currentCategory !== 'todas') {
                 relatosToShow = relatosToShow.filter(r => r.categoria === currentCategory);
             }
 
-            // Filtro Tabs (Gratis/Premium)
             if (currentFilter === 'gratis') {
                 relatosToShow = relatosToShow.filter(r => !r.esPremium);
             } else if (currentFilter === 'premium') {
@@ -749,26 +840,22 @@
 
             grid.innerHTML = relatosToShow.map(relato => {
                 const isLocked = relato.esPremium && (!currentUser || (!currentUser.isPremium && !currentUser.isAdmin));
-
                 const bgImage = relato.imagenUrl || 'https://via.placeholder.com/400x200?text=Relato';
-
                 const previewText = isLocked
                     ? "🔒 Contenido exclusivo para suscriptores..."
                     : (relato.contenido ? relato.contenido.substring(0, 80) + "..." : "...");
 
                 return `
-                            <div class="card ${relato.esPremium ? 'card-premium' : ''}" onclick="openRelato(${relato.id})">
-                                ${relato.esPremium ? '<span class="premium-badge">🔥 EXCLUSIVO</span>' : ''}
-
-                                <img src="${bgImage}" class="card-img-top" alt="Portada">
-
-                                <div class="card-body">
-                                    <span class="category-tag">${categoryNames[relato.categoria] || relato.categoria}</span>
-                                    <h3>${relato.titulo}</h3>
-                                    <p>${previewText}</p>
-                                </div>
+                        <div class="card ${relato.esPremium ? 'card-premium' : ''}" onclick="openRelato(${relato.id})">
+                            ${relato.esPremium ? '<span class="premium-badge">🔥 EXCLUSIVO</span>' : ''}
+                            <img src="${bgImage}" class="card-img-top" alt="Portada">
+                            <div class="card-body">
+                                <span class="category-tag">${categoryNames[relato.categoria] || relato.categoria}</span>
+                                <h3>${relato.titulo}</h3>
+                                <p>${previewText}</p>
                             </div>
-                        `;
+                        </div>
+                    `;
             }).join('');
         }
 
@@ -776,7 +863,6 @@
             const relato = allRelatos.find(r => r.id === id);
             if (!relato) return;
 
-            // Verificar Acceso
             if (relato.esPremium && (!currentUser || (!currentUser.isPremium && !currentUser.isAdmin))) {
                 if (!currentUser) showLoginModal();
                 else alert("Este relato requiere suscripción Premium 🔥");
@@ -820,11 +906,9 @@
             document.getElementById('createRelatoModal').classList.add('active');
         }
 
-        // --- FUNCIONES AUXILIARES UI ---
         function showLoginModal() { document.getElementById('loginModal').classList.add('active'); }
         function showRegisterModal() { document.getElementById('registerModal').classList.add('active'); }
 
-        // Esta función ya casi no se usa, pero la dejamos por si acaso
         function showCreateRelatoModal() {
             document.getElementById('relatoId').value = '';
             document.getElementById('relatoTitulo').value = '';
@@ -834,6 +918,7 @@
             document.getElementById('formTitle').innerText = 'Crear Nuevo Relato';
             document.getElementById('createRelatoModal').classList.add('active');
         }
+
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
         function filterByCategory(cat) {
