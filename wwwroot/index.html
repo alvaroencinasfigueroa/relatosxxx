@@ -1019,20 +1019,20 @@
                     <i class="fas fa-fire"></i> Categorías
                 </div>
                 <div class="cat-row">
-                    <button class="cat-btn active" onclick="filterByCategory('todas')">Todas</button>
-                    <button class="cat-btn" onclick="filterByCategory('romantico')">
+                    <button class="cat-btn active" onclick="filterByCategory('todas', event)">Todas</button>
+                    <button class="cat-btn" onclick="filterByCategory('romantico', event)">
                         <i class="fas fa-heart"></i> Romántico
                     </button>
-                    <button class="cat-btn" onclick="filterByCategory('pasion')">
+                    <button class="cat-btn" onclick="filterByCategory('pasion', event)">
                         <i class="fas fa-fire"></i> Pasión
                     </button>
-                    <button class="cat-btn" onclick="filterByCategory('misterio')">
+                    <button class="cat-btn" onclick="filterByCategory('misterio', event)">
                         <i class="fas fa-moon"></i> Misterio
                     </button>
-                    <button class="cat-btn" onclick="filterByCategory('fantastico')">
+                    <button class="cat-btn" onclick="filterByCategory('fantastico', event)">
                         <i class="fas fa-star"></i> Fantástico
                     </button>
-                    <button class="cat-btn" onclick="filterByCategory('prohibido')">
+                    <button class="cat-btn" onclick="filterByCategory('prohibido', event)">
                         <i class="fas fa-ban"></i> Prohibido
                     </button>
                 </div>
@@ -1040,9 +1040,9 @@
 
             <!-- Filters -->
             <div class="filter-row">
-                <button class="filter-btn active" onclick="filterRelatos('todos')">Todos</button>
-                <button class="filter-btn" onclick="filterRelatos('gratis')">Gratuitos</button>
-                <button class="filter-btn" onclick="filterRelatos('premium')">
+                <button class="filter-btn active" onclick="filterRelatos('todos', event)">Todos</button>
+                <button class="filter-btn" onclick="filterRelatos('gratis', event)">Gratuitos</button>
+                <button class="filter-btn" onclick="filterRelatos('premium', event)">
                     <i class="fas fa-crown"></i> Exclusivos
                 </button>
             </div>
@@ -1648,14 +1648,14 @@
         }
 
         // ========== FILTERS ==========
-        function filterByCategory(cat) {
+        function filterByCategory(cat, event) {
             currentCategory = cat;
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
             displayRelatos();
         }
 
-        function filterRelatos(filter) {
+        function filterRelatos(filter, event) {
             currentFilter = filter;
             document.querySelectorAll('.filter-btn').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
