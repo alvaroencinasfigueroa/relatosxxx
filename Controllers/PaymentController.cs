@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Relatosxxx.Data;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 
@@ -16,7 +17,6 @@ namespace Relatosxxx.Controllers
         private readonly IConfiguration _configuration;
         private static readonly HttpClient _httpClient = new HttpClient();
 
-        // Precio del acceso premium de por vida
         private const string PRECIO = "24.99";
         private const string MONEDA = "USD";
 
@@ -31,7 +31,7 @@ namespace Relatosxxx.Controllers
         // POST: api/Payment/crear-orden
         // =============================================
         [HttpPost("crear-orden")]
-        [Authorize] // El usuario debe estar logueado
+        [Authorize]
         public async Task<IActionResult> CrearOrden()
         {
             try
@@ -82,7 +82,7 @@ namespace Relatosxxx.Controllers
         // POST: api/Payment/capturar-pago
         // =============================================
         [HttpPost("capturar-pago")]
-        [Authorize] // El usuario debe estar logueado
+        [Authorize]
         public async Task<IActionResult> CapturarPago([FromBody] CapturarPagoRequest request)
         {
             try
@@ -106,9 +106,11 @@ namespace Relatosxxx.Controllers
 
                 if (status == "COMPLETED")
                 {
-                    // ✅ PAGO EXITOSO: Activar Premium en la base de datos
-                    var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
-                                 ?? User.FindFirst("sub")?.Value;
+                    // ✅ FIX 1: Usar ClaimTypes.Email en lugar de NameIdentifier
+                    var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+
+                    if (string.IsNullOrEmpty(userEmail))
+                        return Unauthorized(new { message = "No se pudo identificar al usuario" });
 
                     var usuario = await _context.Usuarios
                         .FirstOrDefaultAsync(u => u.Email == userEmail);

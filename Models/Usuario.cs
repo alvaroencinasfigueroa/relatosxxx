@@ -10,16 +10,4 @@
         public bool IsAdmin { get; set; } = false;
     }
 
-    public class UserDto // Para recibir datos del registro
-    {
-        public string Nombre { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-    }
-
-    public class UserLoginDto // Para recibir datos del login
-    {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-    }
 }

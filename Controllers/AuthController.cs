@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Relatosxxx.Data;
@@ -26,7 +27,6 @@ namespace Relatosxxx.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
-            // Validaciones básicas
             if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
             {
                 return BadRequest(new { message = "Email y contraseña son requeridos" });
@@ -37,13 +37,11 @@ namespace Relatosxxx.Controllers
                 return BadRequest(new { message = "La contraseña debe tener al menos 6 caracteres" });
             }
 
-            // Verifica que el usuario no exista
             if (await _context.Usuarios.AnyAsync(u => u.Email == request.Email))
             {
                 return BadRequest(new { message = "El usuario ya existe" });
             }
 
-            // Validamos si es el correo de admin configurado
             var adminEmail = _configuration["AdminEmail"]?.ToLower();
             bool esElJefe = !string.IsNullOrEmpty(adminEmail) &&
                            request.Email.ToLower() == adminEmail;
@@ -52,7 +50,6 @@ namespace Relatosxxx.Controllers
             {
                 Nombre = request.Nombre,
                 Email = request.Email,
-                // CRÍTICO: Hasheamos la contraseña antes de guardarla
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 IsAdmin = esElJefe,
                 IsPremium = false
@@ -68,16 +65,13 @@ namespace Relatosxxx.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            // Buscar usuario por email
             var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == request.Email);
 
-            // Si no existe el usuario
             if (usuario == null)
             {
                 return Unauthorized(new { message = "Email o contraseña incorrectos" });
             }
 
-            // CRÍTICO: Verificamos la contraseña hasheada
             bool passwordValida = BCrypt.Net.BCrypt.Verify(request.Password, usuario.PasswordHash);
 
             if (!passwordValida)
@@ -85,7 +79,6 @@ namespace Relatosxxx.Controllers
                 return Unauthorized(new { message = "Email o contraseña incorrectos" });
             }
 
-            // Generar token JWT
             var token = GenerateJwtToken(usuario);
 
             return Ok(new
@@ -102,11 +95,12 @@ namespace Relatosxxx.Controllers
             });
         }
 
-        // ACTIVAR PREMIUM (para usar después de confirmar el pago)
+        // ACTIVAR PREMIUM — solo el Admin puede hacerlo manualmente
+        // ✅ FIX 2: Agregado [Authorize(Roles = "Admin")]
         [HttpPost("activate-premium")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ActivatePremium([FromBody] ActivatePremiumRequest request)
         {
-            // Buscar usuario por email o ID
             var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Email == request.Email || u.Id == request.UserId);
 
@@ -120,7 +114,6 @@ namespace Relatosxxx.Controllers
                 return Ok(new { message = "El usuario ya es Premium" });
             }
 
-            // Activar premium
             usuario.IsPremium = true;
             await _context.SaveChangesAsync();
 
