@@ -103,7 +103,7 @@ Thumbs.db
 
 # Sensitive data (MUY IMPORTANTE)
 appsettings.*.json
-!appsettings.json
+appsettings.json
 secrets.json
 *.pfx
 *.key
