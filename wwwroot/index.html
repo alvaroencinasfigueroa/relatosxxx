@@ -1242,9 +1242,30 @@
 
                 <div id="paypal-button-container"></div>
 
-                <div class="paypal-safe">
+                <div style="text-align: center; margin: 15px 0; color: #777; font-size: 0.9rem;">
+                    --- O paga con Cripto ---
+                </div>
+
+                <button id="btn-ton" class="auth-btn" style="margin-top: 5px; background: #0088cc; border-color: #0088cc; box-shadow: 0 0 10px rgba(0, 136, 204, 0.4); width: 100%;">
+                    <i class="fa-solid fa-gem"></i> Pagar 25 TON con Tonkeeper
+                </button>
+
+                <div id="ton-payment-info" style="display: none; background: var(--black-card); border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: left;">
+                    <h3 style="color: #0088cc; margin-top: 0; text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px;">Instrucciones de Pago</h3>
+
+                    <p style="font-size: 0.9rem; color: #ccc;">1. Abre Tonkeeper y envía exactamente <strong>25 TON</strong> a esta dirección:</p>
+                    <code id="ton-address" style="display:block; background: var(--black-dark); color: #fff; padding:10px; border-radius: 5px; word-break: break-all; margin-bottom: 15px; border: 1px solid #333;">Cargando...</code>
+
+                    <p style="color: var(--pink-vivid); font-weight: bold; margin-bottom: 5px; font-size: 0.9rem;"><i class="fa-solid fa-triangle-exclamation"></i> 2. IMPORTANTE: Incluye este MEMO exacto:</p>
+                    <code id="ton-memo" style="display:block; background: var(--black-dark); color: var(--pink-vivid); padding:10px; border-radius: 5px; font-size: 1.2rem; text-align: center; letter-spacing: 2px; border: 1px solid var(--pink-vivid);">Cargando...</code>
+
+                    <button id="btn-verificar-ton" class="auth-btn" style="margin-top: 20px; background: #0088cc; border-color: #0088cc; width: 100%;">
+                        <i class="fa-solid fa-check-double"></i> Ya hice el envío, verificar
+                    </button>
+                </div>
+                <div class="paypal-safe" style="margin-top: 20px;">
                     <i class="fas fa-lock"></i>
-                    Pago seguro · PayPal
+                    Pago seguro · PayPal & TON
                 </div>
             </div>
         </div>
@@ -1311,31 +1332,31 @@
             if (currentUser) {
                 const initial = currentUser.nombre ? currentUser.nombre.charAt(0).toUpperCase() : 'U';
                 userSection.innerHTML = `
-                        <div class="user-bar">
-                            <div class="user-card">
-                                <div class="user-avatar">${initial}</div>
-                                <span>${currentUser.nombre}</span>
-                                ${currentUser.isAdmin ? '<span class="tag tag-gold">ADMIN</span>' : ''}
-                                ${currentUser.isPremium ? '<span class="tag tag-pink">VIP</span>' : ''}
+                            <div class="user-bar">
+                                <div class="user-card">
+                                    <div class="user-avatar">${initial}</div>
+                                    <span>${currentUser.nombre}</span>
+                                    ${currentUser.isAdmin ? '<span class="tag tag-gold">ADMIN</span>' : ''}
+                                    ${currentUser.isPremium ? '<span class="tag tag-pink">VIP</span>' : ''}
+                                </div>
+                                <button class="btn btn-dark btn-sm" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </button>
                             </div>
-                            <button class="btn btn-dark btn-sm" onclick="logout()">
-                                <i class="fas fa-sign-out-alt"></i>
-                            </button>
-                        </div>
-                    `;
+                        `;
 
                 adminPanel.classList.toggle('active', currentUser.isAdmin);
             } else {
                 userSection.innerHTML = `
-                        <div style="display: flex; gap: 12px;">
-                            <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
-                                <i class="fas fa-key"></i> Entrar
-                            </button>
-                            <button class="btn btn-fire" onclick="showModal('registerModal')">
-                                <i class="fas fa-crown"></i> VIP
-                            </button>
-                        </div>
-                    `;
+                            <div style="display: flex; gap: 12px;">
+                                <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
+                                    <i class="fas fa-key"></i> Entrar
+                                </button>
+                                <button class="btn btn-fire" onclick="showModal('registerModal')">
+                                    <i class="fas fa-crown"></i> VIP
+                                </button>
+                            </div>
+                        `;
                 adminPanel.classList.remove('active');
             }
         }
@@ -1495,12 +1516,12 @@
             } catch (error) {
                 console.error(error);
                 document.getElementById('relatosGrid').innerHTML = `
-                        <div class="empty-box" style="grid-column: 1 / -1;">
-                            <div class="empty-icon"><i class="fas fa-plug"></i></div>
-                            <h3 class="empty-title">Conectando...</h3>
-                            <p class="empty-text">Estableciendo conexión con el servidor</p>
-                        </div>
-                    `;
+                            <div class="empty-box" style="grid-column: 1 / -1;">
+                                <div class="empty-icon"><i class="fas fa-plug"></i></div>
+                                <h3 class="empty-title">Conectando...</h3>
+                                <p class="empty-text">Estableciendo conexión con el servidor</p>
+                            </div>
+                        `;
             }
         }
 
@@ -1520,12 +1541,12 @@
 
             if (!filtered || filtered.length === 0) {
                 grid.innerHTML = `
-                        <div class="empty-box" style="grid-column: 1 / -1;">
-                            <div class="empty-icon"><i class="fas fa-book-dead"></i></div>
-                            <h3 class="empty-title">No hay historias aquí</h3>
-                            <p class="empty-text">Explora otras categorías o vuelve más tarde</p>
-                        </div>
-                    `;
+                            <div class="empty-box" style="grid-column: 1 / -1;">
+                                <div class="empty-icon"><i class="fas fa-book-dead"></i></div>
+                                <h3 class="empty-title">No hay historias aquí</h3>
+                                <p class="empty-text">Explora otras categorías o vuelve más tarde</p>
+                            </div>
+                        `;
                 return;
             }
 
@@ -1537,19 +1558,19 @@
                     : (relato.contenido ? relato.contenido.substring(0, 100) + "..." : "...");
 
                 return `
-                        <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
-                            <div class="card-img-wrap">
-                                <img src="${bgImage}" class="card-img" alt="${relato.titulo}">
-                                <div class="card-darkness"></div>
-                                ${relato.esPremium ? '<div class="vip-crown"><i class="fas fa-crown"></i> VIP</div>' : ''}
+                            <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
+                                <div class="card-img-wrap">
+                                    <img src="${bgImage}" class="card-img" alt="${relato.titulo}">
+                                    <div class="card-darkness"></div>
+                                    ${relato.esPremium ? '<div class="vip-crown"><i class="fas fa-crown"></i> VIP</div>' : ''}
+                                </div>
+                                <div class="card-body">
+                                    <span class="card-cat">${categoryLabels[relato.categoria] || relato.categoria}</span>
+                                    <h3 class="card-title">${relato.titulo}</h3>
+                                    <p class="card-preview">${preview}</p>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <span class="card-cat">${categoryLabels[relato.categoria] || relato.categoria}</span>
-                                <h3 class="card-title">${relato.titulo}</h3>
-                                <p class="card-preview">${preview}</p>
-                            </div>
-                        </div>
-                    `;
+                        `;
             }).join('');
         }
 
@@ -1740,6 +1761,99 @@
                 setTimeout(() => t.remove(), 300);
             }, 3500);
         }
+
+        // =======================================================
+        // LÓGICA DE PAGO CON TONKEEPER
+        // =======================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnTon = document.getElementById('btn-ton');
+            const btnVerificarTon = document.getElementById('btn-verificar-ton');
+
+            if (btnTon) {
+                btnTon.addEventListener('click', async () => {
+                    try {
+                        // Obtener el token de donde lo estés guardando (asumo localStorage con la clave 'token' o similar, ajústalo si tu clave es otra)
+                        const token = localStorage.getItem('token');
+                        if (!token) {
+                            toast('Debes iniciar sesión para comprar Premium.', 'error');
+                            return;
+                        }
+
+                        // Cambiar visual del botón mientras carga
+                        btnTon.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generando pago...';
+                        btnTon.disabled = true;
+
+                        // Llamada al backend
+                        const response = await fetch('/api/Payment/ton/generar-pago', {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+
+                        if (!response.ok) throw new Error('Error al generar los datos de pago');
+
+                        const data = await response.json();
+
+                        // Mostrar la caja y ocultar el botón inicial
+                        document.getElementById('ton-payment-info').style.display = 'block';
+                        btnTon.style.display = 'none';
+
+                        // Llenar los datos
+                        document.getElementById('ton-address').innerText = data.address;
+                        document.getElementById('ton-memo').innerText = data.memo;
+
+                        // Guardar el memo en el botón de verificar
+                        btnVerificarTon.dataset.memo = data.memo;
+
+                    } catch (error) {
+                        toast('Hubo un problema: ' + error.message, 'error');
+                        btnTon.innerHTML = '<i class="fa-solid fa-gem"></i> Pagar 25 TON con Tonkeeper';
+                        btnTon.disabled = false;
+                    }
+                });
+            }
+
+            if (btnVerificarTon) {
+                btnVerificarTon.addEventListener('click', async (e) => {
+                    const memo = e.target.dataset.memo;
+                    const token = localStorage.getItem('token');
+
+                    e.target.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verificando en la blockchain...';
+                    e.target.disabled = true;
+
+                    try {
+                        const response = await fetch('/api/Payment/ton/verificar-pago', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ memo: memo })
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            toast('¡Pago confirmado! ' + result.message, 'success');
+
+                            // Actualizar el estado premium en el frontend y recargar la UI
+                            localStorage.setItem('isPremium', 'true');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+                        } else {
+                            toast('Aún no vemos el pago. Si acabas de pagar, espera un minuto.', 'error');
+                        }
+                    } catch (error) {
+                        toast('Error de conexión al verificar.', 'error');
+                    } finally {
+                        e.target.innerHTML = '<i class="fa-solid fa-check-double"></i> Ya hice el envío, verificar';
+                        e.target.disabled = false;
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
