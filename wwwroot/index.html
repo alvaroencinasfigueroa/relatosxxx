@@ -1224,48 +1224,82 @@
             <button class="modal-x" onclick="closeModal('paypalModal')">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="modal-inner">
-                <h2 class="modal-title neon-text">Acceso VIP</h2>
-                <p class="modal-sub">Desbloquea TODO el contenido</p>
+            <div>
+                <div class="modal-inner">
+                    <h2 class="modal-title neon-text">Acceso VIP</h2>
+                    <p class="modal-sub">Desbloquea TODO el contenido</p>
 
-                <div class="paypal-zone">
-                    <div class="paypal-money">$24.99</div>
-                    <div class="paypal-note">Pago único · Acceso de por vida</div>
-                </div>
+                    <div class="paypal-zone">
+                        <div class="paypal-money">$24.99</div>
+                        <div class="paypal-note">Pago único · Acceso de por vida</div>
+                    </div>
 
-                <ul class="paypal-list">
-                    <li><i class="fas fa-check"></i> TODOS los relatos sin límites</li>
-                    <li><i class="fas fa-check"></i> Historias nuevas cada semana</li>
-                    <li><i class="fas fa-check"></i> Sin suscripciones mensuales</li>
-                    <li><i class="fas fa-check"></i> Pago 100% seguro</li>
-                </ul>
+                    <ul class="paypal-list">
+                        <li><i class="fas fa-check"></i> TODOS los relatos sin límites</li>
+                        <li><i class="fas fa-check"></i> Historias nuevas cada semana</li>
+                        <li><i class="fas fa-check"></i> Sin suscripciones mensuales</li>
+                        <li><i class="fas fa-check"></i> Pago 100% seguro</li>
+                    </ul>
 
-                <div id="paypal-button-container"></div>
+                    <div id="paypal-button-container"></div>
 
-                <div style="text-align: center; margin: 15px 0; color: #777; font-size: 0.9rem;">
-                    --- O paga con Cripto ---
-                </div>
+                    <div style="text-align: center; margin: 15px 0; color: #777; font-size: 0.9rem;">
+                        --- O paga con Cripto ---
+                    </div>
 
-                <button id="btn-ton" class="auth-btn" style="margin-top: 5px; background: #0088cc; border-color: #0088cc; box-shadow: 0 0 10px rgba(0, 136, 204, 0.4); width: 100%;">
-                    <i class="fa-solid fa-gem"></i> Pagar 25 TON con Tonkeeper
-                </button>
-
-                <div id="ton-payment-info" style="display: none; background: var(--black-card); border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: left;">
-                    <h3 style="color: #0088cc; margin-top: 0; text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px;">Instrucciones de Pago</h3>
-
-                    <p style="font-size: 0.9rem; color: #ccc;">1. Abre Tonkeeper y envía exactamente <strong>25 TON</strong> a esta dirección:</p>
-                    <code id="ton-address" style="display:block; background: var(--black-dark); color: #fff; padding:10px; border-radius: 5px; word-break: break-all; margin-bottom: 15px; border: 1px solid #333;">Cargando...</code>
-
-                    <p style="color: var(--pink-vivid); font-weight: bold; margin-bottom: 5px; font-size: 0.9rem;"><i class="fa-solid fa-triangle-exclamation"></i> 2. IMPORTANTE: Incluye este MEMO exacto:</p>
-                    <code id="ton-memo" style="display:block; background: var(--black-dark); color: var(--pink-vivid); padding:10px; border-radius: 5px; font-size: 1.2rem; text-align: center; letter-spacing: 2px; border: 1px solid var(--pink-vivid);">Cargando...</code>
-
-                    <button id="btn-verificar-ton" class="auth-btn" style="margin-top: 20px; background: #0088cc; border-color: #0088cc; width: 100%;">
-                        <i class="fa-solid fa-check-double"></i> Ya hice el envío, verificar
+                    <button id="btn-ton" class="auth-btn" style="margin-top: 5px; background: #0088cc; border-color: #0088cc; box-shadow: 0 0 10px rgba(0, 136, 204, 0.4); width: 100%;">
+                        <i class="fa-solid fa-gem"></i> Pagar 25 TON con Tonkeeper
                     </button>
-                </div>
-                <div class="paypal-safe" style="margin-top: 20px;">
-                    <i class="fas fa-lock"></i>
-                    Pago seguro · PayPal & TON
+
+                    <div id="ton-payment-info" style="display: none; background: var(--black-card); border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: left;">
+                        <h3 style="color: #0088cc; margin-top: 0; text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px;">Instrucciones de Pago</h3>
+
+                        <p style="font-size: 0.9rem; color: #ccc;">1. Abre Tonkeeper y envía exactamente <strong>25 TON</strong> a esta dirección:</p>
+                        <code id="ton-address" style="display:block; background: var(--black-dark); color: #fff; padding:10px; border-radius: 5px; word-break: break-all; margin-bottom: 15px; border: 1px solid #333;">Cargando...</code>
+
+                        <p style="color: var(--pink-vivid); font-weight: bold; margin-bottom: 5px; font-size: 0.9rem;"><i class="fa-solid fa-triangle-exclamation"></i> 2. IMPORTANTE: Incluye este MEMO exacto:</p>
+                        <code id="ton-memo" style="display:block; background: var(--black-dark); color: var(--pink-vivid); padding:10px; border-radius: 5px; font-size: 1.2rem; text-align: center; letter-spacing: 2px; border: 1px solid var(--pink-vivid);">Cargando...</code>
+
+                        <button id="btn-verificar-ton" class="auth-btn" style="margin-top: 20px; background: #0088cc; border-color: #0088cc; width: 100%;">
+                            <i class="fa-solid fa-check-double"></i> Ya hice el envío, verificar
+                        </button>
+                    </div>
+                    <div style="text-align: center; margin: 15px 0; color: #777; font-size: 0.9rem;">
+                        --- O paga con USDT ---
+                    </div>
+
+                    <button id="btn-usdt" class="btn btn-fire" style="width: 100%; margin-top: 5px; background: #26a17b; border-color: #26a17b; box-shadow: 0 0 10px rgba(38,161,123,0.4);">
+                        <i class="fa-solid fa-dollar-sign"></i> Pagar 25 USDT (TRC20 / Bybit)
+                    </button>
+
+                    <div id="usdt-payment-info" style="display:none; background: var(--black-card); border: 1px solid #26a17b; padding: 15px; margin-top: 20px;">
+                        <h3 style="color: #26a17b; text-align:center; font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:1px;">
+                            Instrucciones de Pago USDT
+                        </h3>
+                        <p style="font-size:0.9rem; color:#ccc; margin-bottom: 10px;">
+                            1. Envía exactamente <strong>25 USDT</strong> por la red <strong>TRC20 (Tron)</strong> a esta dirección:
+                        </p>
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px;">
+                            <code id="usdt-address" style="flex:1; display:block; background:var(--black-dark); color:#fff; padding:10px; word-break:break-all; border:1px solid #333;">
+                                Cargando...
+                            </code>
+                            <button onclick="navigator.clipboard.writeText(document.getElementById('usdt-address').innerText).then(() => toast('¡Dirección copiada!', 'success'))"
+                                    style="background:#26a17b; border:none; color:#fff; padding:10px 14px; cursor:pointer; font-size:16px;">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <p style="color:#ccc; font-size:0.9rem; margin-bottom: 8px;">
+                            2. Después de enviar, pega el <strong>Hash de la transacción (TxID)</strong> aquí:
+                        </p>
+                        <input type="text" id="usdt-txid-input" class="field-input" placeholder="Ej: abc123def456..." style="margin-bottom:10px;">
+                        <button id="btn-verificar-usdt" class="btn btn-fire" style="width:100%; background:#26a17b; border-color:#26a17b;">
+                            <i class="fa-solid fa-check-double"></i> Verificar pago
+                        </button>
+                    </div>
+                    <div class="paypal-safe" style="margin-top: 20px;">
+                        <i class="fas fa-lock"></i>
+                        Pago seguro · PayPal & TON
+                    </div>
                 </div>
             </div>
         </div>
@@ -1850,6 +1884,77 @@
                     } finally {
                         e.target.innerHTML = '<i class="fa-solid fa-check-double"></i> Ya hice el envío, verificar';
                         e.target.disabled = false;
+                    }
+                });
+            }
+            const btnUsdt = document.getElementById('btn-usdt');
+            const btnVerificarUsdt = document.getElementById('btn-verificar-usdt');
+
+            if (btnUsdt) {
+                btnUsdt.addEventListener('click', async () => {
+                    const token = localStorage.getItem('token');
+                    if (!token) { toast('Debes iniciar sesión primero.', 'error'); return; }
+
+                    btnUsdt.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Cargando...';
+                    btnUsdt.disabled = true;
+
+                    try {
+                        const response = await fetch('/api/Payment/usdt/obtener-direccion', {
+                            headers: { 'Authorization': `Bearer ${token}` }
+                        });
+                        if (!response.ok) throw new Error('Error al obtener la dirección');
+
+                        const data = await response.json();
+                        document.getElementById('usdt-address').innerText = data.direccion;
+                        document.getElementById('usdt-payment-info').style.display = 'block';
+                        btnUsdt.style.display = 'none';
+                    } catch (error) {
+                        toast('Error: ' + error.message, 'error');
+                        btnUsdt.innerHTML = '<i class="fa-solid fa-dollar-sign"></i> Pagar 25 USDT (TRC20 / Bybit)';
+                        btnUsdt.disabled = false;
+                    }
+                });
+            }
+
+            if (btnVerificarUsdt) {
+                btnVerificarUsdt.addEventListener('click', async () => {
+                    const token = localStorage.getItem('token');
+                    const txId = document.getElementById('usdt-txid-input').value.trim();
+
+                    if (!txId) { toast('Por favor ingresa el TxID.', 'error'); return; }
+
+                    btnVerificarUsdt.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verificando en blockchain...';
+                    btnVerificarUsdt.disabled = true;
+
+                    try {
+                        const response = await fetch('/api/Payment/usdt/verificar-pago', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ txId: txId })
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            toast('¡Pago confirmado! ' + result.message, 'success');
+                            currentUser.isPremium = true;
+                            localStorage.setItem('userData', JSON.stringify(currentUser));
+                            setTimeout(() => {
+                                closeModal('paypalModal');
+                                updateUserInterface();
+                                loadRelatos();
+                            }, 2000);
+                        } else {
+                            toast(result.message, 'error');
+                        }
+                    } catch (error) {
+                        toast('Error de conexión.', 'error');
+                    } finally {
+                        btnVerificarUsdt.innerHTML = '<i class="fa-solid fa-check-double"></i> Verificar pago';
+                        btnVerificarUsdt.disabled = false;
                     }
                 });
             }
