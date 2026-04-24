@@ -1218,95 +1218,75 @@
         </div>
     </div>
 
-    <!-- ========== PAYPAL MODAL ========== -->
+    <!-- ========== MODAL DE PAGO VIP ========== -->
     <div id="paypalModal" class="modal">
         <div class="modal-box">
             <button class="modal-x" onclick="closeModal('paypalModal')">
                 <i class="fas fa-times"></i>
             </button>
-            <div>
-                <div class="modal-inner">
-                    <h2 class="modal-title neon-text">Acceso VIP</h2>
-                    <p class="modal-sub">Desbloquea TODO el contenido</p>
+            <div class="modal-inner">
+                <h2 class="modal-title neon-text">Acceso VIP</h2>
+                <p class="modal-sub">Desbloquea TODO el contenido</p>
 
-                    <div class="paypal-zone">
-                        <div class="paypal-money">$24.99</div>
-                        <div class="paypal-note">Pago único · Acceso de por vida</div>
-                    </div>
+                <div class="paypal-zone">
+                    <div class="paypal-money">$24.99</div>
+                    <div class="paypal-note">Pago único · Acceso de por vida</div>
+                </div>
 
-                    <ul class="paypal-list">
-                        <li><i class="fas fa-check"></i> TODOS los relatos sin límites</li>
-                        <li><i class="fas fa-check"></i> Historias nuevas cada semana</li>
-                        <li><i class="fas fa-check"></i> Sin suscripciones mensuales</li>
-                        <li><i class="fas fa-check"></i> Pago 100% seguro</li>
-                    </ul>
+                <ul class="paypal-list">
+                    <li><i class="fas fa-check"></i> TODOS los relatos sin límites</li>
+                    <li><i class="fas fa-check"></i> Historias nuevas cada semana</li>
+                    <li><i class="fas fa-check"></i> Sin suscripciones mensuales</li>
+                    <li><i class="fas fa-check"></i> Pago 100% seguro con cripto</li>
+                </ul>
 
-                    <div id="paypal-button-container"></div>
+                <!-- TON -->
+                <button id="btn-ton" class="auth-btn" style="margin-top: 5px; background: #0088cc; border-color: #0088cc; box-shadow: 0 0 10px rgba(0, 136, 204, 0.4); width: 100%;">
+                    <i class="fa-solid fa-gem"></i> Pagar 25 TON con Tonkeeper
+                </button>
 
-                    <div style="text-align: center; margin: 15px 0; color: #777; font-size: 0.9rem;">
-                        --- O paga con Cripto ---
-                    </div>
-
-                    <button id="btn-ton" class="auth-btn" style="margin-top: 5px; background: #0088cc; border-color: #0088cc; box-shadow: 0 0 10px rgba(0, 136, 204, 0.4); width: 100%;">
-                        <i class="fa-solid fa-gem"></i> Pagar 25 TON con Tonkeeper
+                <div id="ton-payment-info" style="display: none; background: var(--black-card); border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: left;">
+                    <h3 style="color: #0088cc; margin-top: 0; text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px;">Instrucciones de Pago</h3>
+                    <p style="font-size: 0.9rem; color: #ccc;">1. Abre Tonkeeper y envía exactamente <strong>25 TON</strong> a esta dirección:</p>
+                    <code id="ton-address" style="display:block; background: var(--black-dark); color: #fff; padding:10px; border-radius: 5px; word-break: break-all; margin-bottom: 15px; border: 1px solid #333;">Cargando...</code>
+                    <p style="color: var(--pink-vivid); font-weight: bold; margin-bottom: 5px; font-size: 0.9rem;"><i class="fa-solid fa-triangle-exclamation"></i> 2. IMPORTANTE: Incluye este MEMO exacto:</p>
+                    <code id="ton-memo" style="display:block; background: var(--black-dark); color: var(--pink-vivid); padding:10px; border-radius: 5px; font-size: 1.2rem; text-align: center; letter-spacing: 2px; border: 1px solid var(--pink-vivid);">Cargando...</code>
+                    <button id="btn-verificar-ton" class="auth-btn" style="margin-top: 20px; background: #0088cc; border-color: #0088cc; width: 100%;">
+                        <i class="fa-solid fa-check-double"></i> Ya hice el envío, verificar
                     </button>
+                </div>
 
-                    <div id="ton-payment-info" style="display: none; background: var(--black-card); border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: left;">
-                        <h3 style="color: #0088cc; margin-top: 0; text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px;">Instrucciones de Pago</h3>
+                <div style="text-align: center; margin: 20px 0 10px; color: #777; font-size: 0.9rem;">— O paga con USDT —</div>
 
-                        <p style="font-size: 0.9rem; color: #ccc;">1. Abre Tonkeeper y envía exactamente <strong>25 TON</strong> a esta dirección:</p>
-                        <code id="ton-address" style="display:block; background: var(--black-dark); color: #fff; padding:10px; border-radius: 5px; word-break: break-all; margin-bottom: 15px; border: 1px solid #333;">Cargando...</code>
+                <!-- USDT -->
+                <button id="btn-usdt" class="btn btn-fire" style="width: 100%; margin-top: 5px; background: #26a17b; border-color: #26a17b; box-shadow: 0 0 10px rgba(38,161,123,0.4);">
+                    <i class="fa-solid fa-dollar-sign"></i> Pagar 25 USDT (TRC20 / Bybit)
+                </button>
 
-                        <p style="color: var(--pink-vivid); font-weight: bold; margin-bottom: 5px; font-size: 0.9rem;"><i class="fa-solid fa-triangle-exclamation"></i> 2. IMPORTANTE: Incluye este MEMO exacto:</p>
-                        <code id="ton-memo" style="display:block; background: var(--black-dark); color: var(--pink-vivid); padding:10px; border-radius: 5px; font-size: 1.2rem; text-align: center; letter-spacing: 2px; border: 1px solid var(--pink-vivid);">Cargando...</code>
-
-                        <button id="btn-verificar-ton" class="auth-btn" style="margin-top: 20px; background: #0088cc; border-color: #0088cc; width: 100%;">
-                            <i class="fa-solid fa-check-double"></i> Ya hice el envío, verificar
+                <div id="usdt-payment-info" style="display:none; background: var(--black-card); border: 1px solid #26a17b; padding: 15px; margin-top: 20px;">
+                    <h3 style="color: #26a17b; text-align:center; font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:1px;">Instrucciones de Pago USDT</h3>
+                    <p style="font-size:0.9rem; color:#ccc; margin-bottom: 10px;">1. Envía exactamente <strong>25 USDT</strong> por la red <strong>TRC20 (Tron)</strong> a esta dirección:</p>
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px;">
+                        <code id="usdt-address" style="flex:1; display:block; background:var(--black-dark); color:#fff; padding:10px; word-break:break-all; border:1px solid #333;">Cargando...</code>
+                        <button onclick="navigator.clipboard.writeText(document.getElementById('usdt-address').innerText).then(() => toast('¡Dirección copiada!', 'success'))"
+                                style="background:#26a17b; border:none; color:#fff; padding:10px 14px; cursor:pointer; font-size:16px;">
+                            <i class="fas fa-copy"></i>
                         </button>
                     </div>
-                    <div style="text-align: center; margin: 15px 0; color: #777; font-size: 0.9rem;">
-                        --- O paga con USDT ---
-                    </div>
-
-                    <button id="btn-usdt" class="btn btn-fire" style="width: 100%; margin-top: 5px; background: #26a17b; border-color: #26a17b; box-shadow: 0 0 10px rgba(38,161,123,0.4);">
-                        <i class="fa-solid fa-dollar-sign"></i> Pagar 25 USDT (TRC20 / Bybit)
+                    <p style="color:#ccc; font-size:0.9rem; margin-bottom: 8px;">2. Después de enviar, pega el <strong>Hash de la transacción (TxID)</strong> aquí:</p>
+                    <input type="text" id="usdt-txid-input" class="field-input" placeholder="Ej: abc123def456..." style="margin-bottom:10px;">
+                    <button id="btn-verificar-usdt" class="btn btn-fire" style="width:100%; background:#26a17b; border-color:#26a17b;">
+                        <i class="fa-solid fa-check-double"></i> Verificar pago
                     </button>
+                </div>
 
-                    <div id="usdt-payment-info" style="display:none; background: var(--black-card); border: 1px solid #26a17b; padding: 15px; margin-top: 20px;">
-                        <h3 style="color: #26a17b; text-align:center; font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:1px;">
-                            Instrucciones de Pago USDT
-                        </h3>
-                        <p style="font-size:0.9rem; color:#ccc; margin-bottom: 10px;">
-                            1. Envía exactamente <strong>25 USDT</strong> por la red <strong>TRC20 (Tron)</strong> a esta dirección:
-                        </p>
-                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px;">
-                            <code id="usdt-address" style="flex:1; display:block; background:var(--black-dark); color:#fff; padding:10px; word-break:break-all; border:1px solid #333;">
-                                Cargando...
-                            </code>
-                            <button onclick="navigator.clipboard.writeText(document.getElementById('usdt-address').innerText).then(() => toast('¡Dirección copiada!', 'success'))"
-                                    style="background:#26a17b; border:none; color:#fff; padding:10px 14px; cursor:pointer; font-size:16px;">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                        <p style="color:#ccc; font-size:0.9rem; margin-bottom: 8px;">
-                            2. Después de enviar, pega el <strong>Hash de la transacción (TxID)</strong> aquí:
-                        </p>
-                        <input type="text" id="usdt-txid-input" class="field-input" placeholder="Ej: abc123def456..." style="margin-bottom:10px;">
-                        <button id="btn-verificar-usdt" class="btn btn-fire" style="width:100%; background:#26a17b; border-color:#26a17b;">
-                            <i class="fa-solid fa-check-double"></i> Verificar pago
-                        </button>
-                    </div>
-                    <div class="paypal-safe" style="margin-top: 20px;">
-                        <i class="fas fa-lock"></i>
-                        Pago seguro · PayPal, TON & USDT
-                    </div>
+                <div class="paypal-safe" style="margin-top: 20px;">
+                    <i class="fas fa-lock"></i>
+                    Pago seguro · TON & USDT
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- ========== PAYPAL SDK ========== -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AYgB7bZrQ387rdmCGHFmNYGYNbVMEg-E23ff_lqUTj17yAB9QxXTn_1zR_BmS4vn1t2pOjMQQzdglpjd&currency=USD"></script>
 
     <script>
         // ========== CONFIG ==========
@@ -1366,31 +1346,31 @@
             if (currentUser) {
                 const initial = currentUser.nombre ? currentUser.nombre.charAt(0).toUpperCase() : 'U';
                 userSection.innerHTML = `
-                            <div class="user-bar">
-                                <div class="user-card">
-                                    <div class="user-avatar">${initial}</div>
-                                    <span>${currentUser.nombre}</span>
-                                    ${currentUser.isAdmin ? '<span class="tag tag-gold">ADMIN</span>' : ''}
-                                    ${currentUser.isPremium ? '<span class="tag tag-pink">VIP</span>' : ''}
+                                <div class="user-bar">
+                                    <div class="user-card">
+                                        <div class="user-avatar">${initial}</div>
+                                        <span>${currentUser.nombre}</span>
+                                        ${currentUser.isAdmin ? '<span class="tag tag-gold">ADMIN</span>' : ''}
+                                        ${currentUser.isPremium ? '<span class="tag tag-pink">VIP</span>' : ''}
+                                    </div>
+                                    <button class="btn btn-dark btn-sm" onclick="logout()">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </button>
                                 </div>
-                                <button class="btn btn-dark btn-sm" onclick="logout()">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                </button>
-                            </div>
-                        `;
+                            `;
 
                 adminPanel.classList.toggle('active', currentUser.isAdmin);
             } else {
                 userSection.innerHTML = `
-                            <div style="display: flex; gap: 12px;">
-                                <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
-                                    <i class="fas fa-key"></i> Entrar
-                                </button>
-                                <button class="btn btn-fire" onclick="showModal('registerModal')">
-                                    <i class="fas fa-crown"></i> VIP
-                                </button>
-                            </div>
-                        `;
+                                <div style="display: flex; gap: 12px;">
+                                    <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
+                                        <i class="fas fa-key"></i> Entrar
+                                    </button>
+                                    <button class="btn btn-fire" onclick="showModal('registerModal')">
+                                        <i class="fas fa-crown"></i> VIP
+                                    </button>
+                                </div>
+                            `;
                 adminPanel.classList.remove('active');
             }
         }
@@ -1474,71 +1454,6 @@
             toast('Sesión cerrada', 'info');
         }
 
-        // ========== PAYPAL ==========
-        function showPaypalModal() {
-            showModal('paypalModal');
-            renderPaypalButtons();
-        }
-
-        function renderPaypalButtons() {
-            const container = document.getElementById('paypal-button-container');
-            container.innerHTML = '';
-
-            paypal.Buttons({
-                style: {
-                    layout: 'vertical',
-                    color: 'black',
-                    shape: 'rect',
-                    label: 'pay'
-                },
-                createOrder: async function () {
-                    const token = localStorage.getItem('token');
-                    const response = await fetch(`${API_URL}/Payment/crear-orden`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-                    const data = await response.json();
-                    return data.orderId;
-                },
-                onApprove: async function (data) {
-                    const token = localStorage.getItem('token');
-                    const response = await fetch(`${API_URL}/Payment/capturar-pago`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify({ OrderId: data.orderID })
-                    });
-
-                    const result = await response.json();
-
-                    if (response.ok) {
-                        currentUser.isPremium = true;
-                        localStorage.setItem('userData', JSON.stringify(currentUser));
-
-                        closeModal('paypalModal');
-                        updateUserInterface();
-                        loadRelatos();
-
-                        toast('¡Bienvenido al club VIP! 🔥', 'success');
-                    } else {
-                        toast('Error: ' + result.message, 'error');
-                    }
-                },
-                onError: function (err) {
-                    toast('Error con PayPal. Intenta de nuevo.', 'error');
-                    console.error(err);
-                },
-                onCancel: function () {
-                    toast('Pago cancelado', 'info');
-                }
-            }).render('#paypal-button-container');
-        }
-
         // ========== RELATOS ==========
         async function loadRelatos() {
             try {
@@ -1550,12 +1465,12 @@
             } catch (error) {
                 console.error(error);
                 document.getElementById('relatosGrid').innerHTML = `
-                            <div class="empty-box" style="grid-column: 1 / -1;">
-                                <div class="empty-icon"><i class="fas fa-plug"></i></div>
-                                <h3 class="empty-title">Conectando...</h3>
-                                <p class="empty-text">Estableciendo conexión con el servidor</p>
-                            </div>
-                        `;
+                                <div class="empty-box" style="grid-column: 1 / -1;">
+                                    <div class="empty-icon"><i class="fas fa-plug"></i></div>
+                                    <h3 class="empty-title">Conectando...</h3>
+                                    <p class="empty-text">Estableciendo conexión con el servidor</p>
+                                </div>
+                            `;
             }
         }
 
@@ -1575,12 +1490,12 @@
 
             if (!filtered || filtered.length === 0) {
                 grid.innerHTML = `
-                            <div class="empty-box" style="grid-column: 1 / -1;">
-                                <div class="empty-icon"><i class="fas fa-book-dead"></i></div>
-                                <h3 class="empty-title">No hay historias aquí</h3>
-                                <p class="empty-text">Explora otras categorías o vuelve más tarde</p>
-                            </div>
-                        `;
+                                <div class="empty-box" style="grid-column: 1 / -1;">
+                                    <div class="empty-icon"><i class="fas fa-book-dead"></i></div>
+                                    <h3 class="empty-title">No hay historias aquí</h3>
+                                    <p class="empty-text">Explora otras categorías o vuelve más tarde</p>
+                                </div>
+                            `;
                 return;
             }
 
@@ -1592,19 +1507,19 @@
                     : (relato.contenido ? relato.contenido.substring(0, 100) + "..." : "...");
 
                 return `
-                            <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
-                                <div class="card-img-wrap">
-                                    <img src="${bgImage}" class="card-img" alt="${relato.titulo}">
-                                    <div class="card-darkness"></div>
-                                    ${relato.esPremium ? '<div class="vip-crown"><i class="fas fa-crown"></i> VIP</div>' : ''}
+                                <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
+                                    <div class="card-img-wrap">
+                                        <img src="${bgImage}" class="card-img" alt="${relato.titulo}">
+                                        <div class="card-darkness"></div>
+                                        ${relato.esPremium ? '<div class="vip-crown"><i class="fas fa-crown"></i> VIP</div>' : ''}
+                                    </div>
+                                    <div class="card-body">
+                                        <span class="card-cat">${categoryLabels[relato.categoria] || relato.categoria}</span>
+                                        <h3 class="card-title">${relato.titulo}</h3>
+                                        <p class="card-preview">${preview}</p>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <span class="card-cat">${categoryLabels[relato.categoria] || relato.categoria}</span>
-                                    <h3 class="card-title">${relato.titulo}</h3>
-                                    <p class="card-preview">${preview}</p>
-                                </div>
-                            </div>
-                        `;
+                            `;
             }).join('');
         }
 
@@ -1620,8 +1535,9 @@
                     showModal('loginModal');
                 } else {
                     // AQUÍ ESTÁ LA MAGIA:
+                    // DESPUÉS
                     toast('¡Hazte VIP para desbloquear este relato! 🔥', 'info');
-                    showModal('vipModal'); // Abrimos directamente tu nueva pasarela Cripto
+                    showPaypalModal();
                 }
                 return;
             }
@@ -1800,6 +1716,21 @@
             }, 3500);
         }
 
+        // ========== MOSTRAR MODAL DE PAGO VIP ==========
+        function showPaypalModal() {
+            const btnTon = document.getElementById('btn-ton');
+            const btnUsdt = document.getElementById('btn-usdt');
+            const tonInfo = document.getElementById('ton-payment-info');
+            const usdtInfo = document.getElementById('usdt-payment-info');
+
+            if (btnTon) { btnTon.style.display = ''; btnTon.disabled = false; btnTon.innerHTML = '<i class="fa-solid fa-gem"></i> Pagar 25 TON con Tonkeeper'; }
+            if (tonInfo) tonInfo.style.display = 'none';
+            if (btnUsdt) { btnUsdt.style.display = ''; btnUsdt.disabled = false; btnUsdt.innerHTML = '<i class="fa-solid fa-dollar-sign"></i> Pagar 25 USDT (TRC20 / Bybit)'; }
+            if (usdtInfo) usdtInfo.style.display = 'none';
+
+            showModal('paypalModal');
+        }
+
         // =======================================================
         // LÓGICA DE PAGO CON TONKEEPER
         // =======================================================
@@ -1875,10 +1806,13 @@
                         if (response.ok) {
                             toast('¡Pago confirmado! ' + result.message, 'success');
 
-                            // Actualizar el estado premium en el frontend y recargar la UI
-                            localStorage.setItem('isPremium', 'true');
+                            // DESPUÉS
+                            currentUser.isPremium = true;
+                            localStorage.setItem('userData', JSON.stringify(currentUser));
                             setTimeout(() => {
-                                window.location.reload();
+                                closeModal('paypalModal');
+                                updateUserInterface();
+                                loadRelatos();
                             }, 2000);
                         } else {
                             toast('Aún no vemos el pago. Si acabas de pagar, espera un minuto.', 'error');
