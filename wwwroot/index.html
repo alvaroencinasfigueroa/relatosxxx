@@ -1298,7 +1298,7 @@
                     </div>
                     <div class="paypal-safe" style="margin-top: 20px;">
                         <i class="fas fa-lock"></i>
-                        Pago seguro · PayPal & TON
+                        Pago seguro · PayPal, TON & USDT
                     </div>
                 </div>
             </div>
@@ -1612,17 +1612,21 @@
             const relato = allRelatos.find(r => r.id === id);
             if (!relato) return;
 
-            if (relato.esPremium && (!currentUser || (!currentUser.isPremium && !currentUser.isAdmin))) {
+            const isLocked = relato.esPremium && (!currentUser || (!currentUser.isPremium && !currentUser.isAdmin));
+
+            if (isLocked) {
                 if (!currentUser) {
+                    toast('Debes iniciar sesión para leer relatos exclusivos', 'info');
                     showModal('loginModal');
                 } else {
-                    toast('Este relato requiere suscripción VIP 🔥', 'info');
+                    // AQUÍ ESTÁ LA MAGIA:
+                    toast('¡Hazte VIP para desbloquear este relato! 🔥', 'info');
+                    showModal('vipModal'); // Abrimos directamente tu nueva pasarela Cripto
                 }
                 return;
             }
 
             currentRelato = relato;
-
             document.getElementById('relatoTitle').textContent = relato.titulo;
             document.getElementById('relatoCategory').textContent = categoryLabels[relato.categoria] || relato.categoria;
             document.getElementById('relatoContent').textContent = relato.contenido;
