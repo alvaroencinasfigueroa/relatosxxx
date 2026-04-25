@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Relatosxxx.Data;
+using Relatosxxx.Models;
 using System.Security.Claims;
 using System.Text.Json;
 
@@ -65,47 +66,73 @@ namespace Relatosxxx.Controllers
         {
             try
             {
+                // 1. Identificar al usuario
                 var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-                if (string.IsNullOrEmpty(userEmail))
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userEmail) || string.IsNullOrEmpty(userIdClaim))
                     return Unauthorized(new { message = "No se pudo identificar al usuario" });
 
+                int userId = int.Parse(userIdClaim);
+
+                // 2. Verificar si este memo ya fue procesado
+                var pagoExistente = await _context.Pagos
+                    .FirstOrDefaultAsync(p => p.Identificador == request.Memo && p.Metodo == "TON");
+
+                if (pagoExistente != null && pagoExistente.Procesado)
+                {
+                    // Ya se procesó anteriormente
+                    var usuarioActual = await _context.Usuarios.FindAsync(userId);
+                    return Ok(new { message = "Este pago ya fue reclamado anteriormente.", isPremium = usuarioActual?.IsPremium ?? false });
+                }
+
+                // 3. Consultar blockchain
                 var tonWalletAddress = _configuration["Ton:WalletAddress"];
-
-                // Consultamos a Toncenter para ver las últimas transacciones de tu wallet
-                var apiUrl = $"https://toncenter.com/api/v2/getTransactions?address={tonWalletAddress}&limit=20";
-
+                var apiUrl = $"https://toncenter.com/api/v2/getTransactions?address={tonWalletAddress}&limit=30"; // Aumenta un poco el límite
                 var response = await _httpClient.GetAsync(apiUrl);
                 if (!response.IsSuccessStatusCode)
                     return BadRequest(new { message = "Error al consultar la blockchain de TON" });
 
                 var responseBody = await response.Content.ReadAsStringAsync();
-
-                // Verificamos si en esas transacciones existe una con el Memo y monto correcto
                 bool pagoValidado = ValidarTransaccionEnJson(responseBody, request.Memo, PRECIO_TON);
 
-                if (pagoValidado)
+                if (!pagoValidado)
+                    return BadRequest(new { message = "El pago no se ha reflejado en la blockchain aún o el memo es incorrecto." });
+
+                // 4. Pago válido: registrar en tabla Pagos (si no existía) y activar Premium
+                if (pagoExistente == null)
                 {
-                    var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == userEmail);
-                    if (usuario != null)
+                    _context.Pagos.Add(new Pago
                     {
-                        if (usuario.IsPremium) return Ok(new { message = "El usuario ya era Premium.", isPremium = true });
-
-                        usuario.IsPremium = true;
-                        await _context.SaveChangesAsync();
-
-                        return Ok(new { message = "¡Pago con TON exitoso! Bienvenido al club VIP 🎉", isPremium = true });
-                    }
-                    return NotFound(new { message = "Usuario no encontrado en la base de datos" });
+                        UsuarioId = userId,
+                        Metodo = "TON",
+                        Identificador = request.Memo,
+                        Monto = decimal.Parse(PRECIO_TON),
+                        Fecha = DateTime.UtcNow,
+                        Procesado = true
+                    });
+                }
+                else
+                {
+                    pagoExistente.Procesado = true;
                 }
 
-                return BadRequest(new { message = "El pago no se ha reflejado en la blockchain aún o el memo es incorrecto." });
+                var usuario = await _context.Usuarios.FindAsync(userId);
+                if (usuario == null)
+                    return NotFound(new { message = "Usuario no encontrado." });
+
+                if (usuario.IsPremium)
+                    return Ok(new { message = "El usuario ya era Premium.", isPremium = true });
+
+                usuario.IsPremium = true;
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "¡Pago con TON exitoso! Bienvenido al club VIP 🎉", isPremium = true });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Error interno", detalle = ex.Message });
             }
         }
-
         // =============================================
         // USDT TRC20: Obtener dirección de depósito
         // GET: api/Payment/usdt/obtener-direccion
@@ -141,50 +168,72 @@ namespace Relatosxxx.Controllers
             try
             {
                 var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-                if (string.IsNullOrEmpty(userEmail))
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userEmail) || string.IsNullOrEmpty(userIdClaim))
                     return Unauthorized(new { message = "No se pudo identificar al usuario" });
 
+                int userId = int.Parse(userIdClaim);
                 if (string.IsNullOrWhiteSpace(request.TxId))
                     return BadRequest(new { message = "El TxID no puede estar vacío." });
 
-                var direccionEsperada = _configuration["Usdt:DireccionTrc20"]?.ToLower();
+                // 1. Verificar si ya existe ese TxID en nuestra BD
+                var pagoExistente = await _context.Pagos
+                    .FirstOrDefaultAsync(p => p.Identificador == request.TxId && p.Metodo == "USDT");
 
-                // Consultar la blockchain de Tron a través de TronGrid
+                if (pagoExistente != null && pagoExistente.Procesado)
+                {
+                    var usuarioActual = await _context.Usuarios.FindAsync(userId);
+                    return Ok(new { message = "Este pago ya fue reclamado anteriormente.", isPremium = usuarioActual?.IsPremium ?? false });
+                }
+
+                // 2. Validar en blockchain
+                var direccionEsperada = _configuration["Usdt:DireccionTrc20"]?.ToLower();
                 var apiUrl = $"https://api.trongrid.io/v1/transactions/{request.TxId}/events";
                 var response = await _httpClient.GetAsync(apiUrl);
-
                 if (!response.IsSuccessStatusCode)
                     return BadRequest(new { message = "Error al consultar la blockchain de Tron." });
 
                 var body = await response.Content.ReadAsStringAsync();
                 bool pagoValido = ValidarTransaccionUsdtTrc20(body, direccionEsperada, PRECIO_USDT);
 
-                if (pagoValido)
+                if (!pagoValido)
+                    return BadRequest(new { message = "No se pudo verificar el pago. Revisa el TxID e intenta de nuevo en un minuto." });
+
+                // 3. Pago válido: registrar y activar Premium
+                if (pagoExistente == null)
                 {
-                    var usuario = await _context.Usuarios
-                        .FirstOrDefaultAsync(u => u.Email == userEmail);
-
-                    if (usuario == null)
-                        return NotFound(new { message = "Usuario no encontrado." });
-
-                    if (usuario.IsPremium)
-                        return Ok(new { message = "El usuario ya era Premium.", isPremium = true });
-
-                    usuario.IsPremium = true;
-                    await _context.SaveChangesAsync();
-
-                    return Ok(new { message = "¡Pago con USDT exitoso! Bienvenido al club VIP 🎉", isPremium = true });
+                    _context.Pagos.Add(new Pago
+                    {
+                        UsuarioId = userId,
+                        Metodo = "USDT",
+                        Identificador = request.TxId,
+                        Monto = decimal.Parse(PRECIO_USDT),
+                        Fecha = DateTime.UtcNow,
+                        Procesado = true
+                    });
+                }
+                else
+                {
+                    pagoExistente.Procesado = true;
                 }
 
-                return BadRequest(new { message = "No se pudo verificar el pago. Revisa el TxID e intenta de nuevo en un minuto." });
+                var usuario = await _context.Usuarios.FindAsync(userId);
+                if (usuario == null)
+                    return NotFound(new { message = "Usuario no encontrado." });
+
+                if (usuario.IsPremium)
+                    return Ok(new { message = "El usuario ya era Premium.", isPremium = true });
+
+                usuario.IsPremium = true;
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "¡Pago con USDT exitoso! Bienvenido al club VIP 🎉", isPremium = true });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Error interno", detalle = ex.Message });
             }
         }
-
-
         // =============================================
         // MÉTODOS AUXILIARES Y DE VALIDACIÓN
         // =============================================
