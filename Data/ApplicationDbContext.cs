@@ -10,7 +10,7 @@ namespace Relatosxxx.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Relato> Relatos { get; set; }
         public DbSet<Pago> Pagos { get; set; }
-        public DbSet<TransaccionUsada> TransaccionesUsadas { get; set; }
+        
 
     }
 }
