@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 RELATOS SENSUALES 🔥</title>
+    <title>🔥 SENSUAL STORIES 🔥</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,400;0,700;1,400&family=Permanent+Marker&family=Righteous&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -48,7 +48,7 @@
             position: fixed;
             inset: 0;
             z-index: -2;
-            background: radial-gradient(ellipse at 10% 0%, rgba(255, 0, 110, 0.2) 0%, transparent 40%), radial-gradient(ellipse at 90% 100%, rgba(255, 20, 147, 0.15) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(255, 0, 110, 0.05) 0%, transparent 60%), var(--black-void);
+            background: radial-gradient(ellipse at 10% 0%, rgba(255,0,110,0.2) 0%, transparent 40%), radial-gradient(ellipse at 90% 100%, rgba(255,20,147,0.15) 0%, transparent 40%), radial-gradient(ellipse at 50% 50%, rgba(255,0,110,0.05) 0%, transparent 60%), var(--black-void);
         }
 
         .particles {
@@ -96,11 +96,11 @@
         }
 
         @keyframes flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+            0%,19%,21%,23%,25%,54%,56%,100% {
                 text-shadow: 0 0 5px var(--pink-vivid), 0 0 10px var(--pink-vivid), 0 0 20px var(--pink-vivid), 0 0 40px var(--pink-hot), 0 0 80px var(--pink-hot);
             }
 
-            20%, 24%, 55% {
+            20%,24%,55% {
                 text-shadow: none;
             }
         }
@@ -169,6 +169,40 @@
             margin-top: 5px;
         }
 
+        /* ========== LANG SWITCHER ========== */
+        .lang-switcher {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            padding: 5px 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,0,110,0.2);
+            color: var(--pink-soft);
+            cursor: pointer;
+            font-family: 'Righteous', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+            .lang-btn:hover, .lang-btn.active {
+                border-color: var(--pink-vivid);
+                color: var(--pink-hot);
+                background: rgba(255,0,110,0.1);
+            }
+
+        /* ========== HEADER RIGHT ========== */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
         /* ========== BUTTONS ========== */
         .btn {
             padding: 14px 30px;
@@ -189,12 +223,12 @@
             background: linear-gradient(135deg, var(--pink-vivid), var(--pink-hot));
             color: var(--white);
             clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
-            box-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+            box-shadow: 0 0 30px rgba(255,0,110,0.5);
         }
 
             .btn-fire:hover {
                 transform: scale(1.05);
-                box-shadow: 0 0 50px rgba(255, 0, 110, 0.8);
+                box-shadow: 0 0 50px rgba(255,0,110,0.8);
             }
 
         .btn-outline-pink {
@@ -205,14 +239,14 @@
         }
 
             .btn-outline-pink:hover {
-                background: rgba(255, 0, 110, 0.2);
-                box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
+                background: rgba(255,0,110,0.2);
+                box-shadow: 0 0 20px rgba(255,0,110,0.3);
             }
 
         .btn-dark {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
             .btn-dark:hover {
@@ -237,8 +271,8 @@
             align-items: center;
             gap: 12px;
             padding: 8px 16px;
-            background: rgba(255, 0, 110, 0.15);
-            border: 1px solid rgba(255, 0, 110, 0.3);
+            background: rgba(255,0,110,0.15);
+            border: 1px solid rgba(255,0,110,0.3);
         }
 
         .user-avatar {
@@ -314,7 +348,7 @@
         }
 
         @keyframes heartbeat {
-            0%, 100% {
+            0%,100% {
                 transform: scale(1);
             }
 
@@ -325,7 +359,7 @@
 
         /* ========== ADMIN PANEL ========== */
         .boss-panel {
-            background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(255, 20, 147, 0.1));
+            background: linear-gradient(135deg, rgba(255,0,110,0.2), rgba(255,20,147,0.1));
             border: 2px solid var(--pink-vivid);
             padding: 25px;
             margin-bottom: 40px;
@@ -394,8 +428,8 @@
 
         .cat-btn {
             padding: 12px 22px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 0, 110, 0.15);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,0,110,0.15);
             color: var(--white-soft);
             cursor: pointer;
             font-family: 'Crimson Pro', serif;
@@ -406,7 +440,7 @@
             .cat-btn:hover {
                 border-color: var(--pink-vivid);
                 color: var(--pink-hot);
-                box-shadow: 0 0 15px rgba(255, 0, 110, 0.2);
+                box-shadow: 0 0 15px rgba(255,0,110,0.2);
             }
 
             .cat-btn.active {
@@ -418,7 +452,7 @@
         /* ========== FILTER BAR ========== */
         .filter-row {
             display: flex;
-            border-bottom: 1px solid rgba(255, 0, 110, 0.2);
+            border-bottom: 1px solid rgba(255,0,110,0.2);
             margin-bottom: 40px;
         }
 
@@ -470,7 +504,7 @@
 
         .story-card {
             background: linear-gradient(180deg, var(--black-card) 0%, var(--black-deep) 100%);
-            border: 1px solid rgba(255, 0, 110, 0.1);
+            border: 1px solid rgba(255,0,110,0.1);
             cursor: pointer;
             transition: all 0.4s ease;
             position: relative;
@@ -479,8 +513,8 @@
 
             .story-card:hover {
                 transform: translateY(-10px) rotateX(2deg);
-                border-color: rgba(255, 0, 110, 0.4);
-                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 60px rgba(255, 0, 110, 0.2);
+                border-color: rgba(255,0,110,0.4);
+                box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 60px rgba(255,0,110,0.2);
             }
 
         .story-vip {
@@ -544,7 +578,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 25px rgba(255,215,0,0.5);
         }
 
         .card-body {
@@ -590,7 +624,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.97);
+            background: rgba(0,0,0,0.97);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -603,7 +637,7 @@
 
         .modal-box {
             background: var(--black-card);
-            border: 1px solid rgba(255, 0, 110, 0.3);
+            border: 1px solid rgba(255,0,110,0.3);
             max-width: 520px;
             width: 100%;
             max-height: 90vh;
@@ -680,8 +714,8 @@
         .field-input {
             width: 100%;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 0, 110, 0.2);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,0,110,0.2);
             color: var(--white);
             font-family: 'Crimson Pro', serif;
             font-size: 15px;
@@ -691,12 +725,12 @@
             .field-input:focus {
                 outline: none;
                 border-color: var(--pink-vivid);
-                background: rgba(255, 0, 110, 0.05);
-                box-shadow: 0 0 15px rgba(255, 0, 110, 0.2);
+                background: rgba(255,0,110,0.05);
+                box-shadow: 0 0 15px rgba(255,0,110,0.2);
             }
 
             .field-input::placeholder {
-                color: rgba(255, 179, 198, 0.3);
+                color: rgba(255,179,198,0.3);
             }
 
         .field-area {
@@ -762,51 +796,51 @@
             gap: 12px;
             margin-top: 25px;
             padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255,255,255,0.08);
         }
 
-        /* ========== PAYPAL ========== */
-        .paypal-zone {
+        /* ========== VIP ZONE ========== */
+        .vip-zone {
             text-align: center;
             padding: 25px;
-            background: rgba(255, 0, 110, 0.08);
-            border: 1px solid rgba(255, 0, 110, 0.2);
+            background: rgba(255,0,110,0.08);
+            border: 1px solid rgba(255,0,110,0.2);
             margin: 20px 0;
         }
 
-        .paypal-money {
+        .vip-price {
             font-family: 'Permanent Marker', cursive;
             font-size: 3.2em;
             color: var(--pink-hot);
             line-height: 1;
         }
 
-        .paypal-note {
+        .vip-note {
             color: var(--pink-soft);
             font-size: 13px;
             margin-top: 6px;
         }
 
-        .paypal-list {
+        .vip-list {
             list-style: none;
             text-align: left;
             margin: 20px 0;
         }
 
-            .paypal-list li {
+            .vip-list li {
                 padding: 10px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                border-bottom: 1px solid rgba(255,255,255,0.05);
                 display: flex;
                 align-items: center;
                 gap: 10px;
                 font-size: 14px;
             }
 
-                .paypal-list li i {
+                .vip-list li i {
                     color: var(--pink-neon);
                 }
 
-        .paypal-safe {
+        .vip-safe {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -820,7 +854,7 @@
         .empty-box {
             text-align: center;
             padding: 70px 30px;
-            border: 1px dashed rgba(255, 0, 110, 0.2);
+            border: 1px dashed rgba(255,0,110,0.2);
         }
 
         .empty-icon {
@@ -853,7 +887,7 @@
         .pulse-ring {
             width: 45px;
             height: 45px;
-            border: 3px solid rgba(255, 0, 110, 0.1);
+            border: 3px solid rgba(255,0,110,0.1);
             border-top-color: var(--pink-vivid);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
@@ -863,6 +897,54 @@
             to {
                 transform: rotate(360deg);
             }
+        }
+
+        /* ========== AGE GATE ========== */
+        .age-gate {
+            position: fixed;
+            inset: 0;
+            background: var(--black-void);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .age-gate-box {
+            background: var(--black-card);
+            border: 2px solid var(--pink-vivid);
+            max-width: 420px;
+            width: 100%;
+            padding: 50px 40px;
+            text-align: center;
+            animation: modalRise 0.5s ease;
+        }
+
+        .age-gate-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .age-gate-title {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2em;
+            color: var(--pink-hot);
+            margin-bottom: 10px;
+        }
+
+        .age-gate-text {
+            color: var(--pink-soft);
+            font-size: 15px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .age-gate-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         /* ========== RESPONSIVE ========== */
@@ -891,7 +973,7 @@
             }
 
             .hero-zone {
-                padding: 200px 0 40px;
+                padding: 220px 0 40px;
             }
 
             .btn {
@@ -924,6 +1006,10 @@
                 padding: 10px 16px;
                 font-size: 13px;
             }
+
+            .header-right {
+                gap: 8px;
+            }
         }
 
         /* ========== SCROLLBAR ========== */
@@ -946,7 +1032,7 @@
             top: 90px;
             right: 20px;
             padding: 16px 24px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
             z-index: 2000;
             animation: slideInRight 0.3s ease;
             font-family: 'Crimson Pro', serif;
@@ -997,21 +1083,40 @@
     <div class="bg-sins"></div>
     <div class="particles" id="particles"></div>
 
+    <!-- ========== AGE GATE ========== -->
+    <div id="ageGate" class="age-gate" style="display:none;">
+        <div class="age-gate-box">
+            <div class="age-gate-icon">🔞</div>
+            <h2 class="age-gate-title" data-i18n="age_title">Adults Only</h2>
+            <p class="age-gate-text" data-i18n="age_text">This site contains explicit content for adults only. You must be 18 years or older to enter.</p>
+            <div class="age-gate-btns">
+                <button class="btn btn-fire" onclick="confirmAge(true)" data-i18n="age_yes">I'm 18+ — Enter</button>
+                <button class="btn btn-dark" onclick="confirmAge(false)" data-i18n="age_no">I'm under 18 — Leave</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ========== HEADER ========== -->
     <header>
         <div class="container header-flex">
             <div class="logo-wild">
                 <div class="logo-main neon-text">RELATOS</div>
-                <div class="logo-sub">🔥 Historias Prohibidas 🔥</div>
+                <div class="logo-sub" data-i18n="logo_sub">🔥 Forbidden Stories 🔥</div>
             </div>
-            <div id="userSection">
-                <div style="display: flex; gap: 12px;">
-                    <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
-                        <i class="fas fa-key"></i> Entrar
-                    </button>
-                    <button class="btn btn-fire" onclick="showModal('registerModal')">
-                        <i class="fas fa-crown"></i> VIP
-                    </button>
+            <div class="header-right">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" onclick="setLang('en')" id="btn-lang-en">🇺🇸 EN</button>
+                    <button class="lang-btn" onclick="setLang('es')" id="btn-lang-es">🇪🇸 ES</button>
+                </div>
+                <div id="userSection">
+                    <div style="display: flex; gap: 12px;">
+                        <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
+                            <i class="fas fa-key"></i> <span data-i18n="btn_login">Login</span>
+                        </button>
+                        <button class="btn btn-fire" onclick="showModal('registerModal')">
+                            <i class="fas fa-crown"></i> <span data-i18n="btn_vip">VIP</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1022,7 +1127,7 @@
         <div class="container">
             <!-- Hero -->
             <section class="hero-zone">
-                <h1 class="hero-title neon-text">🔥 RELATOS SENSUALES 🔥</h1>
+                <h1 class="hero-title neon-text" data-i18n="hero_title">🔥 SENSUAL STORIES 🔥</h1>
                 <div class="flame-divider">
                     <div class="divider-line"></div>
                     <i class="fas fa-heart divider-icon"></i>
@@ -1030,63 +1135,43 @@
                     <i class="fas fa-heart divider-icon"></i>
                     <div class="divider-line"></div>
                 </div>
-                <p class="hero-sub">Donde la fantasía se vuelve realidad... sin límites</p>
+                <p class="hero-sub" data-i18n="hero_sub">Where fantasy becomes reality... no limits</p>
             </section>
 
             <!-- Admin -->
             <div id="adminPanel" class="boss-panel">
                 <div class="boss-header">
-                    <h2 class="boss-title">
-                        <i class="fas fa-crown"></i> Modo Dios
-                    </h2>
+                    <h2 class="boss-title"><i class="fas fa-crown"></i> <span data-i18n="admin_title">God Mode</span></h2>
                     <button class="btn btn-fire" onclick="showCreateModal()">
-                        <i class="fas fa-plus"></i> Nuevo Relato
+                        <i class="fas fa-plus"></i> <span data-i18n="admin_new">New Story</span>
                     </button>
                 </div>
             </div>
 
             <!-- Categories -->
             <section class="cat-section">
-                <div class="section-head">
-                    <i class="fas fa-fire"></i> Categorías
-                </div>
+                <div class="section-head"><i class="fas fa-fire"></i> <span data-i18n="section_categories">Categories</span></div>
                 <div class="cat-row">
-                    <button class="cat-btn active" onclick="filterByCategory('todas', event)">Todas</button>
-                    <button class="cat-btn" onclick="filterByCategory('romantico', event)">
-                        <i class="fas fa-heart"></i> Romántico
-                    </button>
-                    <button class="cat-btn" onclick="filterByCategory('pasion', event)">
-                        <i class="fas fa-fire"></i> Pasión
-                    </button>
-                    <button class="cat-btn" onclick="filterByCategory('misterio', event)">
-                        <i class="fas fa-moon"></i> Misterio
-                    </button>
-                    <button class="cat-btn" onclick="filterByCategory('fantastico', event)">
-                        <i class="fas fa-star"></i> Fantástico
-                    </button>
-                    <button class="cat-btn" onclick="filterByCategory('prohibido', event)">
-                        <i class="fas fa-ban"></i> Prohibido
-                    </button>
-                    <button class="cat-btn" onclick="filterByCategory('universitarios', event)">
-                        <i class="fas fa-graduation-cap"></i> Universitarios
-                    </button>
+                    <button class="cat-btn active" onclick="filterByCategory('todas', event)" data-i18n="cat_all">All</button>
+                    <button class="cat-btn" onclick="filterByCategory('romantico', event)"><i class="fas fa-heart"></i> <span data-i18n="cat_romantic">Romantic</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('pasion', event)"><i class="fas fa-fire"></i> <span data-i18n="cat_passion">Passion</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('misterio', event)"><i class="fas fa-moon"></i> <span data-i18n="cat_mystery">Mystery</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('fantastico', event)"><i class="fas fa-star"></i> <span data-i18n="cat_fantasy">Fantasy</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('prohibido', event)"><i class="fas fa-ban"></i> <span data-i18n="cat_forbidden">Forbidden</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('universitarios', event)"><i class="fas fa-graduation-cap"></i> <span data-i18n="cat_college">College</span></button>
                 </div>
             </section>
 
             <!-- Filters -->
             <div class="filter-row">
-                <button class="filter-btn active" onclick="filterRelatos('todos', event)">Todos</button>
-                <button class="filter-btn" onclick="filterRelatos('gratis', event)">Gratuitos</button>
-                <button class="filter-btn" onclick="filterRelatos('premium', event)">
-                    <i class="fas fa-crown"></i> Exclusivos
-                </button>
+                <button class="filter-btn active" onclick="filterRelatos('todos', event)" data-i18n="filter_all">All</button>
+                <button class="filter-btn" onclick="filterRelatos('gratis', event)" data-i18n="filter_free">Free</button>
+                <button class="filter-btn" onclick="filterRelatos('premium', event)"><i class="fas fa-crown"></i> <span data-i18n="filter_exclusive">Exclusive</span></button>
             </div>
 
             <!-- Grid -->
             <div id="relatosGrid" class="stories-grid">
-                <div class="loading-center">
-                    <div class="pulse-ring"></div>
-                </div>
+                <div class="loading-center"><div class="pulse-ring"></div></div>
             </div>
         </div>
     </main>
@@ -1094,23 +1179,21 @@
     <!-- ========== LOGIN MODAL ========== -->
     <div id="loginModal" class="modal">
         <div class="modal-box">
-            <button class="modal-x" onclick="closeModal('loginModal')">
-                <i class="fas fa-times"></i>
-            </button>
+            <button class="modal-x" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
             <div class="modal-inner">
-                <h2 class="modal-title neon-text">Acceder</h2>
-                <p class="modal-sub">Tu cuenta personal</p>
+                <h2 class="modal-title neon-text" data-i18n="login_title">Sign In</h2>
+                <p class="modal-sub" data-i18n="login_sub">Your personal account</p>
                 <form onsubmit="login(event)">
                     <div class="field">
                         <label class="field-label">Email</label>
-                        <input type="email" id="loginEmail" class="field-input" placeholder="tu@email.com" required>
+                        <input type="email" id="loginEmail" class="field-input" placeholder="you@email.com" required>
                     </div>
                     <div class="field">
-                        <label class="field-label">Contraseña</label>
+                        <label class="field-label" data-i18n="field_password">Password</label>
                         <input type="password" id="loginPassword" class="field-input" placeholder="••••••••" required>
                     </div>
-                    <button type="submit" class="btn btn-fire" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-sign-in-alt"></i> Entrar
+                    <button type="submit" class="btn btn-fire" style="width:100%; justify-content:center;">
+                        <i class="fas fa-sign-in-alt"></i> <span data-i18n="btn_login">Login</span>
                     </button>
                 </form>
             </div>
@@ -1120,27 +1203,25 @@
     <!-- ========== REGISTER MODAL ========== -->
     <div id="registerModal" class="modal">
         <div class="modal-box">
-            <button class="modal-x" onclick="closeModal('registerModal')">
-                <i class="fas fa-times"></i>
-            </button>
+            <button class="modal-x" onclick="closeModal('registerModal')"><i class="fas fa-times"></i></button>
             <div class="modal-inner">
-                <h2 class="modal-title neon-text">Registrarse</h2>
-                <p class="modal-sub">Únete al lado oscuro</p>
+                <h2 class="modal-title neon-text" data-i18n="register_title">Sign Up</h2>
+                <p class="modal-sub" data-i18n="register_sub">Join the dark side</p>
                 <form onsubmit="register(event)">
                     <div class="field">
-                        <label class="field-label">Nombre</label>
-                        <input type="text" id="registerName" class="field-input" placeholder="Tu nombre" required>
+                        <label class="field-label" data-i18n="field_name">Name</label>
+                        <input type="text" id="registerName" class="field-input" placeholder="Your name" required>
                     </div>
                     <div class="field">
                         <label class="field-label">Email</label>
-                        <input type="email" id="registerEmail" class="field-input" placeholder="tu@email.com" required>
+                        <input type="email" id="registerEmail" class="field-input" placeholder="you@email.com" required>
                     </div>
                     <div class="field">
-                        <label class="field-label">Contraseña</label>
-                        <input type="password" id="registerPassword" class="field-input" placeholder="Mínimo 6 caracteres" required>
+                        <label class="field-label" data-i18n="field_password">Password</label>
+                        <input type="password" id="registerPassword" class="field-input" placeholder="Min. 6 characters" required>
                     </div>
-                    <button type="submit" class="btn btn-fire" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-user-plus"></i> Crear Cuenta
+                    <button type="submit" class="btn btn-fire" style="width:100%; justify-content:center;">
+                        <i class="fas fa-user-plus"></i> <span data-i18n="register_title">Sign Up</span>
                     </button>
                 </form>
             </div>
@@ -1150,20 +1231,18 @@
     <!-- ========== STORY MODAL ========== -->
     <div id="relatoModal" class="modal">
         <div class="modal-box modal-box-wide">
-            <button class="modal-x" onclick="closeModal('relatoModal')">
-                <i class="fas fa-times"></i>
-            </button>
-            <img id="relatoImage" class="story-img" style="display: none;">
+            <button class="modal-x" onclick="closeModal('relatoModal')"><i class="fas fa-times"></i></button>
+            <img id="relatoImage" class="story-img" style="display:none;">
             <div class="modal-inner">
                 <div class="story-cat" id="relatoCategory"></div>
                 <h2 id="relatoTitle" class="story-name neon-text"></h2>
                 <div id="relatoContent" class="story-text"></div>
-                <div id="relatoActions" class="story-tools" style="display: none;">
+                <div id="relatoActions" class="story-tools" style="display:none;">
                     <button class="btn btn-outline-pink btn-sm" onclick="editCurrentRelato()">
-                        <i class="fas fa-edit"></i> Editar
+                        <i class="fas fa-edit"></i> <span data-i18n="btn_edit">Edit</span>
                     </button>
                     <button class="btn btn-dark btn-sm" onclick="deleteCurrentRelato()">
-                        <i class="fas fa-trash"></i> Eliminar
+                        <i class="fas fa-trash"></i> <span data-i18n="btn_delete">Delete</span>
                     </button>
                 </div>
             </div>
@@ -1173,122 +1252,348 @@
     <!-- ========== CREATE MODAL ========== -->
     <div id="createRelatoModal" class="modal">
         <div class="modal-box modal-box-wide">
-            <button class="modal-x" onclick="closeModal('createRelatoModal')">
-                <i class="fas fa-times"></i>
-            </button>
+            <button class="modal-x" onclick="closeModal('createRelatoModal')"><i class="fas fa-times"></i></button>
             <div class="modal-inner">
-                <h2 id="formTitle" class="modal-title neon-text">Nuevo Relato</h2>
-                <p class="modal-sub">Escribe tu historia prohibida</p>
+                <h2 id="formTitle" class="modal-title neon-text" data-i18n="form_new">New Story</h2>
+                <p class="modal-sub" data-i18n="form_sub">Write your forbidden story</p>
                 <form onsubmit="saveRelato(event)">
                     <input type="hidden" id="relatoId">
                     <div class="field">
-                        <label class="field-label">Título</label>
-                        <input type="text" id="relatoTitulo" class="field-input" placeholder="Título de tu relato" required>
+                        <label class="field-label" data-i18n="field_title">Title</label>
+                        <input type="text" id="relatoTitulo" class="field-input" placeholder="Story title" required>
                     </div>
                     <div class="field">
-                        <label class="field-label">URL de Imagen</label>
-                        <input type="text" id="relatoImagen" class="field-input" placeholder="https://ejemplo.com/imagen.jpg">
+                        <label class="field-label" data-i18n="field_image">Image URL</label>
+                        <input type="text" id="relatoImagen" class="field-input" placeholder="https://example.com/image.jpg">
                     </div>
                     <div class="field">
-                        <label class="field-label">Categoría</label>
+                        <label class="field-label" data-i18n="field_category">Category</label>
                         <select id="relatoCategoria" class="field-input field-select" required>
-                            <option value="romantico">Romántico</option>
-                            <option value="pasion">Pasión</option>
-                            <option value="misterio">Misterio</option>
-                            <option value="fantastico">Fantástico</option>
-                            <option value="prohibido">Prohibido</option>
-                            <option value="universitarios">Universitarios</option>
+                            <option value="romantico" data-i18n="cat_romantic">Romantic</option>
+                            <option value="pasion" data-i18n="cat_passion">Passion</option>
+                            <option value="misterio" data-i18n="cat_mystery">Mystery</option>
+                            <option value="fantastico" data-i18n="cat_fantasy">Fantasy</option>
+                            <option value="prohibido" data-i18n="cat_forbidden">Forbidden</option>
+                            <option value="universitarios" data-i18n="cat_college">College</option>
                         </select>
                     </div>
                     <div class="field">
-                        <label class="field-label">Contenido</label>
-                        <textarea id="relatoTexto" class="field-input field-area" placeholder="Escribe tu historia aquí..." required></textarea>
+                        <label class="field-label" data-i18n="field_content">Content</label>
+                        <textarea id="relatoTexto" class="field-input field-area" placeholder="Write your story here..." required></textarea>
                     </div>
                     <div class="field">
                         <label class="field-check">
                             <input type="checkbox" id="relatoPremium">
-                            <span>Contenido Exclusivo (VIP)</span>
+                            <span data-i18n="field_exclusive">Exclusive Content (VIP)</span>
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-fire" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-save"></i> Guardar
+                    <button type="submit" class="btn btn-fire" style="width:100%; justify-content:center;">
+                        <i class="fas fa-save"></i> <span data-i18n="btn_save">Save</span>
                     </button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- ========== MODAL DE PAGO VIP ========== -->
+    <!-- ========== VIP MODAL ========== -->
     <div id="paypalModal" class="modal">
         <div class="modal-box">
-            <button class="modal-x" onclick="closeModal('paypalModal')">
-                <i class="fas fa-times"></i>
-            </button>
+            <button class="modal-x" onclick="closeModal('paypalModal')"><i class="fas fa-times"></i></button>
             <div class="modal-inner">
-                <h2 class="modal-title neon-text">Acceso VIP</h2>
-                <p class="modal-sub">Desbloquea TODO el contenido</p>
+                <h2 class="modal-title neon-text" data-i18n="vip_title">VIP Access</h2>
+                <p class="modal-sub" data-i18n="vip_sub">Unlock ALL content</p>
 
-                <div class="paypal-zone">
-                    <div class="paypal-money">$24.99</div>
-                    <div class="paypal-note">Pago único · Acceso de por vida</div>
+                <div class="vip-zone">
+                    <div class="vip-price">$24.99</div>
+                    <div class="vip-note" data-i18n="vip_note">One-time payment · Lifetime access</div>
                 </div>
 
-                <ul class="paypal-list">
-                    <li><i class="fas fa-check"></i> TODOS los relatos sin límites</li>
-                    <li><i class="fas fa-check"></i> Historias nuevas cada semana</li>
-                    <li><i class="fas fa-check"></i> Sin suscripciones mensuales</li>
-                    <li><i class="fas fa-check"></i> Pago 100% seguro con cripto</li>
+                <ul class="vip-list">
+                    <li><i class="fas fa-check"></i> <span data-i18n="vip_benefit1">ALL stories, no limits</span></li>
+                    <li><i class="fas fa-check"></i> <span data-i18n="vip_benefit2">New stories every week</span></li>
+                    <li><i class="fas fa-check"></i> <span data-i18n="vip_benefit3">No monthly subscriptions</span></li>
+                    <li><i class="fas fa-check"></i> <span data-i18n="vip_benefit4">100% secure crypto payment</span></li>
                 </ul>
 
                 <!-- TON -->
-                <button id="btn-ton" class="auth-btn" style="margin-top: 5px; background: #0088cc; border-color: #0088cc; box-shadow: 0 0 10px rgba(0, 136, 204, 0.4); width: 100%;">
-                    <i class="fa-solid fa-gem"></i> Pagar 25 TON con Tonkeeper
+                <button id="btn-ton" class="btn btn-fire" style="width:100%; margin-top:5px; background:#0088cc; border-color:#0088cc; box-shadow:0 0 10px rgba(0,136,204,0.4); clip-path:none;">
+                    <i class="fa-solid fa-gem"></i> <span data-i18n="btn_pay_ton">Pay 25 TON with Tonkeeper</span>
                 </button>
 
-                <div id="ton-payment-info" style="display: none; background: var(--black-card); border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: left;">
-                    <h3 style="color: #0088cc; margin-top: 0; text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px;">Instrucciones de Pago</h3>
-                    <p style="font-size: 0.9rem; color: #ccc;">1. Abre Tonkeeper y envía exactamente <strong>25 TON</strong> a esta dirección:</p>
-                    <code id="ton-address" style="display:block; background: var(--black-dark); color: #fff; padding:10px; border-radius: 5px; word-break: break-all; margin-bottom: 15px; border: 1px solid #333;">Cargando...</code>
-                    <p style="color: var(--pink-vivid); font-weight: bold; margin-bottom: 5px; font-size: 0.9rem;"><i class="fa-solid fa-triangle-exclamation"></i> 2. IMPORTANTE: Incluye este MEMO exacto:</p>
-                    <code id="ton-memo" style="display:block; background: var(--black-dark); color: var(--pink-vivid); padding:10px; border-radius: 5px; font-size: 1.2rem; text-align: center; letter-spacing: 2px; border: 1px solid var(--pink-vivid);">Cargando...</code>
-                    <button id="btn-verificar-ton" class="auth-btn" style="margin-top: 20px; background: #0088cc; border-color: #0088cc; width: 100%;">
-                        <i class="fa-solid fa-check-double"></i> Ya hice el envío, verificar
+                <div id="ton-payment-info" style="display:none; background:var(--black-card); border:1px solid #0088cc; border-radius:10px; padding:15px; margin-top:20px; text-align:left;">
+                    <h3 style="color:#0088cc; margin-top:0; text-align:center; font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:1px;" data-i18n="payment_instructions">Payment Instructions</h3>
+                    <p style="font-size:0.9rem; color:#ccc;" data-i18n="ton_step1">1. Open Tonkeeper and send exactly <strong>25 TON</strong> to this address:</p>
+                    <code id="ton-address" style="display:block; background:var(--black-dark); color:#fff; padding:10px; border-radius:5px; word-break:break-all; margin-bottom:15px; border:1px solid #333;">Loading...</code>
+                    <p style="color:var(--pink-vivid); font-weight:bold; margin-bottom:5px; font-size:0.9rem;"><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="ton_step2">IMPORTANT: Include this exact MEMO:</span></p>
+                    <code id="ton-memo" style="display:block; background:var(--black-dark); color:var(--pink-vivid); padding:10px; border-radius:5px; font-size:1.2rem; text-align:center; letter-spacing:2px; border:1px solid var(--pink-vivid);">Loading...</code>
+                    <button id="btn-verificar-ton" class="btn btn-fire" style="margin-top:20px; width:100%; background:#0088cc; border-color:#0088cc; clip-path:none;">
+                        <i class="fa-solid fa-check-double"></i> <span data-i18n="btn_verify_ton">I sent it, verify now</span>
                     </button>
                 </div>
 
-                <div style="text-align: center; margin: 20px 0 10px; color: #777; font-size: 0.9rem;">— O paga con USDT —</div>
+                <div style="text-align:center; margin:20px 0 10px; color:#777; font-size:0.9rem;" data-i18n="or_usdt">— Or pay with USDT —</div>
 
                 <!-- USDT -->
-                <button id="btn-usdt" class="btn btn-fire" style="width: 100%; margin-top: 5px; background: #26a17b; border-color: #26a17b; box-shadow: 0 0 10px rgba(38,161,123,0.4);">
-                    <i class="fa-solid fa-dollar-sign"></i> Pagar 25 USDT (TRC20 / Bybit)
+                <button id="btn-usdt" class="btn btn-fire" style="width:100%; margin-top:5px; background:#26a17b; border-color:#26a17b; box-shadow:0 0 10px rgba(38,161,123,0.4); clip-path:none;">
+                    <i class="fa-solid fa-dollar-sign"></i> <span data-i18n="btn_pay_usdt">Pay 25 USDT (TRC20 / Bybit)</span>
                 </button>
 
-                <div id="usdt-payment-info" style="display:none; background: var(--black-card); border: 1px solid #26a17b; padding: 15px; margin-top: 20px;">
-                    <h3 style="color: #26a17b; text-align:center; font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:1px;">Instrucciones de Pago USDT</h3>
-                    <p style="font-size:0.9rem; color:#ccc; margin-bottom: 10px;">1. Envía exactamente <strong>25 USDT</strong> por la red <strong>TRC20 (Tron)</strong> a esta dirección:</p>
+                <div id="usdt-payment-info" style="display:none; background:var(--black-card); border:1px solid #26a17b; padding:15px; margin-top:20px;">
+                    <h3 style="color:#26a17b; text-align:center; font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:1px;" data-i18n="usdt_instructions">USDT Payment Instructions</h3>
+                    <p style="font-size:0.9rem; color:#ccc; margin-bottom:10px;" data-i18n="usdt_step1">1. Send exactly <strong>25 USDT</strong> via <strong>TRC20 (Tron)</strong> network to this address:</p>
                     <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px;">
-                        <code id="usdt-address" style="flex:1; display:block; background:var(--black-dark); color:#fff; padding:10px; word-break:break-all; border:1px solid #333;">Cargando...</code>
-                        <button onclick="navigator.clipboard.writeText(document.getElementById('usdt-address').innerText).then(() => toast('¡Dirección copiada!', 'success'))"
+                        <code id="usdt-address" style="flex:1; display:block; background:var(--black-dark); color:#fff; padding:10px; word-break:break-all; border:1px solid #333;">Loading...</code>
+                        <button onclick="navigator.clipboard.writeText(document.getElementById('usdt-address').innerText).then(() => toast(i18n('copied'), 'success'))"
                                 style="background:#26a17b; border:none; color:#fff; padding:10px 14px; cursor:pointer; font-size:16px;">
                             <i class="fas fa-copy"></i>
                         </button>
                     </div>
-                    <p style="color:#ccc; font-size:0.9rem; margin-bottom: 8px;">2. Después de enviar, pega el <strong>Hash de la transacción (TxID)</strong> aquí:</p>
-                    <input type="text" id="usdt-txid-input" class="field-input" placeholder="Ej: abc123def456..." style="margin-bottom:10px;">
-                    <button id="btn-verificar-usdt" class="btn btn-fire" style="width:100%; background:#26a17b; border-color:#26a17b;">
-                        <i class="fa-solid fa-check-double"></i> Verificar pago
+                    <p style="color:#ccc; font-size:0.9rem; margin-bottom:8px;" data-i18n="usdt_step2">2. After sending, paste the transaction Hash (TxID) here:</p>
+                    <input type="text" id="usdt-txid-input" class="field-input" placeholder="Ex: abc123def456..." style="margin-bottom:10px;">
+                    <button id="btn-verificar-usdt" class="btn btn-fire" style="width:100%; background:#26a17b; border-color:#26a17b; clip-path:none;">
+                        <i class="fa-solid fa-check-double"></i> <span data-i18n="btn_verify_usdt">Verify payment</span>
                     </button>
                 </div>
 
-                <div class="paypal-safe" style="margin-top: 20px;">
+                <div class="vip-safe" style="margin-top:20px;">
                     <i class="fas fa-lock"></i>
-                    Pago seguro · TON & USDT
+                    <span data-i18n="secure_payment">Secure payment · TON & USDT</span>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // ========== i18n ==========
+        const translations = {
+            en: {
+                // Age gate
+                age_title: 'Adults Only',
+                age_text: 'This site contains explicit content for adults only. You must be 18 years or older to enter.',
+                age_yes: "I'm 18+ — Enter",
+                age_no: "I'm under 18 — Leave",
+                // Header
+                logo_sub: '🔥 Forbidden Stories 🔥',
+                btn_login: 'Login',
+                btn_vip: 'VIP',
+                // Hero
+                hero_title: '🔥 SENSUAL STORIES 🔥',
+                hero_sub: 'Where fantasy becomes reality... no limits',
+                // Admin
+                admin_title: 'God Mode',
+                admin_new: 'New Story',
+                // Categories
+                section_categories: 'Categories',
+                cat_all: 'All',
+                cat_romantic: 'Romantic',
+                cat_passion: 'Passion',
+                cat_mystery: 'Mystery',
+                cat_fantasy: 'Fantasy',
+                cat_forbidden: 'Forbidden',
+                cat_college: 'College',
+                // Filters
+                filter_all: 'All',
+                filter_free: 'Free',
+                filter_exclusive: 'Exclusive',
+                // Login
+                login_title: 'Sign In',
+                login_sub: 'Your personal account',
+                // Register
+                register_title: 'Sign Up',
+                register_sub: 'Join the dark side',
+                // Fields
+                field_password: 'Password',
+                field_name: 'Name',
+                field_title: 'Title',
+                field_image: 'Image URL',
+                field_category: 'Category',
+                field_content: 'Content',
+                field_exclusive: 'Exclusive Content (VIP)',
+                // Form
+                form_new: 'New Story',
+                form_sub: 'Write your forbidden story',
+                // Buttons
+                btn_edit: 'Edit',
+                btn_delete: 'Delete',
+                btn_save: 'Save',
+                // VIP modal
+                vip_title: 'VIP Access',
+                vip_sub: 'Unlock ALL content',
+                vip_note: 'One-time payment · Lifetime access',
+                vip_benefit1: 'ALL stories, no limits',
+                vip_benefit2: 'New stories every week',
+                vip_benefit3: 'No monthly subscriptions',
+                vip_benefit4: '100% secure crypto payment',
+                // Payment
+                btn_pay_ton: 'Pay 25 TON with Tonkeeper',
+                payment_instructions: 'Payment Instructions',
+                ton_step1: '1. Open Tonkeeper and send exactly 25 TON to this address:',
+                ton_step2: 'IMPORTANT: Include this exact MEMO:',
+                btn_verify_ton: 'I sent it, verify now',
+                or_usdt: '— Or pay with USDT —',
+                btn_pay_usdt: 'Pay 25 USDT (TRC20 / Bybit)',
+                usdt_instructions: 'USDT Payment Instructions',
+                usdt_step1: '1. Send exactly 25 USDT via TRC20 (Tron) network to this address:',
+                usdt_step2: '2. After sending, paste the transaction Hash (TxID) here:',
+                btn_verify_usdt: 'Verify payment',
+                secure_payment: 'Secure payment · TON & USDT',
+                // Toast messages
+                welcome: 'Welcome! 🔥',
+                session_closed: 'Session closed',
+                vip_welcome: 'Welcome to VIP! 🔥',
+                payment_confirmed: 'Payment confirmed!',
+                login_required: 'You must log in to read exclusive stories',
+                go_vip: 'Get VIP to unlock this story! 🔥',
+                login_to_buy: 'You must log in to purchase Premium.',
+                loading_address: 'Loading...',
+                copied: 'Address copied!',
+                error_address: 'Error getting address',
+                error_generating: 'Error generating payment',
+                verify_blockchain: 'Verifying on blockchain...',
+                ton_not_found: 'Payment not found yet. If you just sent it, wait a minute.',
+                error_connection: 'Connection error.',
+                story_updated: 'Story updated 🔥',
+                story_created: 'Story created 🔥',
+                story_deleted: 'Story deleted',
+                connecting: 'Connecting...',
+                connecting_text: 'Establishing server connection',
+                no_stories: 'No stories here',
+                no_stories_text: 'Explore other categories or come back later',
+                locked_preview: 'This content is exclusive for VIP subscribers...',
+                // Card
+                vip_tag: 'VIP',
+            },
+            es: {
+                // Age gate
+                age_title: 'Solo Adultos',
+                age_text: 'Este sitio contiene contenido explícito solo para adultos. Debes tener 18 años o más para entrar.',
+                age_yes: 'Tengo 18+ — Entrar',
+                age_no: 'Tengo menos de 18 — Salir',
+                // Header
+                logo_sub: '🔥 Historias Prohibidas 🔥',
+                btn_login: 'Entrar',
+                btn_vip: 'VIP',
+                // Hero
+                hero_title: '🔥 RELATOS SENSUALES 🔥',
+                hero_sub: 'Donde la fantasía se vuelve realidad... sin límites',
+                // Admin
+                admin_title: 'Modo Dios',
+                admin_new: 'Nuevo Relato',
+                // Categories
+                section_categories: 'Categorías',
+                cat_all: 'Todas',
+                cat_romantic: 'Romántico',
+                cat_passion: 'Pasión',
+                cat_mystery: 'Misterio',
+                cat_fantasy: 'Fantástico',
+                cat_forbidden: 'Prohibido',
+                cat_college: 'Universitarios',
+                // Filters
+                filter_all: 'Todos',
+                filter_free: 'Gratuitos',
+                filter_exclusive: 'Exclusivos',
+                // Login
+                login_title: 'Acceder',
+                login_sub: 'Tu cuenta personal',
+                // Register
+                register_title: 'Registrarse',
+                register_sub: 'Únete al lado oscuro',
+                // Fields
+                field_password: 'Contraseña',
+                field_name: 'Nombre',
+                field_title: 'Título',
+                field_image: 'URL de Imagen',
+                field_category: 'Categoría',
+                field_content: 'Contenido',
+                field_exclusive: 'Contenido Exclusivo (VIP)',
+                // Form
+                form_new: 'Nuevo Relato',
+                form_sub: 'Escribe tu historia prohibida',
+                // Buttons
+                btn_edit: 'Editar',
+                btn_delete: 'Eliminar',
+                btn_save: 'Guardar',
+                // VIP modal
+                vip_title: 'Acceso VIP',
+                vip_sub: 'Desbloquea TODO el contenido',
+                vip_note: 'Pago único · Acceso de por vida',
+                vip_benefit1: 'TODOS los relatos sin límites',
+                vip_benefit2: 'Historias nuevas cada semana',
+                vip_benefit3: 'Sin suscripciones mensuales',
+                vip_benefit4: 'Pago 100% seguro con cripto',
+                // Payment
+                btn_pay_ton: 'Pagar 25 TON con Tonkeeper',
+                payment_instructions: 'Instrucciones de Pago',
+                ton_step1: '1. Abre Tonkeeper y envía exactamente 25 TON a esta dirección:',
+                ton_step2: 'IMPORTANTE: Incluye este MEMO exacto:',
+                btn_verify_ton: 'Ya hice el envío, verificar',
+                or_usdt: '— O paga con USDT —',
+                btn_pay_usdt: 'Pagar 25 USDT (TRC20 / Bybit)',
+                usdt_instructions: 'Instrucciones de Pago USDT',
+                usdt_step1: '1. Envía exactamente 25 USDT por la red TRC20 (Tron) a esta dirección:',
+                usdt_step2: '2. Después de enviar, pega el Hash de la transacción (TxID) aquí:',
+                btn_verify_usdt: 'Verificar pago',
+                secure_payment: 'Pago seguro · TON & USDT',
+                // Toast messages
+                welcome: '¡Bienvenido/a! 🔥',
+                session_closed: 'Sesión cerrada',
+                vip_welcome: '¡Bienvenido al club VIP! 🔥',
+                payment_confirmed: '¡Pago confirmado!',
+                login_required: 'Debes iniciar sesión para leer relatos exclusivos',
+                go_vip: '¡Hazte VIP para desbloquear este relato! 🔥',
+                login_to_buy: 'Debes iniciar sesión para comprar Premium.',
+                loading_address: 'Cargando...',
+                copied: '¡Dirección copiada!',
+                error_address: 'Error al obtener la dirección',
+                error_generating: 'Error al generar los datos de pago',
+                verify_blockchain: 'Verificando en la blockchain...',
+                ton_not_found: 'Aún no vemos el pago. Si acabas de pagar, espera un minuto.',
+                error_connection: 'Error de conexión.',
+                story_updated: 'Relato actualizado 🔥',
+                story_created: 'Relato creado 🔥',
+                story_deleted: 'Relato eliminado',
+                connecting: 'Conectando...',
+                connecting_text: 'Estableciendo conexión con el servidor',
+                no_stories: 'No hay historias aquí',
+                no_stories_text: 'Explora otras categorías o vuelve más tarde',
+                locked_preview: 'Este contenido es exclusivo para suscriptores VIP...',
+                // Card
+                vip_tag: 'VIP',
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function i18n(key) {
+            return translations[currentLang][key] || translations['en'][key] || key;
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.documentElement.lang = lang;
+            applyTranslations();
+            // Update active button
+            document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-lang-es').classList.toggle('active', lang === 'es');
+            // Re-render relatos to update labels
+            displayRelatos();
+        }
+
+        function applyTranslations() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const val = i18n(key);
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = val;
+                } else {
+                    el.textContent = val;
+                }
+            });
+            // Update page title
+            document.title = currentLang === 'es' ? '🔥 RELATOS SENSUALES 🔥' : '🔥 SENSUAL STORIES 🔥';
+        }
+
         // ========== CONFIG ==========
         const API_URL = window.location.origin + '/api';
 
@@ -1299,21 +1604,42 @@
         let currentFilter = 'todos';
         let currentCategory = 'todas';
 
-        const categoryLabels = {
-            'romantico': 'Romántico',
-            'pasion': 'Pasión',
-            'misterio': 'Misterio',
-            'fantastico': 'Fantástico',
-            'prohibido': 'Prohibido',
-            'universitarios': 'Universitarios'
+        const categoryKeys = {
+            'romantico': 'cat_romantic',
+            'pasion': 'cat_passion',
+            'misterio': 'cat_mystery',
+            'fantastico': 'cat_fantasy',
+            'prohibido': 'cat_forbidden',
+            'universitarios': 'cat_college'
         };
 
         // ========== INIT ==========
         document.addEventListener('DOMContentLoaded', function () {
+            applyTranslations();
+            checkAgeGate();
             checkUserSession();
             loadRelatos();
             createParticles();
         });
+
+        // ========== AGE GATE ==========
+        function checkAgeGate() {
+            const confirmed = localStorage.getItem('ageConfirmed');
+            if (!confirmed) {
+                document.getElementById('ageGate').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function confirmAge(isAdult) {
+            if (isAdult) {
+                localStorage.setItem('ageConfirmed', 'true');
+                document.getElementById('ageGate').style.display = 'none';
+                document.body.style.overflow = '';
+            } else {
+                window.location.href = 'https://www.google.com';
+            }
+        }
 
         // ========== PARTICLES ==========
         function createParticles() {
@@ -1332,7 +1658,6 @@
         function checkUserSession() {
             const token = localStorage.getItem('token');
             const userData = localStorage.getItem('userData');
-
             if (token && userData) {
                 currentUser = JSON.parse(userData);
                 updateUserInterface();
@@ -1346,31 +1671,30 @@
             if (currentUser) {
                 const initial = currentUser.nombre ? currentUser.nombre.charAt(0).toUpperCase() : 'U';
                 userSection.innerHTML = `
-                                <div class="user-bar">
-                                    <div class="user-card">
-                                        <div class="user-avatar">${initial}</div>
-                                        <span>${currentUser.nombre}</span>
-                                        ${currentUser.isAdmin ? '<span class="tag tag-gold">ADMIN</span>' : ''}
-                                        ${currentUser.isPremium ? '<span class="tag tag-pink">VIP</span>' : ''}
-                                    </div>
-                                    <button class="btn btn-dark btn-sm" onclick="logout()">
-                                        <i class="fas fa-sign-out-alt"></i>
-                                    </button>
-                                </div>
-                            `;
-
+                        <div class="user-bar">
+                            <div class="user-card">
+                                <div class="user-avatar">${initial}</div>
+                                <span>${currentUser.nombre}</span>
+                                ${currentUser.isAdmin ? `<span class="tag tag-gold">ADMIN</span>` : ''}
+                                ${currentUser.isPremium ? `<span class="tag tag-pink">${i18n('vip_tag')}</span>` : ''}
+                            </div>
+                            <button class="btn btn-dark btn-sm" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                        </div>
+                    `;
                 adminPanel.classList.toggle('active', currentUser.isAdmin);
             } else {
                 userSection.innerHTML = `
-                                <div style="display: flex; gap: 12px;">
-                                    <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
-                                        <i class="fas fa-key"></i> Entrar
-                                    </button>
-                                    <button class="btn btn-fire" onclick="showModal('registerModal')">
-                                        <i class="fas fa-crown"></i> VIP
-                                    </button>
-                                </div>
-                            `;
+                        <div style="display:flex; gap:12px;">
+                            <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
+                                <i class="fas fa-key"></i> ${i18n('btn_login')}
+                            </button>
+                            <button class="btn btn-fire" onclick="showModal('registerModal')">
+                                <i class="fas fa-crown"></i> ${i18n('btn_vip')}
+                            </button>
+                        </div>
+                    `;
                 adminPanel.classList.remove('active');
             }
         }
@@ -1380,28 +1704,21 @@
             event.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
-
             try {
                 const response = await fetch(`${API_URL}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ Email: email, Password: password })
                 });
-
                 const data = await response.json();
-
-                if (!response.ok) throw new Error(data.message || 'Error en login');
-
+                if (!response.ok) throw new Error(data.message || 'Error');
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('userData', JSON.stringify(data.user));
                 currentUser = data.user;
-
                 closeModal('loginModal');
                 updateUserInterface();
                 loadRelatos();
-
-                toast('¡Bienvenido/a! 🔥', 'success');
-
+                toast(i18n('welcome'), 'success');
             } catch (error) {
                 toast(error.message, 'error');
             }
@@ -1412,35 +1729,28 @@
             const nombre = document.getElementById('registerName').value;
             const email = document.getElementById('registerEmail').value;
             const password = document.getElementById('registerPassword').value;
-
             try {
                 const response = await fetch(`${API_URL}/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ Nombre: nombre, Email: email, Password: password })
                 });
-
                 const data = await response.json();
-                if (!response.ok) throw new Error(data.message || 'Error en registro');
-
-                // Auto login
+                if (!response.ok) throw new Error(data.message || 'Error');
                 const loginResponse = await fetch(`${API_URL}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ Email: email, Password: password })
                 });
-
                 const loginData = await loginResponse.json();
                 if (loginResponse.ok) {
                     localStorage.setItem('token', loginData.token);
                     localStorage.setItem('userData', JSON.stringify(loginData.user));
                     currentUser = loginData.user;
                 }
-
                 closeModal('registerModal');
                 updateUserInterface();
                 showPaypalModal();
-
             } catch (error) {
                 toast(error.message, 'error');
             }
@@ -1451,26 +1761,24 @@
             currentUser = null;
             updateUserInterface();
             loadRelatos();
-            toast('Sesión cerrada', 'info');
+            toast(i18n('session_closed'), 'info');
         }
 
         // ========== RELATOS ==========
         async function loadRelatos() {
             try {
                 const response = await fetch(`${API_URL}/Relatos`);
-                if (!response.ok) throw new Error('Error cargando relatos');
-
+                if (!response.ok) throw new Error('Error');
                 allRelatos = await response.json();
                 displayRelatos();
             } catch (error) {
-                console.error(error);
                 document.getElementById('relatosGrid').innerHTML = `
-                                <div class="empty-box" style="grid-column: 1 / -1;">
-                                    <div class="empty-icon"><i class="fas fa-plug"></i></div>
-                                    <h3 class="empty-title">Conectando...</h3>
-                                    <p class="empty-text">Estableciendo conexión con el servidor</p>
-                                </div>
-                            `;
+                        <div class="empty-box" style="grid-column:1/-1;">
+                            <div class="empty-icon"><i class="fas fa-plug"></i></div>
+                            <h3 class="empty-title">${i18n('connecting')}</h3>
+                            <p class="empty-text">${i18n('connecting_text')}</p>
+                        </div>
+                    `;
             }
         }
 
@@ -1481,7 +1789,6 @@
             if (currentCategory !== 'todas') {
                 filtered = filtered.filter(r => r.categoria === currentCategory);
             }
-
             if (currentFilter === 'gratis') {
                 filtered = filtered.filter(r => !r.esPremium);
             } else if (currentFilter === 'premium') {
@@ -1490,12 +1797,12 @@
 
             if (!filtered || filtered.length === 0) {
                 grid.innerHTML = `
-                                <div class="empty-box" style="grid-column: 1 / -1;">
-                                    <div class="empty-icon"><i class="fas fa-book-dead"></i></div>
-                                    <h3 class="empty-title">No hay historias aquí</h3>
-                                    <p class="empty-text">Explora otras categorías o vuelve más tarde</p>
-                                </div>
-                            `;
+                        <div class="empty-box" style="grid-column:1/-1;">
+                            <div class="empty-icon"><i class="fas fa-book-dead"></i></div>
+                            <h3 class="empty-title">${i18n('no_stories')}</h3>
+                            <p class="empty-text">${i18n('no_stories_text')}</p>
+                        </div>
+                    `;
                 return;
             }
 
@@ -1503,61 +1810,50 @@
                 const isLocked = relato.esPremium && (!currentUser || (!currentUser.isPremium && !currentUser.isAdmin));
                 const bgImage = relato.imagenUrl || 'https://images.unsplash.com/photo-1518767665125-e7b1e5d4b090?w=400&h=200&fit=crop';
                 const preview = isLocked
-                    ? "Este contenido es exclusivo para suscriptores VIP..."
-                    : (relato.contenido ? relato.contenido.substring(0, 100) + "..." : "...");
+                    ? i18n('locked_preview')
+                    : (relato.contenido ? relato.contenido.substring(0, 100) + '...' : '...');
+                const catLabel = categoryKeys[relato.categoria] ? i18n(categoryKeys[relato.categoria]) : relato.categoria;
 
                 return `
-                                <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
-                                    <div class="card-img-wrap">
-                                        <img src="${bgImage}" class="card-img" alt="${relato.titulo}">
-                                        <div class="card-darkness"></div>
-                                        ${relato.esPremium ? '<div class="vip-crown"><i class="fas fa-crown"></i> VIP</div>' : ''}
-                                    </div>
-                                    <div class="card-body">
-                                        <span class="card-cat">${categoryLabels[relato.categoria] || relato.categoria}</span>
-                                        <h3 class="card-title">${relato.titulo}</h3>
-                                        <p class="card-preview">${preview}</p>
-                                    </div>
-                                </div>
-                            `;
+                        <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
+                            <div class="card-img-wrap">
+                                <img src="${bgImage}" class="card-img" alt="${relato.titulo}">
+                                <div class="card-darkness"></div>
+                                ${relato.esPremium ? `<div class="vip-crown"><i class="fas fa-crown"></i> ${i18n('vip_tag')}</div>` : ''}
+                            </div>
+                            <div class="card-body">
+                                <span class="card-cat">${catLabel}</span>
+                                <h3 class="card-title">${relato.titulo}</h3>
+                                <p class="card-preview">${preview}</p>
+                            </div>
+                        </div>
+                    `;
             }).join('');
         }
 
         function openRelato(id) {
             const relato = allRelatos.find(r => r.id === id);
             if (!relato) return;
-
             const isLocked = relato.esPremium && (!currentUser || (!currentUser.isPremium && !currentUser.isAdmin));
-
             if (isLocked) {
                 if (!currentUser) {
-                    toast('Debes iniciar sesión para leer relatos exclusivos', 'info');
+                    toast(i18n('login_required'), 'info');
                     showModal('loginModal');
                 } else {
-                    // AQUÍ ESTÁ LA MAGIA:
-                    // DESPUÉS
-                    toast('¡Hazte VIP para desbloquear este relato! 🔥', 'info');
+                    toast(i18n('go_vip'), 'info');
                     showPaypalModal();
                 }
                 return;
             }
-
             currentRelato = relato;
             document.getElementById('relatoTitle').textContent = relato.titulo;
-            document.getElementById('relatoCategory').textContent = categoryLabels[relato.categoria] || relato.categoria;
+            const catLabel = categoryKeys[relato.categoria] ? i18n(categoryKeys[relato.categoria]) : relato.categoria;
+            document.getElementById('relatoCategory').textContent = catLabel;
             document.getElementById('relatoContent').textContent = relato.contenido;
-
             const imgEl = document.getElementById('relatoImage');
-            if (relato.imagenUrl) {
-                imgEl.src = relato.imagenUrl;
-                imgEl.style.display = 'block';
-            } else {
-                imgEl.style.display = 'none';
-            }
-
-            const actions = document.getElementById('relatoActions');
-            actions.style.display = (currentUser && currentUser.isAdmin) ? 'flex' : 'none';
-
+            if (relato.imagenUrl) { imgEl.src = relato.imagenUrl; imgEl.style.display = 'block'; }
+            else { imgEl.style.display = 'none'; }
+            document.getElementById('relatoActions').style.display = (currentUser && currentUser.isAdmin) ? 'flex' : 'none';
             showModal('relatoModal');
         }
 
@@ -1565,7 +1861,6 @@
         async function saveRelato(event) {
             event.preventDefault();
             const id = document.getElementById('relatoId').value;
-
             const data = {
                 Titulo: document.getElementById('relatoTitulo').value,
                 Categoria: document.getElementById('relatoCategoria').value,
@@ -1573,39 +1868,20 @@
                 ImagenUrl: document.getElementById('relatoImagen').value,
                 EsPremium: document.getElementById('relatoPremium').checked
             };
-
             const token = localStorage.getItem('token');
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            };
-
+            const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
             try {
                 let response;
                 if (id) {
                     data.Id = parseInt(id);
-                    response = await fetch(`${API_URL}/Relatos/${id}`, {
-                        method: 'PUT',
-                        headers: headers,
-                        body: JSON.stringify(data)
-                    });
+                    response = await fetch(`${API_URL}/Relatos/${id}`, { method: 'PUT', headers, body: JSON.stringify(data) });
                 } else {
-                    response = await fetch(`${API_URL}/Relatos`, {
-                        method: 'POST',
-                        headers: headers,
-                        body: JSON.stringify(data)
-                    });
+                    response = await fetch(`${API_URL}/Relatos`, { method: 'POST', headers, body: JSON.stringify(data) });
                 }
-
-                if (!response.ok) {
-                    const err = await response.json();
-                    throw new Error(err.message || 'Error al guardar');
-                }
-
+                if (!response.ok) { const err = await response.json(); throw new Error(err.message || 'Error'); }
                 closeModal('createRelatoModal');
                 loadRelatos();
-                toast(id ? 'Relato actualizado 🔥' : 'Relato creado 🔥', 'success');
-
+                toast(id ? i18n('story_updated') : i18n('story_created'), 'success');
             } catch (error) {
                 toast(error.message, 'error');
             }
@@ -1618,42 +1894,35 @@
             document.getElementById('relatoTexto').value = '';
             document.getElementById('relatoImagen').value = '';
             document.getElementById('relatoPremium').checked = false;
-            document.getElementById('formTitle').textContent = 'Nuevo Relato';
+            document.getElementById('formTitle').textContent = i18n('form_new');
             showModal('createRelatoModal');
         }
 
         function editCurrentRelato() {
             if (!currentRelato) return;
             closeModal('relatoModal');
-
             document.getElementById('relatoId').value = currentRelato.id;
             document.getElementById('relatoTitulo').value = currentRelato.titulo;
             document.getElementById('relatoCategoria').value = currentRelato.categoria;
             document.getElementById('relatoTexto').value = currentRelato.contenido;
             document.getElementById('relatoImagen').value = currentRelato.imagenUrl || '';
             document.getElementById('relatoPremium').checked = currentRelato.esPremium;
-            document.getElementById('formTitle').textContent = 'Editar Relato';
-
+            document.getElementById('formTitle').textContent = i18n('btn_edit') + ' ' + i18n('form_new').toLowerCase();
             showModal('createRelatoModal');
         }
 
         async function deleteCurrentRelato() {
             if (!currentRelato) return;
-            if (!confirm('¿Eliminar este relato?')) return;
-
+            if (!confirm(i18n('btn_delete') + '?')) return;
             const token = localStorage.getItem('token');
             try {
                 const response = await fetch(`${API_URL}/Relatos/${currentRelato.id}`, {
-                    method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${token}` }
+                    method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` }
                 });
-
-                if (!response.ok) throw new Error('Error al eliminar');
-
+                if (!response.ok) throw new Error('Error');
                 closeModal('relatoModal');
                 loadRelatos();
-                toast('Relato eliminado', 'success');
-
+                toast(i18n('story_deleted'), 'success');
             } catch (error) {
                 toast(error.message, 'error');
             }
@@ -1663,121 +1932,77 @@
         function filterByCategory(cat, event) {
             currentCategory = cat;
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
+            event.target.closest('.cat-btn').classList.add('active');
             displayRelatos();
         }
 
         function filterRelatos(filter, event) {
             currentFilter = filter;
             document.querySelectorAll('.filter-btn').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+            event.target.closest('.filter-btn').classList.add('active');
             displayRelatos();
         }
 
         // ========== MODAL HELPERS ==========
-        function showModal(id) {
-            document.getElementById(id).classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-            document.body.style.overflow = '';
-        }
+        function showModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
 
         document.addEventListener('click', function (e) {
-            if (e.target.classList.contains('modal')) {
-                e.target.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+            if (e.target.classList.contains('modal')) { e.target.classList.remove('active'); document.body.style.overflow = ''; }
         });
-
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
-                document.body.style.overflow = '';
-            }
+            if (e.key === 'Escape') { document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active')); document.body.style.overflow = ''; }
         });
 
         // ========== TOAST ==========
         function toast(message, type = 'info') {
             const existing = document.querySelector('.toast');
             if (existing) existing.remove();
-
             const t = document.createElement('div');
             t.className = `toast toast-${type}`;
             t.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
-
             document.body.appendChild(t);
-
-            setTimeout(() => {
-                t.style.animation = 'slideOutRight 0.3s ease forwards';
-                setTimeout(() => t.remove(), 300);
-            }, 3500);
+            setTimeout(() => { t.style.animation = 'slideOutRight 0.3s ease forwards'; setTimeout(() => t.remove(), 300); }, 3500);
         }
 
-        // ========== MOSTRAR MODAL DE PAGO VIP ==========
+        // ========== VIP MODAL ==========
         function showPaypalModal() {
             const btnTon = document.getElementById('btn-ton');
             const btnUsdt = document.getElementById('btn-usdt');
             const tonInfo = document.getElementById('ton-payment-info');
             const usdtInfo = document.getElementById('usdt-payment-info');
-
-            if (btnTon) { btnTon.style.display = ''; btnTon.disabled = false; btnTon.innerHTML = '<i class="fa-solid fa-gem"></i> Pagar 25 TON con Tonkeeper'; }
+            if (btnTon) { btnTon.style.display = ''; btnTon.disabled = false; btnTon.innerHTML = `<i class="fa-solid fa-gem"></i> ${i18n('btn_pay_ton')}`; }
             if (tonInfo) tonInfo.style.display = 'none';
-            if (btnUsdt) { btnUsdt.style.display = ''; btnUsdt.disabled = false; btnUsdt.innerHTML = '<i class="fa-solid fa-dollar-sign"></i> Pagar 25 USDT (TRC20 / Bybit)'; }
+            if (btnUsdt) { btnUsdt.style.display = ''; btnUsdt.disabled = false; btnUsdt.innerHTML = `<i class="fa-solid fa-dollar-sign"></i> ${i18n('btn_pay_usdt')}`; }
             if (usdtInfo) usdtInfo.style.display = 'none';
-
             showModal('paypalModal');
         }
 
-        // =======================================================
-        // LÓGICA DE PAGO CON TONKEEPER
-        // =======================================================
+        // ========== TON PAYMENT ==========
         document.addEventListener('DOMContentLoaded', () => {
             const btnTon = document.getElementById('btn-ton');
             const btnVerificarTon = document.getElementById('btn-verificar-ton');
 
             if (btnTon) {
                 btnTon.addEventListener('click', async () => {
+                    const token = localStorage.getItem('token');
+                    if (!token) { toast(i18n('login_to_buy'), 'error'); return; }
+                    btnTon.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${i18n('loading_address')}`;
+                    btnTon.disabled = true;
                     try {
-                        // Obtener el token de donde lo estés guardando (asumo localStorage con la clave 'token' o similar, ajústalo si tu clave es otra)
-                        const token = localStorage.getItem('token');
-                        if (!token) {
-                            toast('Debes iniciar sesión para comprar Premium.', 'error');
-                            return;
-                        }
-
-                        // Cambiar visual del botón mientras carga
-                        btnTon.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generando pago...';
-                        btnTon.disabled = true;
-
-                        // Llamada al backend
                         const response = await fetch('/api/Payment/ton/generar-pago', {
-                            method: 'GET',
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
+                            method: 'GET', headers: { 'Authorization': `Bearer ${token}` }
                         });
-
-                        if (!response.ok) throw new Error('Error al generar los datos de pago');
-
+                        if (!response.ok) throw new Error(i18n('error_generating'));
                         const data = await response.json();
-
-                        // Mostrar la caja y ocultar el botón inicial
                         document.getElementById('ton-payment-info').style.display = 'block';
                         btnTon.style.display = 'none';
-
-                        // Llenar los datos
                         document.getElementById('ton-address').innerText = data.address;
                         document.getElementById('ton-memo').innerText = data.memo;
-
-                        // Guardar el memo en el botón de verificar
                         btnVerificarTon.dataset.memo = data.memo;
-
                     } catch (error) {
-                        toast('Hubo un problema: ' + error.message, 'error');
-                        btnTon.innerHTML = '<i class="fa-solid fa-gem"></i> Pagar 25 TON con Tonkeeper';
+                        toast(error.message, 'error');
+                        btnTon.innerHTML = `<i class="fa-solid fa-gem"></i> ${i18n('btn_pay_ton')}`;
                         btnTon.disabled = false;
                     }
                 });
@@ -1787,68 +2012,54 @@
                 btnVerificarTon.addEventListener('click', async (e) => {
                     const memo = e.target.dataset.memo;
                     const token = localStorage.getItem('token');
-
-                    e.target.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verificando en la blockchain...';
+                    e.target.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${i18n('verify_blockchain')}`;
                     e.target.disabled = true;
-
                     try {
                         const response = await fetch('/api/Payment/ton/verificar-pago', {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            },
+                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                             body: JSON.stringify({ memo: memo })
                         });
-
                         const result = await response.json();
-
                         if (response.ok) {
-                            toast('¡Pago confirmado! ' + result.message, 'success');
-
-                            // DESPUÉS
+                            toast(`${i18n('payment_confirmed')} ${result.message}`, 'success');
                             currentUser.isPremium = true;
                             localStorage.setItem('userData', JSON.stringify(currentUser));
-                            setTimeout(() => {
-                                closeModal('paypalModal');
-                                updateUserInterface();
-                                loadRelatos();
-                            }, 2000);
+                            setTimeout(() => { closeModal('paypalModal'); updateUserInterface(); loadRelatos(); }, 2000);
                         } else {
-                            toast('Aún no vemos el pago. Si acabas de pagar, espera un minuto.', 'error');
+                            toast(i18n('ton_not_found'), 'error');
                         }
                     } catch (error) {
-                        toast('Error de conexión al verificar.', 'error');
+                        toast(i18n('error_connection'), 'error');
                     } finally {
-                        e.target.innerHTML = '<i class="fa-solid fa-check-double"></i> Ya hice el envío, verificar';
+                        e.target.innerHTML = `<i class="fa-solid fa-check-double"></i> ${i18n('btn_verify_ton')}`;
                         e.target.disabled = false;
                     }
                 });
             }
+
+            // ========== USDT PAYMENT ==========
             const btnUsdt = document.getElementById('btn-usdt');
             const btnVerificarUsdt = document.getElementById('btn-verificar-usdt');
 
             if (btnUsdt) {
                 btnUsdt.addEventListener('click', async () => {
                     const token = localStorage.getItem('token');
-                    if (!token) { toast('Debes iniciar sesión primero.', 'error'); return; }
-
-                    btnUsdt.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Cargando...';
+                    if (!token) { toast(i18n('login_to_buy'), 'error'); return; }
+                    btnUsdt.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${i18n('loading_address')}`;
                     btnUsdt.disabled = true;
-
                     try {
                         const response = await fetch('/api/Payment/usdt/obtener-direccion', {
                             headers: { 'Authorization': `Bearer ${token}` }
                         });
-                        if (!response.ok) throw new Error('Error al obtener la dirección');
-
+                        if (!response.ok) throw new Error(i18n('error_address'));
                         const data = await response.json();
                         document.getElementById('usdt-address').innerText = data.direccion;
                         document.getElementById('usdt-payment-info').style.display = 'block';
                         btnUsdt.style.display = 'none';
                     } catch (error) {
-                        toast('Error: ' + error.message, 'error');
-                        btnUsdt.innerHTML = '<i class="fa-solid fa-dollar-sign"></i> Pagar 25 USDT (TRC20 / Bybit)';
+                        toast(error.message, 'error');
+                        btnUsdt.innerHTML = `<i class="fa-solid fa-dollar-sign"></i> ${i18n('btn_pay_usdt')}`;
                         btnUsdt.disabled = false;
                     }
                 });
@@ -1858,40 +2069,28 @@
                 btnVerificarUsdt.addEventListener('click', async () => {
                     const token = localStorage.getItem('token');
                     const txId = document.getElementById('usdt-txid-input').value.trim();
-
-                    if (!txId) { toast('Por favor ingresa el TxID.', 'error'); return; }
-
-                    btnVerificarUsdt.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verificando en blockchain...';
+                    if (!txId) { toast('TxID required', 'error'); return; }
+                    btnVerificarUsdt.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${i18n('verify_blockchain')}`;
                     btnVerificarUsdt.disabled = true;
-
                     try {
                         const response = await fetch('/api/Payment/usdt/verificar-pago', {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            },
+                            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                             body: JSON.stringify({ txId: txId })
                         });
-
                         const result = await response.json();
-
                         if (response.ok) {
-                            toast('¡Pago confirmado! ' + result.message, 'success');
+                            toast(`${i18n('payment_confirmed')} ${result.message}`, 'success');
                             currentUser.isPremium = true;
                             localStorage.setItem('userData', JSON.stringify(currentUser));
-                            setTimeout(() => {
-                                closeModal('paypalModal');
-                                updateUserInterface();
-                                loadRelatos();
-                            }, 2000);
+                            setTimeout(() => { closeModal('paypalModal'); updateUserInterface(); loadRelatos(); }, 2000);
                         } else {
                             toast(result.message, 'error');
                         }
                     } catch (error) {
-                        toast('Error de conexión.', 'error');
+                        toast(i18n('error_connection'), 'error');
                     } finally {
-                        btnVerificarUsdt.innerHTML = '<i class="fa-solid fa-check-double"></i> Verificar pago';
+                        btnVerificarUsdt.innerHTML = `<i class="fa-solid fa-check-double"></i> ${i18n('btn_verify_usdt')}`;
                         btnVerificarUsdt.disabled = false;
                     }
                 });
