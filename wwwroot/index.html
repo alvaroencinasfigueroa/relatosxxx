@@ -1077,6 +1077,66 @@
                 transform: translateX(100px);
             }
         }
+
+        /* ========== AMBIENT GALLERY (imágenes decorativas laterales) ========== */
+        .ambient-gallery {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .ambient-side {
+            flex: 0 0 140px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+
+            .ambient-side img {
+                width: 100%;
+                border-radius: 8px;
+                object-fit: cover;
+                opacity: 0.9;
+                transition: opacity 0.8s ease;
+                box-shadow: 0 0 15px rgba(255,0,110,0.3);
+            }
+
+                .ambient-side img.fade-out {
+                    opacity: 0;
+                }
+
+        .ambient-content {
+            flex: 1;
+            min-width: 0; /* evita desbordamientos */
+        }
+
+        /* En móvil: las columnas laterales se apilan encima del texto como galería horizontal */
+        @media (max-width: 768px) {
+            .ambient-gallery {
+                flex-direction: column;
+            }
+
+            .ambient-side {
+                flex: unset;
+                flex-direction: row;
+                overflow-x: auto;
+                gap: 10px;
+                padding-bottom: 10px;
+                position: static;
+            }
+
+                .ambient-side img {
+                    width: 120px;
+                    height: 120px;
+                    flex-shrink: 0;
+                }
+            /* Opcional: si quieres una banda inferior también, duplica el .ambient-side en HTML */
+        }
+
     </style>
 </head>
 <body>
@@ -1234,18 +1294,26 @@
         <div class="modal-box modal-box-wide">
             <button class="modal-x" onclick="closeModal('relatoModal')"><i class="fas fa-times"></i></button>
             <img id="relatoImage" class="story-img" style="display:none;">
-            <div class="modal-inner">
-                <div class="story-cat" id="relatoCategory"></div>
-                <h2 id="relatoTitle" class="story-name neon-text"></h2>
-                <div id="relatoContent" class="story-text"></div>
-                <div id="relatoActions" class="story-tools" style="display:none;">
-                    <button class="btn btn-outline-pink btn-sm" onclick="editCurrentRelato()">
-                        <i class="fas fa-edit"></i> <span data-i18n="btn_edit">Edit</span>
-                    </button>
-                    <button class="btn btn-dark btn-sm" onclick="deleteCurrentRelato()">
-                        <i class="fas fa-trash"></i> <span data-i18n="btn_delete">Delete</span>
-                    </button>
+
+            <!-- NUEVO: galería ambiental con laterales -->
+            <div class="ambient-gallery" id="ambientGallery">
+                <div class="ambient-side" id="ambientLeft"></div>
+                <div class="ambient-content">
+                    <div class="modal-inner">
+                        <div class="story-cat" id="relatoCategory"></div>
+                        <h2 id="relatoTitle" class="story-name neon-text"></h2>
+                        <div id="relatoContent" class="story-text"></div>
+                        <div id="relatoActions" class="story-tools" style="display:none;">
+                            <button class="btn btn-outline-pink btn-sm" onclick="editCurrentRelato()">
+                                <i class="fas fa-edit"></i> <span data-i18n="btn_edit">Edit</span>
+                            </button>
+                            <button class="btn btn-dark btn-sm" onclick="deleteCurrentRelato()">
+                                <i class="fas fa-trash"></i> <span data-i18n="btn_delete">Delete</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+                <div class="ambient-side" id="ambientRight"></div>
             </div>
         </div>
     </div>
@@ -1637,6 +1705,57 @@
             'bizarro': 'cat_bizarre'
         };
 
+        // ========== AMBIENT IMAGES ==========
+        let ambientInterval;
+
+        async function loadAmbientImages() {
+            try {
+                const [leftImg, rightImg] = await Promise.all([
+                    fetch(`${API_URL}/Imagenes/random`).then(r => r.json()),
+                    fetch(`${API_URL}/Imagenes/random`).then(r => r.json())
+                ]);
+                setAmbientImage('left', leftImg.url);
+                setAmbientImage('right', rightImg.url);
+            } catch (err) {
+                console.error('Error loading ambient images', err);
+            }
+        }
+
+        function setAmbientImage(side, url) {
+            const container = document.getElementById(side === 'left' ? 'ambientLeft' : 'ambientRight');
+            if (!container || !url) return;
+
+            const existingImg = container.querySelector('img');
+            if (existingImg) {
+                existingImg.classList.add('fade-out');
+                setTimeout(() => {
+                    existingImg.src = url;
+                    existingImg.classList.remove('fade-out');
+                }, 800);
+            } else {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = 'Ambient';
+                container.appendChild(img);
+            }
+        }
+
+        function startAmbientTimer() {
+            if (ambientInterval) clearInterval(ambientInterval);
+            loadAmbientImages(); // carga inicial
+            ambientInterval = setInterval(loadAmbientImages, 30000);
+        }
+
+        function stopAmbientTimer() {
+            if (ambientInterval) {
+                clearInterval(ambientInterval);
+                ambientInterval = null;
+            }
+            // Limpiar contendores
+            document.getElementById('ambientLeft').innerHTML = '';
+            document.getElementById('ambientRight').innerHTML = '';
+        }
+
         // Corazón SVG por categoría
         const categoryHearts = {
             'universitarios': { bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', heart: ['#ff69b4', '#ff1493'], glow: 'rgba(255,20,147,0.4)' },
@@ -1652,28 +1771,28 @@
             const theme = categoryHearts[categoria] || categoryHearts['nalgonas'];
             const [c1, c2] = theme.heart;
             const lockOverlay = isLocked ? `
-                    <rect width="200" height="200" fill="rgba(0,0,0,0.55)"/>
-                    <text x="100" y="95" text-anchor="middle" font-size="32" fill="#fff">🔒</text>
-                    <text x="100" y="125" text-anchor="middle" font-family="sans-serif" font-size="13" fill="rgba(255,179,198,0.9)">VIP Only</text>
-                ` : '';
+                        <rect width="200" height="200" fill="rgba(0,0,0,0.55)"/>
+                        <text x="100" y="95" text-anchor="middle" font-size="32" fill="#fff">🔒</text>
+                        <text x="100" y="125" text-anchor="middle" font-family="sans-serif" font-size="13" fill="rgba(255,179,198,0.9)">VIP Only</text>
+                    ` : '';
             return `
-                    <div style="position:relative;height:200px;overflow:hidden;background:${theme.bg};display:flex;align-items:center;justify-content:center;">
-                        <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 18px ${theme.glow})">
-                            <defs>
-                                <radialGradient id="hg_${categoria}" cx="50%" cy="40%" r="60%">
-                                    <stop offset="0%" stop-color="${c1}"/>
-                                    <stop offset="100%" stop-color="${c2}"/>
-                                </radialGradient>
-                            </defs>
-                            <path d="M100 160 C60 130 20 105 20 72 C20 45 40 28 62 28 C78 28 92 38 100 50 C108 38 122 28 138 28 C160 28 180 45 180 72 C180 105 140 130 100 160Z"
-                                  fill="url(#hg_${categoria})" opacity="0.95"/>
-                            <path d="M100 145 C68 120 35 100 35 72 C35 52 50 40 65 40 C78 40 90 48 100 60"
-                                  fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
-                            ${lockOverlay}
-                        </svg>
-                        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%);"></div>
-                    </div>
-                `;
+                        <div style="position:relative;height:200px;overflow:hidden;background:${theme.bg};display:flex;align-items:center;justify-content:center;">
+                            <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 18px ${theme.glow})">
+                                <defs>
+                                    <radialGradient id="hg_${categoria}" cx="50%" cy="40%" r="60%">
+                                        <stop offset="0%" stop-color="${c1}"/>
+                                        <stop offset="100%" stop-color="${c2}"/>
+                                    </radialGradient>
+                                </defs>
+                                <path d="M100 160 C60 130 20 105 20 72 C20 45 40 28 62 28 C78 28 92 38 100 50 C108 38 122 28 138 28 C160 28 180 45 180 72 C180 105 140 130 100 160Z"
+                                      fill="url(#hg_${categoria})" opacity="0.95"/>
+                                <path d="M100 145 C68 120 35 100 35 72 C35 52 50 40 65 40 C78 40 90 48 100 60"
+                                      fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+                                ${lockOverlay}
+                            </svg>
+                            <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%);"></div>
+                        </div>
+                    `;
         }
 
         // ========== INIT ==========
@@ -1734,30 +1853,30 @@
             if (currentUser) {
                 const initial = currentUser.nombre ? currentUser.nombre.charAt(0).toUpperCase() : 'U';
                 userSection.innerHTML = `
-                        <div class="user-bar">
-                            <div class="user-card">
-                                <div class="user-avatar">${initial}</div>
-                                <span>${currentUser.nombre}</span>
-                                ${currentUser.isAdmin ? `<span class="tag tag-gold">ADMIN</span>` : ''}
-                                ${currentUser.isPremium ? `<span class="tag tag-pink">${i18n('vip_tag')}</span>` : ''}
+                            <div class="user-bar">
+                                <div class="user-card">
+                                    <div class="user-avatar">${initial}</div>
+                                    <span>${currentUser.nombre}</span>
+                                    ${currentUser.isAdmin ? `<span class="tag tag-gold">ADMIN</span>` : ''}
+                                    ${currentUser.isPremium ? `<span class="tag tag-pink">${i18n('vip_tag')}</span>` : ''}
+                                </div>
+                                <button class="btn btn-dark btn-sm" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </button>
                             </div>
-                            <button class="btn btn-dark btn-sm" onclick="logout()">
-                                <i class="fas fa-sign-out-alt"></i>
-                            </button>
-                        </div>
-                    `;
+                        `;
                 adminPanel.classList.toggle('active', currentUser.isAdmin);
             } else {
                 userSection.innerHTML = `
-                        <div style="display:flex; gap:12px;">
-                            <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
-                                <i class="fas fa-key"></i> ${i18n('btn_login')}
-                            </button>
-                            <button class="btn btn-fire" onclick="showModal('registerModal')">
-                                <i class="fas fa-crown"></i> ${i18n('btn_vip')}
-                            </button>
-                        </div>
-                    `;
+                            <div style="display:flex; gap:12px;">
+                                <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
+                                    <i class="fas fa-key"></i> ${i18n('btn_login')}
+                                </button>
+                                <button class="btn btn-fire" onclick="showModal('registerModal')">
+                                    <i class="fas fa-crown"></i> ${i18n('btn_vip')}
+                                </button>
+                            </div>
+                        `;
                 adminPanel.classList.remove('active');
             }
         }
@@ -1836,12 +1955,12 @@
                 displayRelatos();
             } catch (error) {
                 document.getElementById('relatosGrid').innerHTML = `
-                        <div class="empty-box" style="grid-column:1/-1;">
-                            <div class="empty-icon"><i class="fas fa-plug"></i></div>
-                            <h3 class="empty-title">${i18n('connecting')}</h3>
-                            <p class="empty-text">${i18n('connecting_text')}</p>
-                        </div>
-                    `;
+                            <div class="empty-box" style="grid-column:1/-1;">
+                                <div class="empty-icon"><i class="fas fa-plug"></i></div>
+                                <h3 class="empty-title">${i18n('connecting')}</h3>
+                                <p class="empty-text">${i18n('connecting_text')}</p>
+                            </div>
+                        `;
             }
         }
 
@@ -1860,12 +1979,12 @@
 
             if (!filtered || filtered.length === 0) {
                 grid.innerHTML = `
-                        <div class="empty-box" style="grid-column:1/-1;">
-                            <div class="empty-icon"><i class="fas fa-book-dead"></i></div>
-                            <h3 class="empty-title">${i18n('no_stories')}</h3>
-                            <p class="empty-text">${i18n('no_stories_text')}</p>
-                        </div>
-                    `;
+                            <div class="empty-box" style="grid-column:1/-1;">
+                                <div class="empty-icon"><i class="fas fa-book-dead"></i></div>
+                                <h3 class="empty-title">${i18n('no_stories')}</h3>
+                                <p class="empty-text">${i18n('no_stories_text')}</p>
+                            </div>
+                        `;
                 return;
             }
 
@@ -1877,16 +1996,16 @@
                 const catLabel = categoryKeys[relato.categoria] ? i18n(categoryKeys[relato.categoria]) : relato.categoria;
 
                 return `
-                        <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
-                            ${getHeartSvg(relato.categoria, isLocked)}
-                            ${relato.esPremium ? `<div class="vip-crown" style="position:absolute;top:12px;right:12px;"><i class="fas fa-crown"></i> ${i18n('vip_tag')}</div>` : ''}
-                            <div class="card-body">
-                                <span class="card-cat">${catLabel}</span>
-                                <h3 class="card-title">${relato.titulo}</h3>
-                                <p class="card-preview">${preview}</p>
+                            <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
+                                ${getHeartSvg(relato.categoria, isLocked)}
+                                ${relato.esPremium ? `<div class="vip-crown" style="position:absolute;top:12px;right:12px;"><i class="fas fa-crown"></i> ${i18n('vip_tag')}</div>` : ''}
+                                <div class="card-body">
+                                    <span class="card-cat">${catLabel}</span>
+                                    <h3 class="card-title">${relato.titulo}</h3>
+                                    <p class="card-preview">${preview}</p>
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
             }).join('');
         }
 
@@ -1914,6 +2033,7 @@
             else { imgEl.style.display = 'none'; }
             document.getElementById('relatoActions').style.display = (currentUser && currentUser.isAdmin) ? 'flex' : 'none';
             showModal('relatoModal');
+            startAmbientTimer(); // <-- añade esto al final
         }
 
         // ========== CRUD ==========
