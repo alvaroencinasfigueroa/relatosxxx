@@ -11,6 +11,7 @@ namespace Relatosxxx.Data
         public DbSet<Relato> Relatos { get; set; }
         public DbSet<Pago> Pagos { get; set; }
         
-
+        //para Supabase
+        public DbSet<ImagenDecorativa> ImagenDecorativas { get; set; } 
     }
 }
