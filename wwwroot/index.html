@@ -1153,12 +1153,13 @@
                 <div class="section-head"><i class="fas fa-fire"></i> <span data-i18n="section_categories">Categories</span></div>
                 <div class="cat-row">
                     <button class="cat-btn active" onclick="filterByCategory('todas', event)" data-i18n="cat_all">All</button>
-                    <button class="cat-btn" onclick="filterByCategory('romantico', event)"><i class="fas fa-heart"></i> <span data-i18n="cat_romantic">Romantic</span></button>
-                    <button class="cat-btn" onclick="filterByCategory('pasion', event)"><i class="fas fa-fire"></i> <span data-i18n="cat_passion">Passion</span></button>
-                    <button class="cat-btn" onclick="filterByCategory('misterio', event)"><i class="fas fa-moon"></i> <span data-i18n="cat_mystery">Mystery</span></button>
-                    <button class="cat-btn" onclick="filterByCategory('fantastico', event)"><i class="fas fa-star"></i> <span data-i18n="cat_fantasy">Fantasy</span></button>
-                    <button class="cat-btn" onclick="filterByCategory('prohibido', event)"><i class="fas fa-ban"></i> <span data-i18n="cat_forbidden">Forbidden</span></button>
                     <button class="cat-btn" onclick="filterByCategory('universitarios', event)"><i class="fas fa-graduation-cap"></i> <span data-i18n="cat_college">College</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('lesbianas', event)"><i class="fas fa-venus-double"></i> <span data-i18n="cat_lesbian">Lesbian</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('nalgonas', event)"><i class="fas fa-heart"></i> <span data-i18n="cat_booty">Booty</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('tetonas', event)"><i class="fas fa-star"></i> <span data-i18n="cat_busty">Busty</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('noconsentido', event)"><i class="fas fa-moon"></i> <span data-i18n="cat_darkfantasy">Dark Fantasy</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('transexuales', event)"><i class="fas fa-transgender"></i> <span data-i18n="cat_trans">Trans</span></button>
+                    <button class="cat-btn" onclick="filterByCategory('bizarro', event)"><i class="fas fa-skull"></i> <span data-i18n="cat_bizarre">Bizarre</span></button>
                 </div>
             </section>
 
@@ -1269,12 +1270,13 @@
                     <div class="field">
                         <label class="field-label" data-i18n="field_category">Category</label>
                         <select id="relatoCategoria" class="field-input field-select" required>
-                            <option value="romantico" data-i18n="cat_romantic">Romantic</option>
-                            <option value="pasion" data-i18n="cat_passion">Passion</option>
-                            <option value="misterio" data-i18n="cat_mystery">Mystery</option>
-                            <option value="fantastico" data-i18n="cat_fantasy">Fantasy</option>
-                            <option value="prohibido" data-i18n="cat_forbidden">Forbidden</option>
                             <option value="universitarios" data-i18n="cat_college">College</option>
+                            <option value="lesbianas" data-i18n="cat_lesbian">Lesbian</option>
+                            <option value="nalgonas" data-i18n="cat_booty">Booty</option>
+                            <option value="tetonas" data-i18n="cat_busty">Busty</option>
+                            <option value="noconsentido" data-i18n="cat_darkfantasy">Dark Fantasy</option>
+                            <option value="transexuales" data-i18n="cat_trans">Trans</option>
+                            <option value="bizarro" data-i18n="cat_bizarre">Bizarre</option>
                         </select>
                     </div>
                     <div class="field">
@@ -1385,12 +1387,13 @@
                 // Categories
                 section_categories: 'Categories',
                 cat_all: 'All',
-                cat_romantic: 'Romantic',
-                cat_passion: 'Passion',
-                cat_mystery: 'Mystery',
-                cat_fantasy: 'Fantasy',
-                cat_forbidden: 'Forbidden',
                 cat_college: 'College',
+                cat_lesbian: 'Lesbian',
+                cat_booty: 'Booty',
+                cat_busty: 'Busty',
+                cat_darkfantasy: 'Dark Fantasy',
+                cat_trans: 'Trans',
+                cat_bizarre: 'Bizarre',
                 // Filters
                 filter_all: 'All',
                 filter_free: 'Free',
@@ -1482,12 +1485,13 @@
                 // Categories
                 section_categories: 'Categorías',
                 cat_all: 'Todas',
-                cat_romantic: 'Romántico',
-                cat_passion: 'Pasión',
-                cat_mystery: 'Misterio',
-                cat_fantasy: 'Fantástico',
-                cat_forbidden: 'Prohibido',
                 cat_college: 'Universitarios',
+                cat_lesbian: 'Lesbianas',
+                cat_booty: 'Nalgonas',
+                cat_busty: 'Tetonas',
+                cat_darkfantasy: 'Fantasía Oscura',
+                cat_trans: 'Transexuales',
+                cat_bizarre: 'Bizarro',
                 // Filters
                 filter_all: 'Todos',
                 filter_free: 'Gratuitos',
@@ -1624,13 +1628,53 @@
         let currentCategory = 'todas';
 
         const categoryKeys = {
-            'romantico': 'cat_romantic',
-            'pasion': 'cat_passion',
-            'misterio': 'cat_mystery',
-            'fantastico': 'cat_fantasy',
-            'prohibido': 'cat_forbidden',
-            'universitarios': 'cat_college'
+            'universitarios': 'cat_college',
+            'lesbianas': 'cat_lesbian',
+            'nalgonas': 'cat_booty',
+            'tetonas': 'cat_busty',
+            'noconsentido': 'cat_darkfantasy',
+            'transexuales': 'cat_trans',
+            'bizarro': 'cat_bizarre'
         };
+
+        // Corazón SVG por categoría
+        const categoryHearts = {
+            'universitarios': { bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', heart: ['#ff69b4', '#ff1493'], glow: 'rgba(255,20,147,0.4)' },
+            'lesbianas': { bg: 'linear-gradient(135deg,#3d0030,#7b0050)', heart: ['#ff69b4', '#ff00aa'], glow: 'rgba(255,0,170,0.5)' },
+            'nalgonas': { bg: 'linear-gradient(135deg,#1a0005,#3d0010)', heart: ['#ff006e', '#ff1493'], glow: 'rgba(255,0,110,0.5)' },
+            'tetonas': { bg: 'linear-gradient(135deg,#200010,#500030)', heart: ['#ff4d6d', '#c9184a'], glow: 'rgba(201,24,74,0.5)' },
+            'noconsentido': { bg: 'linear-gradient(135deg,#0d0d0d,#1a0000)', heart: ['#8b0000', '#3d0000'], glow: 'rgba(139,0,0,0.5)' },
+            'transexuales': { bg: 'linear-gradient(135deg,#0a0020,#1a0040)', heart: ['#9b59b6', '#6c3483'], glow: 'rgba(155,89,182,0.5)' },
+            'bizarro': { bg: 'linear-gradient(135deg,#0a0a0a,#1a1a00)', heart: ['#39ff14', '#ff006e'], glow: 'rgba(57,255,20,0.3)' }
+        };
+
+        function getHeartSvg(categoria, isLocked) {
+            const theme = categoryHearts[categoria] || categoryHearts['nalgonas'];
+            const [c1, c2] = theme.heart;
+            const lockOverlay = isLocked ? `
+                    <rect width="200" height="200" fill="rgba(0,0,0,0.55)"/>
+                    <text x="100" y="95" text-anchor="middle" font-size="32" fill="#fff">🔒</text>
+                    <text x="100" y="125" text-anchor="middle" font-family="sans-serif" font-size="13" fill="rgba(255,179,198,0.9)">VIP Only</text>
+                ` : '';
+            return `
+                    <div style="position:relative;height:200px;overflow:hidden;background:${theme.bg};display:flex;align-items:center;justify-content:center;">
+                        <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 18px ${theme.glow})">
+                            <defs>
+                                <radialGradient id="hg_${categoria}" cx="50%" cy="40%" r="60%">
+                                    <stop offset="0%" stop-color="${c1}"/>
+                                    <stop offset="100%" stop-color="${c2}"/>
+                                </radialGradient>
+                            </defs>
+                            <path d="M100 160 C60 130 20 105 20 72 C20 45 40 28 62 28 C78 28 92 38 100 50 C108 38 122 28 138 28 C160 28 180 45 180 72 C180 105 140 130 100 160Z"
+                                  fill="url(#hg_${categoria})" opacity="0.95"/>
+                            <path d="M100 145 C68 120 35 100 35 72 C35 52 50 40 65 40 C78 40 90 48 100 60"
+                                  fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+                            ${lockOverlay}
+                        </svg>
+                        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%);"></div>
+                    </div>
+                `;
+        }
 
         // ========== INIT ==========
         document.addEventListener('DOMContentLoaded', function () {
@@ -1827,7 +1871,6 @@
 
             grid.innerHTML = filtered.map(relato => {
                 const isLocked = relato.esPremium && (!currentUser || (!currentUser.isPremium && !currentUser.isAdmin));
-                const bgImage = relato.imagenUrl || 'https://images.unsplash.com/photo-1518767665125-e7b1e5d4b090?w=400&h=200&fit=crop';
                 const preview = isLocked
                     ? i18n('locked_preview')
                     : (relato.contenido ? relato.contenido.substring(0, 100) + '...' : '...');
@@ -1835,11 +1878,8 @@
 
                 return `
                         <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
-                            <div class="card-img-wrap">
-                                <img src="${bgImage}" class="card-img" alt="${relato.titulo}">
-                                <div class="card-darkness"></div>
-                                ${relato.esPremium ? `<div class="vip-crown"><i class="fas fa-crown"></i> ${i18n('vip_tag')}</div>` : ''}
-                            </div>
+                            ${getHeartSvg(relato.categoria, isLocked)}
+                            ${relato.esPremium ? `<div class="vip-crown" style="position:absolute;top:12px;right:12px;"><i class="fas fa-crown"></i> ${i18n('vip_tag')}</div>` : ''}
                             <div class="card-body">
                                 <span class="card-cat">${catLabel}</span>
                                 <h3 class="card-title">${relato.titulo}</h3>
