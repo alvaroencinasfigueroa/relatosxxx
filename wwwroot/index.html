@@ -619,7 +619,7 @@
             font-style: italic;
         }
 
-        /* ========== MODALS ========== */
+        /* ========== MODALS BASE ========== */
         .modal {
             display: none;
             position: fixed;
@@ -647,7 +647,7 @@
         }
 
         .modal-box-wide {
-            max-width: 720px;
+            max-width: 680px;
         }
 
         @keyframes modalRise {
@@ -696,92 +696,79 @@
             font-style: italic;
         }
 
-        /* ========== AMBIENT GALLERY - FUERA DEL MODAL ========== */
-        .ambient-gallery {
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            pointer-events: none;
-            display: none;
+        /* ========== AMBIENT IMAGES ========== */
+        /* El modal de relato usa flex con gap para alinear laterales + caja */
+        #relatoModal {
+            gap: 16px;
+            align-items: center;
         }
-
-            .ambient-gallery.active {
-                display: block;
-            }
 
         .ambient-side {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 160px;
+            flex: 0 0 150px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 12px;
+            align-self: center;
+            max-height: 80vh;
+            overflow: hidden;
         }
 
-        .ambient-left {
-            left: 20px;
-        }
-
-        .ambient-right {
-            right: 20px;
-        }
-
-        .ambient-side img {
-            width: 100%;
-            border-radius: 12px;
-            object-fit: cover;
-            opacity: 0.85;
-            transition: opacity 0.8s ease;
-            box-shadow: 0 0 30px rgba(255,0,110,0.4), 0 0 60px rgba(255,0,110,0.2);
-            pointer-events: auto;
-        }
-
-            .ambient-side img.fade-out {
-                opacity: 0;
+            .ambient-side img {
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+                flex-shrink: 0;
+                border: 1px solid rgba(255, 0, 110, 0.3);
+                box-shadow: 0 0 18px rgba(255, 0, 110, 0.2);
+                opacity: 0.85;
+                transition: opacity 0.8s ease;
             }
 
-        /* En móvil: las imágenes se muestran arriba y abajo del modal */
-        @media (max-width: 900px) {
+                .ambient-side img.fade-out {
+                    opacity: 0;
+                }
+
+        /* Tablet: columnas más angostas */
+        @media (max-width: 1100px) and (min-width: 769px) {
             .ambient-side {
-                width: 100px;
-            }
-
-            .ambient-left {
-                left: 10px;
-            }
-
-            .ambient-right {
-                right: 10px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .ambient-gallery {
-                flex-direction: column;
-            }
-
-            .ambient-side {
-                position: static;
-                transform: none;
-                flex-direction: row;
-                overflow-x: auto;
-                gap: 10px;
-                padding: 10px;
-                width: 100%;
+                flex: 0 0 100px;
             }
 
                 .ambient-side img {
                     width: 100px;
                     height: 100px;
+                }
+        }
+
+        /* Mobile: los laterales se convierten en bandas horizontales arriba y abajo */
+        @media (max-width: 768px) {
+            #relatoModal {
+                flex-direction: column;
+                gap: 10px;
+                overflow-y: auto;
+                align-items: stretch;
+                padding: 12px;
+            }
+
+            .ambient-side {
+                flex: unset;
+                flex-direction: row;
+                width: 100%;
+                max-height: none;
+                gap: 8px;
+                overflow-x: auto;
+                padding-bottom: 4px;
+                align-self: auto;
+                /* scrollbar rosa */
+                scrollbar-width: thin;
+                scrollbar-color: var(--pink-vivid) transparent;
+            }
+
+                .ambient-side img {
+                    width: 90px;
+                    height: 90px;
                     flex-shrink: 0;
                 }
-
-            .ambient-left, .ambient-right {
-                top: auto;
-                left: auto;
-                right: auto;
-            }
         }
 
         /* ========== FORMS ========== */
@@ -1035,7 +1022,7 @@
             flex-wrap: wrap;
         }
 
-        /* ========== RESPONSIVE ========== */
+        /* ========== RESPONSIVE GENERAL ========== */
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 3em;
@@ -1097,6 +1084,12 @@
 
             .header-right {
                 gap: 8px;
+            }
+
+            /* El modal-box dentro del relatoModal ocupa todo el ancho en mobile */
+            #relatoModal .modal-box {
+                width: 100%;
+                max-width: 100%;
             }
         }
 
@@ -1213,7 +1206,6 @@
     <!-- ========== MAIN ========== -->
     <main>
         <div class="container">
-            <!-- Hero -->
             <section class="hero-zone">
                 <h1 class="hero-title neon-text" data-i18n="hero_title">🔥 SENSUAL STORIES 🔥</h1>
                 <div class="flame-divider">
@@ -1226,7 +1218,6 @@
                 <p class="hero-sub" data-i18n="hero_sub">Where fantasy becomes reality... no limits</p>
             </section>
 
-            <!-- Admin -->
             <div id="adminPanel" class="boss-panel">
                 <div class="boss-header">
                     <h2 class="boss-title"><i class="fas fa-crown"></i> <span data-i18n="admin_title">God Mode</span></h2>
@@ -1236,7 +1227,6 @@
                 </div>
             </div>
 
-            <!-- Categories -->
             <section class="cat-section">
                 <div class="section-head"><i class="fas fa-fire"></i> <span data-i18n="section_categories">Categories</span></div>
                 <div class="cat-row">
@@ -1251,14 +1241,12 @@
                 </div>
             </section>
 
-            <!-- Filters -->
             <div class="filter-row">
                 <button class="filter-btn active" onclick="filterRelatos('todos', event)" data-i18n="filter_all">All</button>
                 <button class="filter-btn" onclick="filterRelatos('gratis', event)" data-i18n="filter_free">Free</button>
                 <button class="filter-btn" onclick="filterRelatos('premium', event)"><i class="fas fa-crown"></i> <span data-i18n="filter_exclusive">Exclusive</span></button>
             </div>
 
-            <!-- Grid -->
             <div id="relatosGrid" class="stories-grid">
                 <div class="loading-center"><div class="pulse-ring"></div></div>
             </div>
@@ -1317,17 +1305,20 @@
         </div>
     </div>
 
-    <!-- ========== AMBIENT GALLERY - FUERA DEL MODAL ========== -->
-    <div class="ambient-gallery" id="ambientGallery">
-        <div class="ambient-side ambient-left" id="ambientLeft"></div>
-        <div class="ambient-side ambient-right" id="ambientRight"></div>
-    </div>
-
     <!-- ========== STORY MODAL ========== -->
+    <!--
+        ESTRUCTURA CLAVE:
+        .modal (flex row) = [.ambient-side IZQUIERDA] + [.modal-box] + [.ambient-side DERECHA]
+        En mobile (.modal flex-column) = [.ambient-side TOP banda horizontal] + [.modal-box] + [.ambient-side BOTTOM banda horizontal]
+    -->
     <div id="relatoModal" class="modal">
+        <!-- Columna izquierda (desktop) / banda superior (mobile) -->
+        <div class="ambient-side" id="ambientLeft"></div>
+
+        <!-- Caja del relato -->
         <div class="modal-box modal-box-wide">
             <button class="modal-x" onclick="closeModal('relatoModal')"><i class="fas fa-times"></i></button>
-            <img id="relatoImage" class="story-img" style="display:none;">
+            <img id="relatoImage" class="story-img" style="display:none;" alt="">
             <div class="modal-inner">
                 <div class="story-cat" id="relatoCategory"></div>
                 <h2 id="relatoTitle" class="story-name neon-text"></h2>
@@ -1342,6 +1333,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Columna derecha (desktop) / banda inferior (mobile) -->
+        <div class="ambient-side" id="ambientRight"></div>
     </div>
 
     <!-- ========== CREATE MODAL ========== -->
@@ -1411,7 +1405,6 @@
                     <li><i class="fas fa-check"></i> <span data-i18n="vip_benefit4">100% secure crypto payment</span></li>
                 </ul>
 
-                <!-- TON -->
                 <button id="btn-ton" class="btn btn-fire" style="width:100%; margin-top:5px; background:#0088cc; border-color:#0088cc; box-shadow:0 0 10px rgba(0,136,204,0.4); clip-path:none;">
                     <i class="fa-solid fa-gem"></i> <span data-i18n="btn_pay_ton">Pay 25 TON with Tonkeeper</span>
                 </button>
@@ -1429,7 +1422,6 @@
 
                 <div style="text-align:center; margin:20px 0 10px; color:#777; font-size:0.9rem;" data-i18n="or_usdt">— Or pay with USDT —</div>
 
-                <!-- USDT -->
                 <button id="btn-usdt" class="btn btn-fire" style="width:100%; margin-top:5px; background:#26a17b; border-color:#26a17b; box-shadow:0 0 10px rgba(38,161,123,0.4); clip-path:none;">
                     <i class="fa-solid fa-dollar-sign"></i> <span data-i18n="btn_pay_usdt">Pay 25 USDT (TRC20 / Bybit)</span>
                 </button>
@@ -1728,14 +1720,13 @@
             } else {
                 const img = document.createElement('img');
                 img.src = url;
-                img.alt = 'Ambient';
+                img.alt = '';
                 container.appendChild(img);
             }
         }
 
         function startAmbientTimer() {
             if (ambientInterval) clearInterval(ambientInterval);
-            document.getElementById('ambientGallery').classList.add('active');
             loadAmbientImages();
             ambientInterval = setInterval(loadAmbientImages, 30000);
         }
@@ -1745,12 +1736,11 @@
                 clearInterval(ambientInterval);
                 ambientInterval = null;
             }
-            document.getElementById('ambientGallery').classList.remove('active');
             document.getElementById('ambientLeft').innerHTML = '';
             document.getElementById('ambientRight').innerHTML = '';
         }
 
-        // Corazón SVG por categoría
+        // ========== SVG POR CATEGORÍA ==========
         const categoryHearts = {
             'universitarios': { bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', heart: ['#ff69b4', '#ff1493'], glow: 'rgba(255,20,147,0.4)' },
             'lesbianas': { bg: 'linear-gradient(135deg,#3d0030,#7b0050)', heart: ['#ff69b4', '#ff00aa'], glow: 'rgba(255,0,170,0.5)' },
@@ -1765,28 +1755,28 @@
             const theme = categoryHearts[categoria] || categoryHearts['nalgonas'];
             const [c1, c2] = theme.heart;
             const lockOverlay = isLocked ? `
-                            <rect width="200" height="200" fill="rgba(0,0,0,0.55)"/>
-                            <text x="100" y="95" text-anchor="middle" font-size="32" fill="#fff">🔒</text>
-                            <text x="100" y="125" text-anchor="middle" font-family="sans-serif" font-size="13" fill="rgba(255,179,198,0.9)">VIP Only</text>
-                        ` : '';
+                    <rect width="200" height="200" fill="rgba(0,0,0,0.55)"/>
+                    <text x="100" y="95" text-anchor="middle" font-size="32" fill="#fff">🔒</text>
+                    <text x="100" y="125" text-anchor="middle" font-family="sans-serif" font-size="13" fill="rgba(255,179,198,0.9)">VIP Only</text>
+                ` : '';
             return `
-                            <div style="position:relative;height:200px;overflow:hidden;background:${theme.bg};display:flex;align-items:center;justify-content:center;">
-                                <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 18px ${theme.glow})">
-                                    <defs>
-                                        <radialGradient id="hg_${categoria}" cx="50%" cy="40%" r="60%">
-                                            <stop offset="0%" stop-color="${c1}"/>
-                                            <stop offset="100%" stop-color="${c2}"/>
-                                        </radialGradient>
-                                    </defs>
-                                    <path d="M100 160 C60 130 20 105 20 72 C20 45 40 28 62 28 C78 28 92 38 100 50 C108 38 122 28 138 28 C160 28 180 45 180 72 C180 105 140 130 100 160Z"
-                                          fill="url(#hg_${categoria})" opacity="0.95"/>
-                                    <path d="M100 145 C68 120 35 100 35 72 C35 52 50 40 65 40 C78 40 90 48 100 60"
-                                          fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
-                                    ${lockOverlay}
-                                </svg>
-                                <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%);"></div>
-                            </div>
-                        `;
+                    <div style="position:relative;height:200px;overflow:hidden;background:${theme.bg};display:flex;align-items:center;justify-content:center;">
+                        <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 18px ${theme.glow})">
+                            <defs>
+                                <radialGradient id="hg_${categoria}" cx="50%" cy="40%" r="60%">
+                                    <stop offset="0%" stop-color="${c1}"/>
+                                    <stop offset="100%" stop-color="${c2}"/>
+                                </radialGradient>
+                            </defs>
+                            <path d="M100 160 C60 130 20 105 20 72 C20 45 40 28 62 28 C78 28 92 38 100 50 C108 38 122 28 138 28 C160 28 180 45 180 72 C180 105 140 130 100 160Z"
+                                  fill="url(#hg_${categoria})" opacity="0.95"/>
+                            <path d="M100 145 C68 120 35 100 35 72 C35 52 50 40 65 40 C78 40 90 48 100 60"
+                                  fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+                            ${lockOverlay}
+                        </svg>
+                        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%);"></div>
+                    </div>
+                `;
         }
 
         // ========== INIT ==========
@@ -1847,30 +1837,30 @@
             if (currentUser) {
                 const initial = currentUser.nombre ? currentUser.nombre.charAt(0).toUpperCase() : 'U';
                 userSection.innerHTML = `
-                                <div class="user-bar">
-                                    <div class="user-card">
-                                        <div class="user-avatar">${initial}</div>
-                                        <span>${currentUser.nombre}</span>
-                                        ${currentUser.isAdmin ? `<span class="tag tag-gold">ADMIN</span>` : ''}
-                                        ${currentUser.isPremium ? `<span class="tag tag-pink">${i18n('vip_tag')}</span>` : ''}
-                                    </div>
-                                    <button class="btn btn-dark btn-sm" onclick="logout()">
-                                        <i class="fas fa-sign-out-alt"></i>
-                                    </button>
-                                </div>
-                            `;
+                        <div class="user-bar">
+                            <div class="user-card">
+                                <div class="user-avatar">${initial}</div>
+                                <span>${currentUser.nombre}</span>
+                                ${currentUser.isAdmin ? `<span class="tag tag-gold">ADMIN</span>` : ''}
+                                ${currentUser.isPremium ? `<span class="tag tag-pink">${i18n('vip_tag')}</span>` : ''}
+                            </div>
+                            <button class="btn btn-dark btn-sm" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                        </div>
+                    `;
                 adminPanel.classList.toggle('active', currentUser.isAdmin);
             } else {
                 userSection.innerHTML = `
-                                <div style="display:flex; gap:12px;">
-                                    <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
-                                        <i class="fas fa-key"></i> ${i18n('btn_login')}
-                                    </button>
-                                    <button class="btn btn-fire" onclick="showModal('registerModal')">
-                                        <i class="fas fa-crown"></i> ${i18n('btn_vip')}
-                                    </button>
-                                </div>
-                            `;
+                        <div style="display:flex; gap:12px;">
+                            <button class="btn btn-outline-pink" onclick="showModal('loginModal')">
+                                <i class="fas fa-key"></i> ${i18n('btn_login')}
+                            </button>
+                            <button class="btn btn-fire" onclick="showModal('registerModal')">
+                                <i class="fas fa-crown"></i> ${i18n('btn_vip')}
+                            </button>
+                        </div>
+                    `;
                 adminPanel.classList.remove('active');
             }
         }
@@ -1949,12 +1939,12 @@
                 displayRelatos();
             } catch (error) {
                 document.getElementById('relatosGrid').innerHTML = `
-                                <div class="empty-box" style="grid-column:1/-1;">
-                                    <div class="empty-icon"><i class="fas fa-plug"></i></div>
-                                    <h3 class="empty-title">${i18n('connecting')}</h3>
-                                    <p class="empty-text">${i18n('connecting_text')}</p>
-                                </div>
-                            `;
+                        <div class="empty-box" style="grid-column:1/-1;">
+                            <div class="empty-icon"><i class="fas fa-plug"></i></div>
+                            <h3 class="empty-title">${i18n('connecting')}</h3>
+                            <p class="empty-text">${i18n('connecting_text')}</p>
+                        </div>
+                    `;
             }
         }
 
@@ -1973,12 +1963,12 @@
 
             if (!filtered || filtered.length === 0) {
                 grid.innerHTML = `
-                                <div class="empty-box" style="grid-column:1/-1;">
-                                    <div class="empty-icon"><i class="fas fa-book-dead"></i></div>
-                                    <h3 class="empty-title">${i18n('no_stories')}</h3>
-                                    <p class="empty-text">${i18n('no_stories_text')}</p>
-                                </div>
-                            `;
+                        <div class="empty-box" style="grid-column:1/-1;">
+                            <div class="empty-icon"><i class="fas fa-book-dead"></i></div>
+                            <h3 class="empty-title">${i18n('no_stories')}</h3>
+                            <p class="empty-text">${i18n('no_stories_text')}</p>
+                        </div>
+                    `;
                 return;
             }
 
@@ -1990,22 +1980,23 @@
                 const catLabel = categoryKeys[relato.categoria] ? i18n(categoryKeys[relato.categoria]) : relato.categoria;
 
                 return `
-                                <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
-                                    ${getHeartSvg(relato.categoria, isLocked)}
-                                    ${relato.esPremium ? `<div class="vip-crown" style="position:absolute;top:12px;right:12px;"><i class="fas fa-crown"></i> ${i18n('vip_tag')}</div>` : ''}
-                                    <div class="card-body">
-                                        <span class="card-cat">${catLabel}</span>
-                                        <h3 class="card-title">${relato.titulo}</h3>
-                                        <p class="card-preview">${preview}</p>
-                                    </div>
-                                </div>
-                            `;
+                        <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
+                            ${getHeartSvg(relato.categoria, isLocked)}
+                            ${relato.esPremium ? `<div class="vip-crown" style="position:absolute;top:12px;right:12px;"><i class="fas fa-crown"></i> ${i18n('vip_tag')}</div>` : ''}
+                            <div class="card-body">
+                                <span class="card-cat">${catLabel}</span>
+                                <h3 class="card-title">${relato.titulo}</h3>
+                                <p class="card-preview">${preview}</p>
+                            </div>
+                        </div>
+                    `;
             }).join('');
         }
 
         function openRelato(id) {
             const relato = allRelatos.find(r => r.id === id);
             if (!relato) return;
+
             const isLocked = relato.esPremium && (!currentUser || (!currentUser.isPremium && !currentUser.isAdmin));
             if (isLocked) {
                 if (!currentUser) {
@@ -2017,15 +2008,19 @@
                 }
                 return;
             }
+
             currentRelato = relato;
             document.getElementById('relatoTitle').textContent = relato.titulo;
             const catLabel = categoryKeys[relato.categoria] ? i18n(categoryKeys[relato.categoria]) : relato.categoria;
             document.getElementById('relatoCategory').textContent = catLabel;
             document.getElementById('relatoContent').textContent = relato.contenido;
+
             const imgEl = document.getElementById('relatoImage');
             if (relato.imagenUrl) { imgEl.src = relato.imagenUrl; imgEl.style.display = 'block'; }
             else { imgEl.style.display = 'none'; }
+
             document.getElementById('relatoActions').style.display = (currentUser && currentUser.isAdmin) ? 'flex' : 'none';
+
             showModal('relatoModal');
             startAmbientTimer();
         }
@@ -2041,8 +2036,6 @@
                 ImagenUrl: document.getElementById('relatoImagen').value,
                 EsPremium: document.getElementById('relatoPremium').checked
             };
-            const token = localStorage.getItem('token');
-            const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
             try {
                 let response;
                 if (id) {
@@ -2063,7 +2056,7 @@
         function showCreateModal() {
             document.getElementById('relatoId').value = '';
             document.getElementById('relatoTitulo').value = '';
-            document.getElementById('relatoCategoria').value = 'romantico';
+            document.getElementById('relatoCategoria').value = 'universitarios';
             document.getElementById('relatoTexto').value = '';
             document.getElementById('relatoImagen').value = '';
             document.getElementById('relatoPremium').checked = false;
@@ -2087,7 +2080,6 @@
         async function deleteCurrentRelato() {
             if (!currentRelato) return;
             if (!confirm(i18n('btn_delete') + '?')) return;
-            const token = localStorage.getItem('token');
             try {
                 const response = await fetchAuth(`${API_URL}/Relatos/${currentRelato.id}`, { method: 'DELETE' });
                 if (!response.ok) throw new Error('Error');
@@ -2115,7 +2107,11 @@
         }
 
         // ========== MODAL HELPERS ==========
-        function showModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function showModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
         function closeModal(id) {
             if (id === 'relatoModal') stopAmbientTimer();
             document.getElementById(id).classList.remove('active');
@@ -2123,12 +2119,20 @@
         }
 
         document.addEventListener('click', function (e) {
-            if (e.target.classList.contains('modal')) { e.target.classList.remove('active'); document.body.style.overflow = ''; }
+            if (e.target.classList.contains('modal')) {
+                const id = e.target.id;
+                if (id === 'relatoModal') stopAmbientTimer();
+                e.target.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         });
+
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
-                document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
-                stopAmbientTimer();
+                document.querySelectorAll('.modal.active').forEach(m => {
+                    if (m.id === 'relatoModal') stopAmbientTimer();
+                    m.classList.remove('active');
+                });
                 document.body.style.overflow = '';
             }
         });
@@ -2141,7 +2145,10 @@
             t.className = `toast toast-${type}`;
             t.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
             document.body.appendChild(t);
-            setTimeout(() => { t.style.animation = 'slideOutRight 0.3s ease forwards'; setTimeout(() => t.remove(), 300); }, 3500);
+            setTimeout(() => {
+                t.style.animation = 'slideOutRight 0.3s ease forwards';
+                setTimeout(() => t.remove(), 300);
+            }, 3500);
         }
 
         // ========== VIP MODAL ==========
@@ -2157,7 +2164,7 @@
             showModal('paypalModal');
         }
 
-        // ========== TON PAYMENT ==========
+        // ========== PAYMENTS ==========
         document.addEventListener('DOMContentLoaded', () => {
             const btnTon = document.getElementById('btn-ton');
             const btnVerificarTon = document.getElementById('btn-verificar-ton');
@@ -2188,7 +2195,6 @@
             if (btnVerificarTon) {
                 btnVerificarTon.addEventListener('click', async (e) => {
                     const memo = e.target.dataset.memo;
-                    const token = localStorage.getItem('token');
                     e.target.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${i18n('verify_blockchain')}`;
                     e.target.disabled = true;
                     try {
@@ -2215,7 +2221,6 @@
                 });
             }
 
-            // ========== USDT PAYMENT ==========
             const btnUsdt = document.getElementById('btn-usdt');
             const btnVerificarUsdt = document.getElementById('btn-verificar-usdt');
 
@@ -2242,7 +2247,6 @@
 
             if (btnVerificarUsdt) {
                 btnVerificarUsdt.addEventListener('click', async () => {
-                    const token = localStorage.getItem('token');
                     const txId = document.getElementById('usdt-txid-input').value.trim();
                     if (!txId) { toast('TxID required', 'error'); return; }
                     btnVerificarUsdt.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${i18n('verify_blockchain')}`;
