@@ -697,30 +697,30 @@
         }
 
         /* ========== AMBIENT IMAGES ========== */
-        /* El modal de relato usa flex con gap para alinear laterales + caja */
         #relatoModal {
-            gap: 16px;
+            gap: 12px;
             align-items: center;
         }
 
         .ambient-side {
-            flex: 0 0 150px;
+            flex: 0 0 220px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            align-self: center;
-            max-height: 80vh;
+            gap: 10px;
+            align-self: stretch; /* ocupa toda la altura del modal */
+            justify-content: center; /* centra las imágenes verticalmente */
+            max-height: 90vh;
             overflow: hidden;
         }
 
             .ambient-side img {
-                width: 150px;
-                height: 150px;
+                width: 220px;
+                height: 260px; /* rectangulares tipo portrait */
                 object-fit: cover;
                 flex-shrink: 0;
-                border: 1px solid rgba(255, 0, 110, 0.3);
-                box-shadow: 0 0 18px rgba(255, 0, 110, 0.2);
-                opacity: 0.85;
+                border: 1px solid rgba(255, 0, 110, 0.35);
+                box-shadow: 0 0 30px rgba(255, 0, 110, 0.25);
+                opacity: 0.9;
                 transition: opacity 0.8s ease;
             }
 
@@ -728,26 +728,26 @@
                     opacity: 0;
                 }
 
-        /* Tablet: columnas más angostas */
-        @media (max-width: 1100px) and (min-width: 769px) {
+        /* Tablet: un poco más angosto */
+        @media (max-width: 1200px) and (min-width: 769px) {
             .ambient-side {
-                flex: 0 0 100px;
+                flex: 0 0 150px;
             }
 
                 .ambient-side img {
-                    width: 100px;
-                    height: 100px;
+                    width: 150px;
+                    height: 190px;
                 }
         }
 
-        /* Mobile: los laterales se convierten en bandas horizontales arriba y abajo */
+        /* Mobile: bandas horizontales arriba y abajo */
         @media (max-width: 768px) {
             #relatoModal {
                 flex-direction: column;
                 gap: 10px;
                 overflow-y: auto;
                 align-items: stretch;
-                padding: 12px;
+                padding: 10px;
             }
 
             .ambient-side {
@@ -759,14 +759,14 @@
                 overflow-x: auto;
                 padding-bottom: 4px;
                 align-self: auto;
-                /* scrollbar rosa */
+                justify-content: flex-start;
                 scrollbar-width: thin;
                 scrollbar-color: var(--pink-vivid) transparent;
             }
 
                 .ambient-side img {
-                    width: 90px;
-                    height: 90px;
+                    width: 110px;
+                    height: 130px;
                     flex-shrink: 0;
                 }
         }
@@ -1695,33 +1695,37 @@
 
         async function loadAmbientImages() {
             try {
-                const [leftImg, rightImg] = await Promise.all([
+                const results = await Promise.all([
                     fetch(`${API_URL}/Imagenes/random`).then(r => r.json()),
-                    fetch(`${API_URL}/Imagenes/random`).then(r => r.json())
+                    fetch(`${API_URL}/Imagenes/random`).then(r => r.json()),
+                    fetch(`${API_URL}/Imagenes/random`).then(r => r.json()),
+                    fetch(`${API_URL}/Imagenes/random`).then(r => r.json()),
                 ]);
-                setAmbientImage('left', leftImg.url);
-                setAmbientImage('right', rightImg.url);
+                setAmbientImages('left', [results[0].url, results[1].url]);
+                setAmbientImages('right', [results[2].url, results[3].url]);
             } catch (err) {
                 console.error('Error loading ambient images', err);
             }
         }
 
-        function setAmbientImage(side, url) {
+        function setAmbientImages(side, urls) {
             const container = document.getElementById(side === 'left' ? 'ambientLeft' : 'ambientRight');
-            if (!container || !url) return;
-
-            const existingImg = container.querySelector('img');
-            if (existingImg) {
-                existingImg.classList.add('fade-out');
-                setTimeout(() => {
-                    existingImg.src = url;
-                    existingImg.classList.remove('fade-out');
-                }, 800);
+            if (!container) return;
+            const existing = container.querySelectorAll('img');
+            if (existing.length === urls.length) {
+                existing.forEach((img, i) => {
+                    img.classList.add('fade-out');
+                    setTimeout(() => { img.src = urls[i]; img.classList.remove('fade-out'); }, 800);
+                });
             } else {
-                const img = document.createElement('img');
-                img.src = url;
-                img.alt = '';
-                container.appendChild(img);
+                container.innerHTML = '';
+                urls.forEach(url => {
+                    if (!url) return;
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.alt = '';
+                    container.appendChild(img);
+                });
             }
         }
 
