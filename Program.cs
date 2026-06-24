@@ -2,6 +2,7 @@
 using Relatosxxx.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.RateLimiting;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,6 +51,28 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// --- Rate Limiting ---
+builder.Services.AddRateLimiter(options =>
+{
+    // Login: máximo 5 intentos por minuto por IP
+    options.AddFixedWindowLimiter("login", opt =>
+    {
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 5;
+        opt.QueueLimit = 0;
+    });
+
+    // Verificación de pagos: máximo 10 por minuto por IP
+    options.AddFixedWindowLimiter("pagos", opt =>
+    {
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 10;
+        opt.QueueLimit = 0;
+    });
+
+    options.RejectionStatusCode = 429; // Too Many Requests
+});
+
 var app = builder.Build();
 
 // --- ARCHIVOS ESTÁTICOS ---
@@ -66,6 +89,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseRateLimiter();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -74,7 +99,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 // =====================================================
-// 🚀 Aplica migraciones automáticamente (Render / Neon)
+// Aplica migraciones automáticamente (Render / Neon)
 // =====================================================
 using (var scope = app.Services.CreateScope())
 {
