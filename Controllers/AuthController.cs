@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Relatosxxx.Data;
@@ -61,8 +62,9 @@ namespace Relatosxxx.Controllers
             return Ok(new { message = esElJefe ? "¡Bienvenido Admin! Cuenta creada." : "Registro exitoso" });
         }
 
-        // LOGIN
+        // LOGIN — protegido con rate limiting (5 intentos por minuto por IP)
         [HttpPost("login")]
+        [EnableRateLimiting("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == request.Email);
@@ -96,7 +98,6 @@ namespace Relatosxxx.Controllers
         }
 
         // ACTIVAR PREMIUM — solo el Admin puede hacerlo manualmente
-        // ✅ FIX 2: Agregado [Authorize(Roles = "Admin")]
         [HttpPost("activate-premium")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ActivatePremium([FromBody] ActivatePremiumRequest request)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Relatosxxx.Data;
 using Relatosxxx.Models;
@@ -40,12 +41,10 @@ namespace Relatosxxx.Controllers
             if (string.IsNullOrEmpty(userEmail))
                 return Unauthorized(new { message = "No se pudo identificar al usuario" });
 
-            // Leemos la wallet de appsettings.json
             var tonWalletAddress = _configuration["Ton:WalletAddress"];
             if (string.IsNullOrEmpty(tonWalletAddress))
                 return StatusCode(500, new { message = "La wallet de TON no está configurada en el servidor." });
 
-            // Generamos el Memo único
             string memo = $"Premium-{Guid.NewGuid().ToString("N").Substring(0, 8)}";
 
             return Ok(new
@@ -62,11 +61,11 @@ namespace Relatosxxx.Controllers
         // =============================================
         [HttpPost("ton/verificar-pago")]
         [Authorize]
+        [EnableRateLimiting("pagos")]
         public async Task<IActionResult> VerificarPagoTon([FromBody] VerificarPagoTonRequest request)
         {
             try
             {
-                // 1. Identificar al usuario
                 var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
                 var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 if (string.IsNullOrEmpty(userEmail) || string.IsNullOrEmpty(userIdClaim))
@@ -74,20 +73,17 @@ namespace Relatosxxx.Controllers
 
                 int userId = int.Parse(userIdClaim);
 
-                // 2. Verificar si este memo ya fue procesado
                 var pagoExistente = await _context.Pagos
                     .FirstOrDefaultAsync(p => p.Identificador == request.Memo && p.Metodo == "TON");
 
                 if (pagoExistente != null && pagoExistente.Procesado)
                 {
-                    // Ya se procesó anteriormente
                     var usuarioActual = await _context.Usuarios.FindAsync(userId);
                     return Ok(new { message = "Este pago ya fue reclamado anteriormente.", isPremium = usuarioActual?.IsPremium ?? false });
                 }
 
-                // 3. Consultar blockchain
                 var tonWalletAddress = _configuration["Ton:WalletAddress"];
-                var apiUrl = $"https://toncenter.com/api/v2/getTransactions?address={tonWalletAddress}&limit=30"; // Aumenta un poco el límite
+                var apiUrl = $"https://toncenter.com/api/v2/getTransactions?address={tonWalletAddress}&limit=30";
                 var response = await _httpClient.GetAsync(apiUrl);
                 if (!response.IsSuccessStatusCode)
                     return BadRequest(new { message = "Error al consultar la blockchain de TON" });
@@ -98,7 +94,6 @@ namespace Relatosxxx.Controllers
                 if (!pagoValidado)
                     return BadRequest(new { message = "El pago no se ha reflejado en la blockchain aún o el memo es incorrecto." });
 
-                // 4. Pago válido: registrar en tabla Pagos (si no existía) y activar Premium
                 if (pagoExistente == null)
                 {
                     _context.Pagos.Add(new Pago
@@ -133,6 +128,7 @@ namespace Relatosxxx.Controllers
                 return StatusCode(500, new { message = "Error interno", detalle = ex.Message });
             }
         }
+
         // =============================================
         // USDT TRC20: Obtener dirección de depósito
         // GET: api/Payment/usdt/obtener-direccion
@@ -163,6 +159,7 @@ namespace Relatosxxx.Controllers
         // =============================================
         [HttpPost("usdt/verificar-pago")]
         [Authorize]
+        [EnableRateLimiting("pagos")]
         public async Task<IActionResult> VerificarPagoUsdt([FromBody] VerificarPagoUsdtRequest request)
         {
             try
@@ -176,7 +173,6 @@ namespace Relatosxxx.Controllers
                 if (string.IsNullOrWhiteSpace(request.TxId))
                     return BadRequest(new { message = "El TxID no puede estar vacío." });
 
-                // 1. Verificar si ya existe ese TxID en nuestra BD
                 var pagoExistente = await _context.Pagos
                     .FirstOrDefaultAsync(p => p.Identificador == request.TxId && p.Metodo == "USDT");
 
@@ -186,7 +182,6 @@ namespace Relatosxxx.Controllers
                     return Ok(new { message = "Este pago ya fue reclamado anteriormente.", isPremium = usuarioActual?.IsPremium ?? false });
                 }
 
-                // 2. Validar en blockchain
                 var direccionEsperada = _configuration["Usdt:DireccionTrc20"]?.ToLower();
                 var apiUrl = $"https://api.trongrid.io/v1/transactions/{request.TxId}/events";
                 var response = await _httpClient.GetAsync(apiUrl);
@@ -199,7 +194,6 @@ namespace Relatosxxx.Controllers
                 if (!pagoValido)
                     return BadRequest(new { message = "No se pudo verificar el pago. Revisa el TxID e intenta de nuevo en un minuto." });
 
-                // 3. Pago válido: registrar y activar Premium
                 if (pagoExistente == null)
                 {
                     _context.Pagos.Add(new Pago
@@ -234,6 +228,7 @@ namespace Relatosxxx.Controllers
                 return StatusCode(500, new { message = "Error interno", detalle = ex.Message });
             }
         }
+
         // =============================================
         // MÉTODOS AUXILIARES Y DE VALIDACIÓN
         // =============================================
@@ -244,7 +239,6 @@ namespace Relatosxxx.Controllers
                 using JsonDocument doc = JsonDocument.Parse(jsonResponse);
                 var result = doc.RootElement.GetProperty("result");
 
-                // 1 TON = 1,000,000,000 NanoTons
                 long montoEsperadoNano = long.Parse(montoEsperadoTon) * 1000000000;
 
                 foreach (var tx in result.EnumerateArray())
@@ -278,7 +272,6 @@ namespace Relatosxxx.Controllers
         {
             try
             {
-                // USDT TRC20 tiene 6 decimales (25 USDT = 25,000,000 en la blockchain)
                 long montoEsperado = long.Parse(montoUsdt) * 1_000_000;
 
                 using JsonDocument doc = JsonDocument.Parse(jsonResponse);
@@ -309,7 +302,7 @@ namespace Relatosxxx.Controllers
     }
 
     // =============================================
-    // DTOs PARA LAS PETICIONES (SOLO CRIPTO)
+    // DTOs
     // =============================================
     public class VerificarPagoTonRequest
     {
