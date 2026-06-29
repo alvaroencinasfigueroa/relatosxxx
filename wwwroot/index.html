@@ -1679,6 +1679,9 @@
         let allRelatos = [];
         let currentFilter = 'todos';
         let currentCategory = 'todas';
+        let currentPage = 1;
+        const PAGE_SIZE = 12;
+        let totalPages = 1;
 
         const categoryKeys = {
             'universitarios': 'cat_college',
@@ -1695,14 +1698,16 @@
 
         async function loadAmbientImages() {
             try {
-                const results = await Promise.all([
-                    fetch(`${API_URL}/Imagenes/random`).then(r => r.json()),
-                    fetch(`${API_URL}/Imagenes/random`).then(r => r.json()),
-                    fetch(`${API_URL}/Imagenes/random`).then(r => r.json()),
-                    fetch(`${API_URL}/Imagenes/random`).then(r => r.json()),
-                ]);
-                setAmbientImages('left', [results[0].url, results[1].url]);
-                setAmbientImages('right', [results[2].url, results[3].url]);
+                const fetchImg = () => fetch(`${API_URL}/Imagenes/random`).then(r => r.json()).catch(() => null);
+
+                const results = await Promise.all([fetchImg(), fetchImg(), fetchImg(), fetchImg()]);
+
+                // Filtra los nulos y extrae las URLs de forma segura
+                const leftUrls = [results[0]?.url, results[1]?.url].filter(Boolean);
+                const rightUrls = [results[2]?.url, results[3]?.url].filter(Boolean);
+
+                if (leftUrls.length > 0) setAmbientImages('left', leftUrls);
+                if (rightUrls.length > 0) setAmbientImages('right', rightUrls);
             } catch (err) {
                 console.error('Error loading ambient images', err);
             }
@@ -1934,21 +1939,34 @@
             toast(i18n('session_closed'), 'info');
         }
 
+        // Añade esta función en alguna parte de tu <script>
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+
         // ========== RELATOS ==========
-        async function loadRelatos() {
+        async function loadRelatos(page = 1) {
+            currentPage = page;
             try {
-                const response = await fetch(`${API_URL}/Relatos`);
+                const response = await fetch(`${API_URL}/Relatos?page=${page}&pageSize=${PAGE_SIZE}`);
                 if (!response.ok) throw new Error('Error');
-                allRelatos = await response.json();
+                const result = await response.json();
+                allRelatos = result.data;
+                totalPages = result.totalPages;
                 displayRelatos();
+                renderPaginacion();
             } catch (error) {
                 document.getElementById('relatosGrid').innerHTML = `
-                        <div class="empty-box" style="grid-column:1/-1;">
-                            <div class="empty-icon"><i class="fas fa-plug"></i></div>
-                            <h3 class="empty-title">${i18n('connecting')}</h3>
-                            <p class="empty-text">${i18n('connecting_text')}</p>
-                        </div>
-                    `;
+            <div class="empty-box" style="grid-column:1/-1;">
+                <div class="empty-icon"><i class="fas fa-plug"></i></div>
+                <h3 class="empty-title">${i18n('connecting')}</h3>
+                <p class="empty-text">${i18n('connecting_text')}</p>
+            </div>
+        `;
             }
         }
 
@@ -1981,20 +1999,94 @@
                 const preview = isLocked
                     ? i18n('locked_preview')
                     : (relato.contenido ? relato.contenido.substring(0, 100) + '...' : '...');
+
                 const catLabel = categoryKeys[relato.categoria] ? i18n(categoryKeys[relato.categoria]) : relato.categoria;
 
+                // ESCAPAR VARIABLES
+                const safeTitle = escapeHtml(relato.titulo);
+                const safePreview = escapeHtml(preview);
+                const safeCatLabel = escapeHtml(catLabel);
+
                 return `
-                        <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
-                            ${getHeartSvg(relato.categoria, isLocked)}
-                            ${relato.esPremium ? `<div class="vip-crown" style="position:absolute;top:12px;right:12px;"><i class="fas fa-crown"></i> ${i18n('vip_tag')}</div>` : ''}
-                            <div class="card-body">
-                                <span class="card-cat">${catLabel}</span>
-                                <h3 class="card-title">${relato.titulo}</h3>
-                                <p class="card-preview">${preview}</p>
-                            </div>
-                        </div>
-                    `;
+            <div class="story-card ${relato.esPremium ? 'story-vip' : ''} ${isLocked ? 'locked-card' : ''}" onclick="openRelato(${relato.id})">
+                ${getHeartSvg(relato.categoria, isLocked)}
+                ${relato.esPremium ? `<div class="vip-crown" style="position:absolute;top:12px;right:12px;"><i class="fas fa-crown"></i> ${i18n('vip_tag')}</div>` : ''}
+                <div class="card-body">
+                    <span class="card-cat">${safeCatLabel}</span>
+                    <h3 class="card-title">${safeTitle}</h3>
+                    <p class="card-preview">${safePreview}</p>
+                </div>
+            </div>
+        `;
             }).join('');
+        }
+
+        function renderPaginacion() {
+            let container = document.getElementById('paginacion');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'paginacion';
+                container.style.cssText = `
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0 60px;
+        `;
+                document.getElementById('relatosGrid').insertAdjacentElement('afterend', container);
+            }
+
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            // Botón anterior
+            html += `
+        <button onclick="loadRelatos(${currentPage - 1})"
+            style="padding:10px 20px; background:${currentPage === 1 ? 'rgba(255,255,255,0.05)' : 'rgba(255,0,110,0.2)'}; 
+            border:1px solid rgba(255,0,110,0.3); color:var(--pink-soft); cursor:${currentPage === 1 ? 'not-allowed' : 'pointer'}; 
+            font-family:'Righteous',sans-serif; font-size:12px; letter-spacing:1px;"
+            ${currentPage === 1 ? 'disabled' : ''}>
+            ← Anterior
+        </button>
+    `;
+
+            // Números de página
+            for (let i = 1; i <= totalPages; i++) {
+                if (
+                    i === 1 || i === totalPages ||
+                    (i >= currentPage - 1 && i <= currentPage + 1)
+                ) {
+                    html += `
+                <button onclick="loadRelatos(${i})"
+                    style="padding:10px 16px; 
+                    background:${i === currentPage ? 'var(--pink-vivid)' : 'rgba(255,255,255,0.05)'}; 
+                    border:1px solid ${i === currentPage ? 'var(--pink-vivid)' : 'rgba(255,0,110,0.2)'}; 
+                    color:${i === currentPage ? 'white' : 'var(--pink-soft)'}; 
+                    cursor:pointer; font-family:'Righteous',sans-serif; font-size:12px;">
+                    ${i}
+                </button>
+            `;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    html += `<span style="color:var(--pink-soft); padding:0 4px;">...</span>`;
+                }
+            }
+
+            // Botón siguiente
+            html += `
+        <button onclick="loadRelatos(${currentPage + 1})"
+            style="padding:10px 20px; background:${currentPage === totalPages ? 'rgba(255,255,255,0.05)' : 'rgba(255,0,110,0.2)'}; 
+            border:1px solid rgba(255,0,110,0.3); color:var(--pink-soft); cursor:${currentPage === totalPages ? 'not-allowed' : 'pointer'}; 
+            font-family:'Righteous',sans-serif; font-size:12px; letter-spacing:1px;"
+            ${currentPage === totalPages ? 'disabled' : ''}>
+            Siguiente →
+        </button>
+    `;
+
+            container.innerHTML = html;
         }
 
         function openRelato(id) {
@@ -2097,6 +2189,7 @@
 
         // ========== FILTERS ==========
         function filterByCategory(cat, event) {
+            currentPage = 1;
             currentCategory = cat;
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             event.target.closest('.cat-btn').classList.add('active');
@@ -2104,6 +2197,7 @@
         }
 
         function filterRelatos(filter, event) {
+            currentPage = 1;
             currentFilter = filter;
             document.querySelectorAll('.filter-btn').forEach(t => t.classList.remove('active'));
             event.target.closest('.filter-btn').classList.add('active');

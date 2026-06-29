@@ -17,15 +17,30 @@ namespace Relatosxxx.Controllers
             _context = context;
         }
 
-        // GET: api/Relatos
+        // GET: api/Relatos?page=1&pageSize=12
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Relato>>> GetAll()
+        public async Task<ActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 12)
         {
-            var relatos = await _context.Relatos
-                .OrderByDescending(r => r.Id)
-                .Take(20)
+            if (page < 1) page = 1;
+            if (pageSize < 1 || pageSize > 50) pageSize = 12;
+
+            var query = _context.Relatos.OrderByDescending(r => r.FechaCreacion);
+
+            var total = await query.CountAsync();
+
+            var relatos = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
-            return Ok(relatos);
+
+            return Ok(new
+            {
+                data = relatos,
+                total = total,
+                page = page,
+                pageSize = pageSize,
+                totalPages = (int)Math.Ceiling((double)total / pageSize)
+            });
         }
 
         // GET: api/Relatos/5
