@@ -554,10 +554,34 @@ function displayRelatos() {
                     <span class="card-cat">${safeCatLabel}</span>
                     <h3 class="card-title">${safeTitle}</h3>
                     <p class="card-preview">${safePreview}</p>
+                    <button onclick="compartirRelato(${relato.id}, '${relato.titulo.replace(/'/g, "\\'")}', event)"
+                        style="margin-top:12px; background:rgba(255,0,110,0.15); border:1px solid rgba(255,0,110,0.3);
+                        color:var(--pink-soft); padding:6px 14px; cursor:pointer; font-family:'Righteous',sans-serif;
+                        font-size:10px; letter-spacing:1px; display:flex; align-items:center; gap:6px;">
+                        <i class="fas fa-share-alt"></i>
+                        ${currentLang === 'es' ? 'Compartir' : 'Share'}
+                    </button>
                 </div>
             </div>
         `;
     }).join('');
+}
+
+// ========== COMPARTIR ==========
+function compartirRelato(id, titulo, event) {
+    event.stopPropagation();
+    const url = `https://relatosxxx.onrender.com/relato/${id}`;
+    if (navigator.share) {
+        navigator.share({
+            title: titulo + ' 🔥',
+            text: 'Lee este relato exclusivo 🔥',
+            url: url
+        }).catch(() => { });
+    } else {
+        navigator.clipboard.writeText(url).then(() => {
+            toast(currentLang === 'es' ? '¡Link copiado! 🔥' : 'Link copied! 🔥', 'success');
+        });
+    }
 }
 
 function renderPaginacion() {
